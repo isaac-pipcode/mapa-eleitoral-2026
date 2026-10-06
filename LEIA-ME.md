@@ -9,7 +9,8 @@ números e deixam o cruzamento para quem analisa.
 
 | Página | O que faz |
 |---|---|
-| **`/`** — dashboard | Entrada do site. Resumo, mapa, gráfico dos maiores valores, distribuição, relação entre dois indicadores e tabela ordenável. Filtros por nível (município/estado/região), indicador, busca e mínimo de eleitores — tudo responde junto. |
+| **`/`** — explorador | Entrada do site. Drill-down Brasil → região → estado → município com URL compartilhável; mapa, ranking, distribuição, relação entre indicadores e tabela (com CSV do recorte); ficha de cada território com participação, resultado presidencial, posição relativa, composição do eleitorado e abstenção por perfil 2022; comparação de até 4 territórios; modo escuro. Lê `dados/` (gerado por `ferramentas/gera_dados_app.py`). |
+| **`/dashboard.html`** | Dashboard anterior, mantido para referência. |
 | **`/indicadores.html`** | Todos os indicadores da base como cor, ordenação e filtro, um mapa só. Para varredura rápida. |
 | **`/perfis.html`** | Abstenção **por perfil demográfico**. Escolhe-se a dimensão (faixa etária, escolaridade, gênero, estado civil) e o perfil; o mapa mostra a taxa de abstenção daquele perfil em cada município. |
 | **`/mudanca.html`** | Margem do 1º turno entre 1º e 2º colocado × votos em jogo × composição do eleitorado. Filtros por margem máxima, mínimo de eleitores e mínimo de escolaridade baixa. |
@@ -36,6 +37,16 @@ Ele não substitui teste com leitor de tela, mas pega as falhas mais comuns.
 ---
 
 ## Bases
+
+### `dados/` — bases do explorador
+Geradas por `python3 ferramentas/gera_dados_app.py` a partir de `base_brasil_2026.csv` e
+`base_abst_perfil_2022.csv`. Guardam **contagens brutas** por município; estado, região e
+Brasil são somados no navegador, então toda taxa é razão de somas. Rode o script de novo
+sempre que as bases da raiz mudarem.
+
+**Atenção:** em `base_uf_2026.csv` e `base_regiao_2026.csv`, as colunas `c1_*`…`c12_*` somam
+posições (o 1º colocado de cada município), não candidatos, e os `_pct` são somas de
+percentuais. Não as use; o explorador recalcula por candidato a partir dos municípios.
 
 ### `base_brasil_2026.csv` — 5.757 linhas × 117 colunas
 Uma linha por município. Fonte: portal oficial de resultados do TSE, eleição 2026
