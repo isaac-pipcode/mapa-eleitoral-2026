@@ -22,13 +22,25 @@ code{background:#eef2f7;padding:1px 5px;border-radius:4px;font-size:12.5px}
 <h2>Painéis</h2>
 <table>
 <tr><th>Página</th><th>O que faz</th></tr>
-<tr><td>**<a href="index.html">Indicadores (raiz)</a>** — indicadores</td><td>Todos os 87 indicadores da base como cor, ordenação e filtro. Nível município / estado / região. É a base viva.</td></tr>
+<tr><td>**<a href="index.html">Indicadores (raiz)</a>** — dashboard</td><td>Entrada do site. Resumo, mapa, gráfico dos maiores valores, distribuição, relação entre dois indicadores e tabela ordenável. Filtros por nível (município/estado/região), indicador, busca e mínimo de eleitores — tudo responde junto.</td></tr>
+<tr><td>**`/indicadores.html`**</td><td>Todos os indicadores da base como cor, ordenação e filtro, um mapa só. Para varredura rápida.</td></tr>
 <tr><td>**<a href="perfis.html">Abstenção por perfil</a>**</td><td>Abstenção **por perfil demográfico**. Escolhe-se a dimensão (faixa etária, escolaridade, gênero, estado civil) e o perfil; o mapa mostra a taxa de abstenção daquele perfil em cada município.</td></tr>
 <tr><td>**<a href="mudanca.html">Margem e votos em jogo</a>**</td><td>Margem do 1º turno entre 1º e 2º colocado × votos em jogo × composição do eleitorado. Filtros por margem máxima, mínimo de eleitores e mínimo de escolaridade baixa.</td></tr>
 <tr><td>**<a href="abstencao.html">Abstenção e público-alvo</a>**</td><td>Abstenção 2026 por município × densidade de um público-alvo demográfico.</td></tr>
 <tr><td>**<a href="rio.html">Rio por zona e seção</a>**</td><td>Rio de Janeiro em detalhe: bairro → zona eleitoral → seção (12.809 seções).</td></tr>
 </table>
 <p>Todos com fundo vetorial próprio (malha do IBGE) — sem serviço de tiles e sem chave de API.</p>
+<h2>Acessibilidade</h2>
+<p>O dashboard e os painéis seguem práticas de acessibilidade verificáveis no próprio código:</p>
+<p>- link "pular para o conteúdo", marcos semânticos (`header`, `nav`, `main`, `section` rotuladas)</p>
+<p>- todos os controles são nativos (botão, seleção, campo) — funcionam por teclado e leitor de tela</p>
+<p>- gráficos em SVG com nome acessível, <b>e a tabela de dados serve de alternativa textual</b> aos gráficos</p>
+<p>- tabela com `<caption>`, cabeçalhos com `scope` e `aria-sort` na ordenação</p>
+<p>- região `aria-live` anunciando o efeito dos filtros</p>
+<p>- contraste AA, foco visível, alvos de toque de 44px ou mais, respeito a `prefers-reduced-motion`</p>
+<p>- <b>nenhuma informação depende só de cor</b> — todo valor aparece em número ao lado</p>
+<p>Há um verificador estático no repositório: `python3 a11y_check.py <arquivo.html>`.</p>
+<p>Ele não substitui teste com leitor de tela, mas pega as falhas mais comuns.</p>
 <hr>
 <h2>Bases</h2>
 <p>### <a href="base_brasil_2026.csv">base_brasil_2026.csv</a> — 5.757 linhas × 117 colunas</p>

@@ -9,13 +9,29 @@ números e deixam o cruzamento para quem analisa.
 
 | Página | O que faz |
 |---|---|
-| **`/`** — indicadores | Todos os 87 indicadores da base como cor, ordenação e filtro. Nível município / estado / região. É a base viva. |
+| **`/`** — dashboard | Entrada do site. Resumo, mapa, gráfico dos maiores valores, distribuição, relação entre dois indicadores e tabela ordenável. Filtros por nível (município/estado/região), indicador, busca e mínimo de eleitores — tudo responde junto. |
+| **`/indicadores.html`** | Todos os indicadores da base como cor, ordenação e filtro, um mapa só. Para varredura rápida. |
 | **`/perfis.html`** | Abstenção **por perfil demográfico**. Escolhe-se a dimensão (faixa etária, escolaridade, gênero, estado civil) e o perfil; o mapa mostra a taxa de abstenção daquele perfil em cada município. |
 | **`/mudanca.html`** | Margem do 1º turno entre 1º e 2º colocado × votos em jogo × composição do eleitorado. Filtros por margem máxima, mínimo de eleitores e mínimo de escolaridade baixa. |
 | **`/abstencao.html`** | Abstenção 2026 por município × densidade de um público-alvo demográfico. |
 | **`/rio.html`** | Rio de Janeiro em detalhe: bairro → zona eleitoral → seção (12.809 seções). |
 
 Todos com fundo vetorial próprio (malha do IBGE) — sem serviço de tiles e sem chave de API.
+
+## Acessibilidade
+
+O dashboard e os painéis seguem práticas de acessibilidade verificáveis no próprio código:
+
+- link "pular para o conteúdo", marcos semânticos (`header`, `nav`, `main`, `section` rotuladas)
+- todos os controles são nativos (botão, seleção, campo) — funcionam por teclado e leitor de tela
+- gráficos em SVG com nome acessível, **e a tabela de dados serve de alternativa textual** aos gráficos
+- tabela com `<caption>`, cabeçalhos com `scope` e `aria-sort` na ordenação
+- região `aria-live` anunciando o efeito dos filtros
+- contraste AA, foco visível, alvos de toque de 44px ou mais, respeito a `prefers-reduced-motion`
+- **nenhuma informação depende só de cor** — todo valor aparece em número ao lado
+
+Há um verificador estático no repositório: `python3 a11y_check.py <arquivo.html>`.
+Ele não substitui teste com leitor de tela, mas pega as falhas mais comuns.
 
 ---
 
