@@ -1,0 +1,350 @@
+[
+ [
+  "eleitores_aptos",
+  "eleitores aptos"
+ ],
+ [
+  "comparecimento",
+  "comparecimento"
+ ],
+ [
+  "abstencoes",
+  "abstencoes"
+ ],
+ [
+  "taxa_abstencao",
+  "taxa abstencao"
+ ],
+ [
+  "taxa_comparecimento",
+  "taxa comparecimento"
+ ],
+ [
+  "votos_validos",
+  "votos validos"
+ ],
+ [
+  "brancos",
+  "brancos"
+ ],
+ [
+  "nulos",
+  "nulos"
+ ],
+ [
+  "secoes_totalizadas",
+  "secoes totalizadas"
+ ],
+ [
+  "secoes_total",
+  "secoes total"
+ ],
+ [
+  "pct_abstencao",
+  "pct abstencao"
+ ],
+ [
+  "pct_brancos",
+  "pct brancos"
+ ],
+ [
+  "pct_nulos",
+  "pct nulos"
+ ],
+ [
+  "pct_validos",
+  "pct validos"
+ ],
+ [
+  "perfil_total",
+  "perfil total"
+ ],
+ [
+  "faixa_100_anos_ou_mais",
+  "faixa 100 anos ou mais"
+ ],
+ [
+  "faixa_16_anos",
+  "faixa 16 anos"
+ ],
+ [
+  "faixa_17_anos",
+  "faixa 17 anos"
+ ],
+ [
+  "faixa_18_anos",
+  "faixa 18 anos"
+ ],
+ [
+  "faixa_19_anos",
+  "faixa 19 anos"
+ ],
+ [
+  "faixa_20_anos",
+  "faixa 20 anos"
+ ],
+ [
+  "faixa_21_a_24_anos",
+  "faixa 21 a 24 anos"
+ ],
+ [
+  "faixa_25_a_29_anos",
+  "faixa 25 a 29 anos"
+ ],
+ [
+  "faixa_30_a_34_anos",
+  "faixa 30 a 34 anos"
+ ],
+ [
+  "faixa_35_a_39_anos",
+  "faixa 35 a 39 anos"
+ ],
+ [
+  "faixa_40_a_44_anos",
+  "faixa 40 a 44 anos"
+ ],
+ [
+  "faixa_45_a_49_anos",
+  "faixa 45 a 49 anos"
+ ],
+ [
+  "faixa_50_a_54_anos",
+  "faixa 50 a 54 anos"
+ ],
+ [
+  "faixa_55_a_59_anos",
+  "faixa 55 a 59 anos"
+ ],
+ [
+  "faixa_60_a_64_anos",
+  "faixa 60 a 64 anos"
+ ],
+ [
+  "faixa_65_a_69_anos",
+  "faixa 65 a 69 anos"
+ ],
+ [
+  "faixa_70_a_74_anos",
+  "faixa 70 a 74 anos"
+ ],
+ [
+  "faixa_75_a_79_anos",
+  "faixa 75 a 79 anos"
+ ],
+ [
+  "faixa_80_a_84_anos",
+  "faixa 80 a 84 anos"
+ ],
+ [
+  "faixa_85_a_89_anos",
+  "faixa 85 a 89 anos"
+ ],
+ [
+  "faixa_90_a_94_anos",
+  "faixa 90 a 94 anos"
+ ],
+ [
+  "faixa_95_a_99_anos",
+  "faixa 95 a 99 anos"
+ ],
+ [
+  "faixa_invalida",
+  "faixa invalida"
+ ],
+ [
+  "escolaridade_analfabeto",
+  "escolaridade analfabeto"
+ ],
+ [
+  "escolaridade_ensino_fundamental_completo",
+  "escolaridade ensino fundamental completo"
+ ],
+ [
+  "escolaridade_ensino_fundamental_incompleto",
+  "escolaridade ensino fundamental incompleto"
+ ],
+ [
+  "escolaridade_ensino_medio_completo",
+  "escolaridade ensino medio completo"
+ ],
+ [
+  "escolaridade_ensino_medio_incompleto",
+  "escolaridade ensino medio incompleto"
+ ],
+ [
+  "escolaridade_le_e_escreve",
+  "escolaridade le e escreve"
+ ],
+ [
+  "escolaridade_nao_informado",
+  "escolaridade nao informado"
+ ],
+ [
+  "escolaridade_superior_completo",
+  "escolaridade superior completo"
+ ],
+ [
+  "escolaridade_superior_incompleto",
+  "escolaridade superior incompleto"
+ ],
+ [
+  "genero_feminino",
+  "genero feminino"
+ ],
+ [
+  "genero_masculino",
+  "genero masculino"
+ ],
+ [
+  "genero_nao_informado",
+  "genero nao informado"
+ ],
+ [
+  "estado_civil_casado",
+  "estado civil casado"
+ ],
+ [
+  "estado_civil_divorciado",
+  "estado civil divorciado"
+ ],
+ [
+  "estado_civil_nao_informado",
+  "estado civil nao informado"
+ ],
+ [
+  "estado_civil_separado_judicialmente",
+  "estado civil separado judicialmente"
+ ],
+ [
+  "estado_civil_solteiro",
+  "estado civil solteiro"
+ ],
+ [
+  "estado_civil_viuvo",
+  "estado civil viuvo"
+ ],
+ [
+  "raca_amarela",
+  "raca amarela"
+ ],
+ [
+  "raca_branca",
+  "raca branca"
+ ],
+ [
+  "raca_indigena",
+  "raca indigena"
+ ],
+ [
+  "raca_nao_informado",
+  "raca nao informado"
+ ],
+ [
+  "raca_parda",
+  "raca parda"
+ ],
+ [
+  "raca_preta",
+  "raca preta"
+ ],
+ [
+  "c1_votos",
+  "c1 votos"
+ ],
+ [
+  "c1_pct",
+  "c1 pct"
+ ],
+ [
+  "c2_votos",
+  "c2 votos"
+ ],
+ [
+  "c2_pct",
+  "c2 pct"
+ ],
+ [
+  "c3_votos",
+  "c3 votos"
+ ],
+ [
+  "c3_pct",
+  "c3 pct"
+ ],
+ [
+  "c4_votos",
+  "c4 votos"
+ ],
+ [
+  "c4_pct",
+  "c4 pct"
+ ],
+ [
+  "c5_votos",
+  "c5 votos"
+ ],
+ [
+  "c5_pct",
+  "c5 pct"
+ ],
+ [
+  "c6_votos",
+  "c6 votos"
+ ],
+ [
+  "c6_pct",
+  "c6 pct"
+ ],
+ [
+  "c7_votos",
+  "c7 votos"
+ ],
+ [
+  "c7_pct",
+  "c7 pct"
+ ],
+ [
+  "c8_votos",
+  "c8 votos"
+ ],
+ [
+  "c8_pct",
+  "c8 pct"
+ ],
+ [
+  "c9_votos",
+  "c9 votos"
+ ],
+ [
+  "c9_pct",
+  "c9 pct"
+ ],
+ [
+  "c10_votos",
+  "c10 votos"
+ ],
+ [
+  "c10_pct",
+  "c10 pct"
+ ],
+ [
+  "c11_votos",
+  "c11 votos"
+ ],
+ [
+  "c11_pct",
+  "c11 pct"
+ ],
+ [
+  "c12_votos",
+  "c12 votos"
+ ],
+ [
+  "c12_pct",
+  "c12 pct"
+ ],
+ [
+  "margem_1o_2o_pts",
+  "margem 1o 2o pts"
+ ]
+]
