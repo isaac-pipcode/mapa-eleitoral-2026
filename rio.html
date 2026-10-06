@@ -105,8 +105,23 @@ const MET={dens:{i:6,n:'público-alvo',f:v=>v.toFixed(2)},
 let nivel='bairro', met='dens', filtro='', camada=L.layerGroup(), idx={};
 
 const map=L.map('map').setView([-22.907,-43.42],11);
-L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
- {maxZoom:19,attribution:'&copy; OpenStreetMap &copy; CARTO'}).addTo(map);
+/* fundo vetorial próprio — sem tiles, sem chave de API */
+const MALHA_ARQ='malha_rio.json';
+function fundoVetorial(arq,corBorda,corFundo){
+ L.geoJSON(null,{style:{color:corBorda,weight:0.9,fillColor:corFundo,
+  fillOpacity:1,interactive:false}});
+ fetch(arq).then(function(r){return r.json();}).then(function(M){
+  var fs=Object.keys(M).map(function(k){
+   return {type:'Feature',properties:{n:k},
+    geometry:{type:'MultiPolygon',coordinates:M[k].map(function(poly){
+     return [poly.map(function(a){return a.map(function(p){return [p[1],p[0]];});})];})}};});
+  L.geoJSON({type:'FeatureCollection',features:fs},
+   {style:{color:corBorda,weight:0.9,fillColor:corFundo,fillOpacity:1,interactive:false}})
+   .addTo(map);
+  map.setMaxBounds([[-36,-76],[7,-32]]);
+ }).catch(function(){});
+}
+fundoVetorial(MALHA_ARQ,'#b9c2ce','#eef2f7');
 camada.addTo(map);
 
 function ramp(k){k=Math.max(0,Math.min(1,k));
