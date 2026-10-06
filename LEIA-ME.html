@@ -1,0 +1,109 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Base eleitoral 2026 — índice</title><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f7fa;color:#111827;
+ font:15px/1.6 system-ui,-apple-system,sans-serif}
+.wrap{max-width:900px;margin:0 auto;padding:22px 18px 60px}
+h1{font-size:21px;margin:0 0 6px}h2{font-size:16px;margin:30px 0 8px;
+ padding-top:16px;border-top:1px solid #d7dce3}
+p{margin:8px 0;color:#374151}hr{border:none;border-top:1px solid #d7dce3;margin:22px 0}
+table{border-collapse:collapse;width:100%;margin:10px 0;font-size:13.5px;background:#fff;
+ border:1px solid #d7dce3;border-radius:6px;overflow:hidden}
+th,td{padding:7px 10px;text-align:left;border-bottom:1px solid #eef1f5;vertical-align:top}
+th{background:#eef2f7;font-weight:600}
+tr:last-child td{border-bottom:none}
+a{color:#1d4ed8}
+b{color:#111827}
+code{background:#eef2f7;padding:1px 5px;border-radius:4px;font-size:12.5px}
+</style></head><body><div class="wrap"><h1>Base eleitoral 2026 — índice</h1>
+<p>Tudo neste site é dado do TSE. Nenhuma conclusão está embutida: os painéis mostram</p>
+<p>números e deixam o cruzamento para quem analisa.</p>
+<hr>
+<h2>Painéis</h2>
+<table>
+<tr><th>Página</th><th>O que faz</th></tr>
+<tr><td>**<a href="index.html">Indicadores (raiz)</a>** — indicadores</td><td>Todos os 87 indicadores da base como cor, ordenação e filtro. Nível município / estado / região. É a base viva.</td></tr>
+<tr><td>**<a href="perfis.html">Abstenção por perfil</a>**</td><td>Abstenção **por perfil demográfico**. Escolhe-se a dimensão (faixa etária, escolaridade, gênero, estado civil) e o perfil; o mapa mostra a taxa de abstenção daquele perfil em cada município.</td></tr>
+<tr><td>**<a href="mudanca.html">Margem e votos em jogo</a>**</td><td>Margem do 1º turno entre 1º e 2º colocado × votos em jogo × composição do eleitorado. Filtros por margem máxima, mínimo de eleitores e mínimo de escolaridade baixa.</td></tr>
+<tr><td>**<a href="abstencao.html">Abstenção e público-alvo</a>**</td><td>Abstenção 2026 por município × densidade de um público-alvo demográfico.</td></tr>
+<tr><td>**<a href="rio.html">Rio por zona e seção</a>**</td><td>Rio de Janeiro em detalhe: bairro → zona eleitoral → seção (12.809 seções).</td></tr>
+</table>
+<p>Todos com fundo vetorial próprio (malha do IBGE) — sem serviço de tiles e sem chave de API.</p>
+<hr>
+<h2>Bases</h2>
+<p>### <a href="base_brasil_2026.csv">base_brasil_2026.csv</a> — 5.757 linhas × 117 colunas</p>
+<p>Uma linha por município. Fonte: portal oficial de resultados do TSE, eleição 2026</p>
+<p>1º turno, totalização final; mais perfil do eleitorado 2026.</p>
+<p>Colunas principais:</p>
+<table>
+<tr><th>Coluna</th><th>Significado</th></tr>
+<tr><td>`uf`, `municipio`, `cod_municipio`, `regiao`</td><td>identificação</td></tr>
+<tr><td>`latitude`, `longitude`</td><td>centroide do município (dos locais de votação)</td></tr>
+<tr><td>`eleitores_aptos`</td><td>eleitorado apto</td></tr>
+<tr><td>`comparecimento`, `abstencoes`</td><td>votantes e faltosos</td></tr>
+<tr><td>`taxa_abstencao`, `taxa_comparecimento`</td><td>informadas pelo TSE</td></tr>
+<tr><td>`pct_abstencao`, `pct_brancos`, `pct_nulos`, `pct_validos`</td><td>% sobre eleitores aptos</td></tr>
+<tr><td>`votos_validos`, `brancos`, `nulos`</td><td>contagens do 1º turno</td></tr>
+<tr><td>`secoes_totalizadas`, `secoes_total`</td><td>seções</td></tr>
+<tr><td>`perfil_total`</td><td>eleitorado no perfil 2026</td></tr>
+<tr><td>`faixa_*`, `escolaridade_*`, `genero_*`, `estado_civil_*`, `raca_*`</td><td>composição do eleitorado (contagens brutas)</td></tr>
+<tr><td>`c1_*` … `c12_*`</td><td>candidatos à Presidência por volume no município (nome, partido, votos, %)</td></tr>
+<tr><td>`margem_1o_2o_pts`</td><td>(votos 1º − votos 2º) ÷ comparecimento, em pontos</td></tr>
+</table>
+<p>### <a href="base_uf_2026.csv">base_uf_2026.csv</a> e <a href="base_regiao_2026.csv">base_regiao_2026.csv</a></p>
+<p>Os mesmos indicadores agregados por estado (28 linhas) e por região (6 linhas).</p>
+<p>### <a href="base_abst_perfil_2022.csv">base_abst_perfil_2022.csv</a> — 216.507 linhas</p>
+<p>Abstenção <b>por perfil demográfico</b>, por município. Formato longo:</p>
+<p>uma linha por município × dimensão × grupo.</p>
+<p>Fonte: TSE, Perfil de Comparecimento e Abstenção <b>2022, 1º turno</b>.</p>
+<table>
+<tr><th>Coluna</th><th>Significado</th></tr>
+<tr><td>`uf`, `cod_municipio`, `municipio`</td><td>identificação</td></tr>
+<tr><td>`dimensao`</td><td>faixa_etaria · escolaridade · genero · estado_civil · cor_raca</td></tr>
+<tr><td>`grupo`</td><td>ex.: "21 a 24 anos", "ENSINO MÉDIO COMPLETO", "MASCULINO"</td></tr>
+<tr><td>`aptos`, `abstencoes`, `taxa_abst`</td><td>todas as faixas de idade (inclui voto facultativo)</td></tr>
+<tr><td>`aptos_obrig`, `abst_obrig`, `taxa_obrig`</td><td>**só voto obrigatório — este é o número correto**</td></tr>
+</table>
+<p><b>Use `taxa_obrig`.</b> A taxa bruta mistura quem tem voto facultativo (16–17, 70 anos ou</p>
+<p>mais, analfabeto), o que infla artificialmente a abstenção dos extremos de idade.</p>
+<p>### <a href="base_mudanca.csv">base_mudanca.csv</a>, <a href="base_nacional.csv">base_nacional.csv</a>, <a href="base_rio.csv">base_rio.csv</a></p>
+<p>Bases que alimentam os painéis `mudanca`, `abstencao` e `rio`.</p>
+<hr>
+<h2>Fontes e datas</h2>
+<table>
+<tr><th>Dado</th><th>Fonte</th><th>Data de referência</th></tr>
+<tr><td>Abstenção, comparecimento, votos, candidatos</td><td>TSE — portal oficial de resultados</td><td>eleição 2026, 1º turno, totalização final</td></tr>
+<tr><td>Composição do eleitorado</td><td>TSE — perfil do eleitorado 2026</td><td>2026</td></tr>
+<tr><td>Abstenção por perfil demográfico</td><td>TSE — perfil de comparecimento e abstenção</td><td>2022, 1º turno</td></tr>
+<tr><td>Contornos de estados e município</td><td>IBGE — malhas territoriais</td><td>—</td></tr>
+</table>
+<hr>
+<h2>Limitações — leia antes de usar em decisão</h2>
+<p>1. <b>Perfil demográfico é de 2022, não de 2026.</b> O TSE publica abstenção por</p>
+<p>faixa/escolaridade/gênero até 2022. Para 2026 existe a abstenção geral por município</p>
+<p>(essa é de 2026), mas não aberta por demografia. O painel <a href="perfis.html">Abstenção por perfil</a> informa isso</p>
+<p>no cabeçalho.</p>
+<p>2. <b>Composição demográfica não prediz voto nem abstenção.</b> Testado em escala nacional:</p>
+<p>a correlação entre densidade dos perfis e taxa de abstenção é praticamente nula</p>
+<p>(−0,10). Use o perfil para <b>saber com quem falar e onde ele está</b>, não como previsão.</p>
+<p>3. <b>Abstenção não é voto recuperável.</b> Parte de quem falta não vota nem com mobilização</p>
+<p>(mudou de cidade, desencanto, dificuldade de acesso). Qualquer número de "votos</p>
+<p>recuperáveis" é teto teórico, nunca previsão.</p>
+<p>4. <b>Margem não é volatilidade.</b> Margem apertada indica disputa, não movimento. Comparar</p>
+<p>com 2022 exigiria a série histórica, que este portal do TSE não serve.</p>
+<p>5. <b>Cor/raça é inutilizável.</b> Predomina "NÃO INFORMADO" (no Rio, 4,7 milhões de 5</p>
+<p>milhões). Por isso foi retirado do painel de perfis.</p>
+<p>6. <b>Cobertura:</b> 5.569 dos 5.757 municípios têm perfil e coordenada. Os 188 restantes são</p>
+<p>quase todos do exterior (seções no exterior não têm centroide no Brasil).</p>
+<p>7. <b>Alguns municípios têm seções sem dado de abstenção</b> — são seções criadas após a</p>
+<p>eleição anterior. No Rio são 591 seções e 177.279 eleitores (3,6%), aparecendo marcadas</p>
+<p>no painel <a href="rio.html">Rio por zona e seção</a>.</p>
+<hr>
+<h2>Como reproduzir</h2>
+<p>Os scripts que geram tudo estão em `~/contra-desinfo/`:</p>
+<p>`base_final.py` (base principal), `abst_perfil_2022.py` (perfis),</p>
+<p>`painel_indicadores.py`, `painel_perfis.py`, `painel_mudanca.py`, `painel_nacional.py`,</p>
+<p>`painel.py` (Rio), `vetorial.py` (malhas), `harness.js` (teste de execução),</p>
+<p>`publicar.sh` (publicação).</p>
+<p>Antes de publicar qualquer painel, rode `node harness.js <arquivo.html>` — ele executa o</p>
+<p>JavaScript com stubs e pega erro em tempo de execução, que uma checagem de sintaxe não vê.</p></div></body></html>
