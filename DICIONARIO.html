@@ -1,0 +1,470 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dicionário de dados</title><style>*{box-sizing:border-box}body{margin:0;background:#f8fafc;color:#111827;
+ font:1rem/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+.wrap{max-width:1000px;margin:0 auto;padding:22px 18px 70px}
+h1{font-size:1.4rem;margin:0 0 8px}
+h2{font-size:1.1rem;margin:32px 0 10px;padding-top:18px;border-top:1px solid #cbd5e1}
+h3{font-size:1rem;margin:22px 0 8px}
+p{margin:9px 0;color:#374151}hr{border:none;border-top:1px solid #cbd5e1;margin:24px 0}
+table{border-collapse:collapse;width:100%;margin:12px 0;font-size:.86rem;background:#fff;
+ border:1px solid #cbd5e1;border-radius:8px;overflow:hidden}
+th,td{padding:8px 10px;text-align:left;border-bottom:1px solid #eef2f7;vertical-align:top}
+th{background:#eef2f7;font-weight:600}
+tr:last-child td{border-bottom:none}
+a{color:#1d4ed8}code{background:#eef2f7;padding:1px 5px;border-radius:4px;font-size:.85rem}
+ul,ol{margin:9px 0 9px 22px;padding:0;color:#374151}li{margin:4px 0}
+.nav{background:#fff;border-bottom:1px solid #cbd5e1;padding:0 14px;display:flex;
+ flex-wrap:wrap;gap:2px;margin:-22px -18px 18px}
+.nav a{padding:13px 14px;text-decoration:none;font-size:.9rem;min-height:44px;
+ display:flex;align-items:center}
+:focus-visible{outline:3px solid #b45309;outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head><body>
+<a class="pular" href="#conteudo" style="position:absolute;left:8px;top:-64px;
+ background:#1d4ed8;color:#fff;padding:12px 18px;border-radius:0 0 8px 8px;
+ text-decoration:none;font-weight:600">Pular para o conteúdo</a>
+<main id="conteudo"><div class="wrap"><header><nav class="nav" aria-label="Painéis disponíveis"><a href="index.html">Dashboard</a><a href="indicadores.html">Indicadores</a><a href="perfis.html">Abstenção por perfil</a><a href="mudanca.html">Margem e votos em jogo</a><a href="abstencao.html">Abstenção e público-alvo</a><a href="rio.html">Rio por zona e seção</a><a href="LEIA-ME.html">Índice</a><a href="DICIONARIO.html">Dicionário</a></nav></header><h1>Dicionário de dados</h1>
+<p>Gerado automaticamente dos próprios arquivos por <code>gera_dicionario.py</code>.</p>
+<p>Se a base mudar, basta rodar de novo — o dicionário não pode divergir do dado.</p>
+<h2>Arquivos</h2>
+<table><caption>Arquivos</caption>
+<tr><th scope="col">Arquivo</th><th scope="col">Grão (uma linha por)</th><th scope="col">Linhas</th><th scope="col">Colunas</th></tr>
+<tr><td><a href="base_brasil_2026.csv">base_brasil_2026.csv</a></td><td>Uma linha por <b>município</b> (5.757).</td><td>5.757</td><td>117</td></tr>
+<tr><td><a href="base_uf_2026.csv">base_uf_2026.csv</a></td><td>Uma linha por <b>estado</b> (28, incluindo Distrito Federal e exterior).</td><td>28</td><td>86</td></tr>
+<tr><td><a href="base_regiao_2026.csv">base_regiao_2026.csv</a></td><td>Uma linha por <b>região</b> (6: Norte, Nordeste, Centro-Oeste, Sudeste, Sul, Exterior).</td><td>6</td><td>86</td></tr>
+<tr><td><a href="base_abst_perfil_2022.csv">base_abst_perfil_2022.csv</a></td><td>Uma linha por <b>município × dimensão × grupo</b> (216.507). Formato longo: pivote pela coluna <code>dimensao</code>.</td><td>216.507</td><td>11</td></tr>
+<tr><td><a href="base_mudanca.csv">base_mudanca.csv</a></td><td>Uma linha por <b>município</b> (5.569) com disputa calculável no 1º turno.</td><td>5.569</td><td>23</td></tr>
+<tr><td><a href="base_nacional.csv">base_nacional.csv</a></td><td>Uma linha por <b>município</b> (5.569) com perfil e coordenada.</td><td>5.569</td><td>16</td></tr>
+<tr><td><a href="base_rio.csv">base_rio.csv</a></td><td>Uma linha por <b>seção eleitoral</b> do município do Rio (12.809).</td><td>12.809</td><td>18</td></tr>
+</table>
+<hr>
+<h2><a href="base_brasil_2026.csv">base_brasil_2026.csv</a></h2>
+<p><b>Grão:</b> Uma linha por <b>município</b> (5.757).</p>
+<p><b>Fonte:</b> TSE — portal oficial de resultados 2026, 1º turno, totalização final; perfil do eleitorado 2026; centroide dos locais de votação.</p>
+<table><caption><a href="base_brasil_2026.csv">base_brasil_2026.csv</a></caption>
+<tr><th scope="col">Coluna</th><th scope="col">Tipo</th><th scope="col">Descrição</th><th scope="col">Exemplo</th></tr>
+<tr><td><code>uf</code></td><td>texto</td><td>Sigla do estado</td><td><code>AC</code></td></tr>
+<tr><td><code>municipio</code></td><td>texto</td><td>Nome do município</td><td><code>ACRELÂNDIA</code></td></tr>
+<tr><td><code>cod_municipio</code></td><td>inteiro</td><td>Código do município no TSE</td><td><code>01120</code></td></tr>
+<tr><td><code>regiao</code></td><td>texto</td><td>Região do país</td><td><code>Norte</code></td></tr>
+<tr><td><code>latitude</code></td><td>decimal</td><td>Latitude do centroide do município (média dos locais de votação)</td><td><code>-10.00163</code></td></tr>
+<tr><td><code>longitude</code></td><td>decimal</td><td>Longitude do centroide do município</td><td><code>-67.02437</code></td></tr>
+<tr><td><code>eleitores_aptos</code></td><td>inteiro</td><td>Eleitorado apto no município</td><td><code>10207</code></td></tr>
+<tr><td><code>comparecimento</code></td><td>inteiro</td><td>Quantos compareceram</td><td><code>8055</code></td></tr>
+<tr><td><code>abstencoes</code></td><td>inteiro</td><td>Quantos faltaram</td><td><code>2152</code></td></tr>
+<tr><td><code>taxa_abstencao</code></td><td>decimal</td><td>Taxa de abstenção informada pelo TSE (%)</td><td><code>21.08</code></td></tr>
+<tr><td><code>taxa_comparecimento</code></td><td>decimal</td><td>Taxa de comparecimento informada pelo TSE (%)</td><td><code>78.92</code></td></tr>
+<tr><td><code>votos_validos</code></td><td>inteiro</td><td>Votos válidos no 1º turno</td><td><code>7791</code></td></tr>
+<tr><td><code>brancos</code></td><td>inteiro</td><td>Votos em branco</td><td><code>56</code></td></tr>
+<tr><td><code>nulos</code></td><td>inteiro</td><td>Votos nulos</td><td><code>208</code></td></tr>
+<tr><td><code>secoes_totalizadas</code></td><td>inteiro</td><td>Seções com resultado totalizado</td><td><code>45</code></td></tr>
+<tr><td><code>secoes_total</code></td><td>inteiro</td><td>Número de seções eleitorais</td><td><code>45</code></td></tr>
+<tr><td><code>pct_abstencao</code></td><td>decimal</td><td>Abstenção calculada sobre os eleitores aptos (%)</td><td><code>21.08</code></td></tr>
+<tr><td><code>pct_brancos</code></td><td>decimal</td><td>Votos brancos sobre os eleitores aptos (%)</td><td><code>0.55</code></td></tr>
+<tr><td><code>pct_nulos</code></td><td>decimal</td><td>Votos nulos sobre os eleitores aptos (%)</td><td><code>2.04</code></td></tr>
+<tr><td><code>pct_validos</code></td><td>decimal</td><td>Votos válidos sobre os eleitores aptos (%)</td><td><code>76.33</code></td></tr>
+<tr><td><code>perfil_total</code></td><td>inteiro</td><td>Eleitorado no perfil do TSE 2026 (confere com eleitores_aptos)</td><td><code>10220</code></td></tr>
+<tr><td><code>faixa_100_anos_ou_mais</code></td><td>inteiro</td><td>Eleitores de 100 anos ou mais</td><td><code>2</code></td></tr>
+<tr><td><code>faixa_16_anos</code></td><td>inteiro</td><td>Eleitores de 16 anos</td><td><code>67</code></td></tr>
+<tr><td><code>faixa_17_anos</code></td><td>inteiro</td><td>Eleitores de 17 anos</td><td><code>143</code></td></tr>
+<tr><td><code>faixa_18_anos</code></td><td>inteiro</td><td>Eleitores de 18 anos</td><td><code>161</code></td></tr>
+<tr><td><code>faixa_19_anos</code></td><td>inteiro</td><td>Eleitores de 19 anos</td><td><code>216</code></td></tr>
+<tr><td><code>faixa_20_anos</code></td><td>inteiro</td><td>Eleitores de 20 anos</td><td><code>249</code></td></tr>
+<tr><td><code>faixa_21_a_24_anos</code></td><td>inteiro</td><td>Eleitores de 21 a 24 anos</td><td><code>896</code></td></tr>
+<tr><td><code>faixa_25_a_29_anos</code></td><td>inteiro</td><td>Eleitores de 25 a 29 anos</td><td><code>1096</code></td></tr>
+<tr><td><code>faixa_30_a_34_anos</code></td><td>inteiro</td><td>Eleitores de 30 a 34 anos</td><td><code>1060</code></td></tr>
+<tr><td><code>faixa_35_a_39_anos</code></td><td>inteiro</td><td>Eleitores de 35 a 39 anos</td><td><code>987</code></td></tr>
+<tr><td><code>faixa_40_a_44_anos</code></td><td>inteiro</td><td>Eleitores de 40 a 44 anos</td><td><code>1016</code></td></tr>
+<tr><td><code>faixa_45_a_49_anos</code></td><td>inteiro</td><td>Eleitores de 45 a 49 anos</td><td><code>989</code></td></tr>
+<tr><td><code>faixa_50_a_54_anos</code></td><td>inteiro</td><td>Eleitores de 50 a 54 anos</td><td><code>807</code></td></tr>
+<tr><td><code>faixa_55_a_59_anos</code></td><td>inteiro</td><td>Eleitores de 55 a 59 anos</td><td><code>685</code></td></tr>
+<tr><td><code>faixa_60_a_64_anos</code></td><td>inteiro</td><td>Eleitores de 60 a 64 anos</td><td><code>591</code></td></tr>
+<tr><td><code>faixa_65_a_69_anos</code></td><td>inteiro</td><td>Eleitores de 65 a 69 anos</td><td><code>464</code></td></tr>
+<tr><td><code>faixa_70_a_74_anos</code></td><td>inteiro</td><td>Eleitores de 70 a 74 anos</td><td><code>355</code></td></tr>
+<tr><td><code>faixa_75_a_79_anos</code></td><td>inteiro</td><td>Eleitores de 75 a 79 anos</td><td><code>225</code></td></tr>
+<tr><td><code>faixa_80_a_84_anos</code></td><td>inteiro</td><td>Eleitores de 80 a 84 anos</td><td><code>125</code></td></tr>
+<tr><td><code>faixa_85_a_89_anos</code></td><td>inteiro</td><td>Eleitores de 85 a 89 anos</td><td><code>56</code></td></tr>
+<tr><td><code>faixa_90_a_94_anos</code></td><td>inteiro</td><td>Eleitores de 90 a 94 anos</td><td><code>25</code></td></tr>
+<tr><td><code>faixa_95_a_99_anos</code></td><td>inteiro</td><td>Eleitores de 95 a 99 anos</td><td><code>5</code></td></tr>
+<tr><td><code>faixa_invalida</code></td><td>inteiro</td><td>Eleitores de inválida</td><td><code>0</code></td></tr>
+<tr><td><code>escolaridade_analfabeto</code></td><td>inteiro</td><td>Escolaridade: analfabeto</td><td><code>845</code></td></tr>
+<tr><td><code>escolaridade_ensino_fundamental_completo</code></td><td>inteiro</td><td>Escolaridade: ensino fundamental completo</td><td><code>606</code></td></tr>
+<tr><td><code>escolaridade_ensino_fundamental_incompleto</code></td><td>inteiro</td><td>Escolaridade: ensino fundamental incompleto</td><td><code>1909</code></td></tr>
+<tr><td><code>escolaridade_ensino_medio_completo</code></td><td>inteiro</td><td>Escolaridade: ensino medio completo</td><td><code>2111</code></td></tr>
+<tr><td><code>escolaridade_ensino_medio_incompleto</code></td><td>inteiro</td><td>Escolaridade: ensino medio incompleto</td><td><code>1833</code></td></tr>
+<tr><td><code>escolaridade_le_e_escreve</code></td><td>inteiro</td><td>Escolaridade: lê e escreve</td><td><code>1990</code></td></tr>
+<tr><td><code>escolaridade_nao_informado</code></td><td>inteiro</td><td>Escolaridade: não informado</td><td><code>0</code></td></tr>
+<tr><td><code>escolaridade_superior_completo</code></td><td>inteiro</td><td>Escolaridade: superior completo</td><td><code>576</code></td></tr>
+<tr><td><code>escolaridade_superior_incompleto</code></td><td>inteiro</td><td>Escolaridade: superior incompleto</td><td><code>350</code></td></tr>
+<tr><td><code>genero_feminino</code></td><td>inteiro</td><td>Gênero: feminino</td><td><code>5101</code></td></tr>
+<tr><td><code>genero_masculino</code></td><td>inteiro</td><td>Gênero: masculino</td><td><code>5119</code></td></tr>
+<tr><td><code>genero_nao_informado</code></td><td>inteiro</td><td>Gênero: não informado</td><td><code>0</code></td></tr>
+<tr><td><code>estado_civil_casado</code></td><td>inteiro</td><td>Estado civil: casado</td><td><code>3361</code></td></tr>
+<tr><td><code>estado_civil_divorciado</code></td><td>inteiro</td><td>Estado civil: divorciado</td><td><code>474</code></td></tr>
+<tr><td><code>estado_civil_nao_informado</code></td><td>inteiro</td><td>Estado civil: não informado</td><td><code>0</code></td></tr>
+<tr><td><code>estado_civil_separado_judicialmente</code></td><td>inteiro</td><td>Estado civil: separado judicialmente</td><td><code>37</code></td></tr>
+<tr><td><code>estado_civil_solteiro</code></td><td>inteiro</td><td>Estado civil: solteiro</td><td><code>6109</code></td></tr>
+<tr><td><code>estado_civil_viuvo</code></td><td>inteiro</td><td>Estado civil: viúvo</td><td><code>239</code></td></tr>
+<tr><td><code>raca_amarela</code></td><td>inteiro</td><td>Corindex.htmlraça: amarela</td><td><code>90</code></td></tr>
+<tr><td><code>raca_branca</code></td><td>inteiro</td><td>Corindex.htmlraça: branca</td><td><code>669</code></td></tr>
+<tr><td><code>raca_indigena</code></td><td>inteiro</td><td>Corindex.htmlraça: indígena</td><td><code>7</code></td></tr>
+<tr><td><code>raca_nao_informado</code></td><td>inteiro</td><td>Corindex.htmlraça: não informado</td><td><code>6836</code></td></tr>
+<tr><td><code>raca_parda</code></td><td>inteiro</td><td>Corindex.htmlraça: parda</td><td><code>2381</code></td></tr>
+<tr><td><code>raca_preta</code></td><td>inteiro</td><td>Corindex.htmlraça: preta</td><td><code>237</code></td></tr>
+<tr><td><code>c1_nome</code></td><td>texto</td><td>Nome do 1º colocado mais votado no município (Presidência)</td><td><code>FLAVIO BOLSONARO</code></td></tr>
+<tr><td><code>c1_partido</code></td><td>texto</td><td>Partido do 1º colocado mais votado no município (Presidência)</td><td><code>PL</code></td></tr>
+<tr><td><code>c1_votos</code></td><td>inteiro</td><td>Votos do 1º colocado mais votado no município (Presidência)</td><td><code>5940</code></td></tr>
+<tr><td><code>c1_pct</code></td><td>decimal</td><td>Percentual do 1º colocado</td><td><code>76.24</code></td></tr>
+<tr><td><code>c2_nome</code></td><td>texto</td><td>Nome do 2º colocado mais votado no município (Presidência)</td><td><code>LULA</code></td></tr>
+<tr><td><code>c2_partido</code></td><td>texto</td><td>Partido do 2º colocado mais votado no município (Presidência)</td><td><code>PT</code></td></tr>
+<tr><td><code>c2_votos</code></td><td>inteiro</td><td>Votos do 2º colocado mais votado no município (Presidência)</td><td><code>1508</code></td></tr>
+<tr><td><code>c2_pct</code></td><td>decimal</td><td>Percentual do 2º colocado</td><td><code>19.36</code></td></tr>
+<tr><td><code>c3_nome</code></td><td>texto</td><td>Nome do 3º colocado mais votado no município (Presidência)</td><td><code>RONALDO CAIADO</code></td></tr>
+<tr><td><code>c3_partido</code></td><td>texto</td><td>Partido do 3º colocado mais votado no município (Presidência)</td><td><code>PSD</code></td></tr>
+<tr><td><code>c3_votos</code></td><td>inteiro</td><td>Votos do 3º colocado mais votado no município (Presidência)</td><td><code>136</code></td></tr>
+<tr><td><code>c3_pct</code></td><td>decimal</td><td>Percentual do 3º colocado mais votado no município (Presidência)</td><td><code>1.75</code></td></tr>
+<tr><td><code>c4_nome</code></td><td>texto</td><td>Nome do 4º colocado mais votado no município (Presidência)</td><td><code>ESCRITOR AUGUSTO CURY</code></td></tr>
+<tr><td><code>c4_partido</code></td><td>texto</td><td>Partido do 4º colocado mais votado no município (Presidência)</td><td><code>AVANTE</code></td></tr>
+<tr><td><code>c4_votos</code></td><td>inteiro</td><td>Votos do 4º colocado mais votado no município (Presidência)</td><td><code>114</code></td></tr>
+<tr><td><code>c4_pct</code></td><td>decimal</td><td>Percentual do 4º colocado mais votado no município (Presidência)</td><td><code>1.46</code></td></tr>
+<tr><td><code>c5_nome</code></td><td>texto</td><td>Nome do 5º colocado mais votado no município (Presidência)</td><td><code>RENAN SANTOS</code></td></tr>
+<tr><td><code>c5_partido</code></td><td>texto</td><td>Partido do 5º colocado mais votado no município (Presidência)</td><td><code>MISSÃO</code></td></tr>
+<tr><td><code>c5_votos</code></td><td>inteiro</td><td>Votos do 5º colocado mais votado no município (Presidência)</td><td><code>85</code></td></tr>
+<tr><td><code>c5_pct</code></td><td>decimal</td><td>Percentual do 5º colocado mais votado no município (Presidência)</td><td><code>1.09</code></td></tr>
+<tr><td><code>c6_nome</code></td><td>texto</td><td>Nome do 6º colocado mais votado no município (Presidência)</td><td><code>ZEMA</code></td></tr>
+<tr><td><code>c6_partido</code></td><td>texto</td><td>Partido do 6º colocado mais votado no município (Presidência)</td><td><code>NOVO</code></td></tr>
+<tr><td><code>c6_votos</code></td><td>inteiro</td><td>Votos do 6º colocado mais votado no município (Presidência)</td><td><code>3</code></td></tr>
+<tr><td><code>c6_pct</code></td><td>decimal</td><td>Percentual do 6º colocado mais votado no município (Presidência)</td><td><code>0.04</code></td></tr>
+<tr><td><code>c7_nome</code></td><td>texto</td><td>Nome do 7º colocado mais votado no município (Presidência)</td><td><code>CLARIANA BARAO</code></td></tr>
+<tr><td><code>c7_partido</code></td><td>texto</td><td>Partido do 7º colocado mais votado no município (Presidência)</td><td><code>DC</code></td></tr>
+<tr><td><code>c7_votos</code></td><td>inteiro</td><td>Votos do 7º colocado mais votado no município (Presidência)</td><td><code>2</code></td></tr>
+<tr><td><code>c7_pct</code></td><td>decimal</td><td>Percentual do 7º colocado mais votado no município (Presidência)</td><td><code>0.03</code></td></tr>
+<tr><td><code>c8_nome</code></td><td>texto</td><td>Nome do 8º colocado mais votado no município (Presidência)</td><td><code>SAMARA</code></td></tr>
+<tr><td><code>c8_partido</code></td><td>texto</td><td>Partido do 8º colocado mais votado no município (Presidência)</td><td><code>UP</code></td></tr>
+<tr><td><code>c8_votos</code></td><td>inteiro</td><td>Votos do 8º colocado mais votado no município (Presidência)</td><td><code>2</code></td></tr>
+<tr><td><code>c8_pct</code></td><td>decimal</td><td>Percentual do 8º colocado mais votado no município (Presidência)</td><td><code>0.03</code></td></tr>
+<tr><td><code>c9_nome</code></td><td>texto</td><td>Nome do 9º colocado mais votado no município (Presidência)</td><td><code>HERTZ DIAS</code></td></tr>
+<tr><td><code>c9_partido</code></td><td>texto</td><td>Partido do 9º colocado mais votado no município (Presidência)</td><td><code>PSTU</code></td></tr>
+<tr><td><code>c9_votos</code></td><td>inteiro</td><td>Votos do 9º colocado mais votado no município (Presidência)</td><td><code>1</code></td></tr>
+<tr><td><code>c9_pct</code></td><td>decimal</td><td>Percentual do 9º colocado mais votado no município (Presidência)</td><td><code>0.01</code></td></tr>
+<tr><td><code>c10_nome</code></td><td>texto</td><td>Nome do 10º colocado mais votado no município (Presidência)</td><td><code>EDMILSON COSTA</code></td></tr>
+<tr><td><code>c10_partido</code></td><td>texto</td><td>Partido do 10º colocado mais votado no município (Presidência)</td><td><code>PCB</code></td></tr>
+<tr><td><code>c10_votos</code></td><td>inteiro</td><td>Votos do 10º colocado mais votado no município (Presidência)</td><td><code>0</code></td></tr>
+<tr><td><code>c10_pct</code></td><td>decimal</td><td>Percentual do 10º colocado mais votado no município (Presidência)</td><td><code>0.0</code></td></tr>
+<tr><td><code>c11_nome</code></td><td>texto</td><td>Nome do 11º colocado mais votado no município (Presidência)</td><td><code>VETERINÁRIO WILSON GRASSI</code></td></tr>
+<tr><td><code>c11_partido</code></td><td>texto</td><td>Partido do 11º colocado mais votado no município (Presidência)</td><td><code>DEMOCRATA</code></td></tr>
+<tr><td><code>c11_votos</code></td><td>inteiro</td><td>Votos do 11º colocado mais votado no município (Presidência)</td><td><code>0</code></td></tr>
+<tr><td><code>c11_pct</code></td><td>decimal</td><td>Percentual do 11º colocado mais votado no município (Presidência)</td><td><code>0.0</code></td></tr>
+<tr><td><code>c12_nome</code></td><td>texto</td><td>Nome do 12º colocado mais votado no município (Presidência)</td><td><code>RUI COSTA PIMENTA</code></td></tr>
+<tr><td><code>c12_partido</code></td><td>texto</td><td>Partido do 12º colocado mais votado no município (Presidência)</td><td><code>PCO</code></td></tr>
+<tr><td><code>c12_votos</code></td><td>inteiro</td><td>Votos do 12º colocado mais votado no município (Presidência)</td><td><code>0</code></td></tr>
+<tr><td><code>c12_pct</code></td><td>decimal</td><td>Percentual do 12º colocado mais votado no município (Presidência)</td><td><code>0.0</code></td></tr>
+<tr><td><code>margem_1o_2o_pts</code></td><td>decimal</td><td>Diferença entre 1º e 2º colocado, em pontos do comparecimento</td><td><code>55.02</code></td></tr>
+</table>
+<h2><a href="base_uf_2026.csv">base_uf_2026.csv</a></h2>
+<p><b>Grão:</b> Uma linha por <b>estado</b> (28, incluindo Distrito Federal e exterior).</p>
+<p><b>Fonte:</b> Somatório da base por município. Colunas iguais às de <a href="base_brasil_2026.csv">base_brasil_2026.csv</a>.</p>
+<table><caption><a href="base_uf_2026.csv">base_uf_2026.csv</a></caption>
+<tr><th scope="col">Coluna</th><th scope="col">Tipo</th><th scope="col">Descrição</th><th scope="col">Exemplo</th></tr>
+<tr><td><code>abstencoes</code></td><td>decimal</td><td>Quantos faltaram</td><td><code>125412.0</code></td></tr>
+<tr><td><code>brancos</code></td><td>decimal</td><td>Votos em branco</td><td><code>5579.0</code></td></tr>
+<tr><td><code>c10_pct</code></td><td>decimal</td><td>Percentual do 10º colocado mais votado no município (Presidência)</td><td><code>0.23</code></td></tr>
+<tr><td><code>c10_votos</code></td><td>decimal</td><td>Votos do 10º colocado mais votado no município (Presidência)</td><td><code>72.0</code></td></tr>
+<tr><td><code>c11_pct</code></td><td>decimal</td><td>Percentual do 11º colocado mais votado no município (Presidência)</td><td><code>0.12</code></td></tr>
+<tr><td><code>c11_votos</code></td><td>decimal</td><td>Votos do 11º colocado mais votado no município (Presidência)</td><td><code>40.0</code></td></tr>
+<tr><td><code>c12_pct</code></td><td>decimal</td><td>Percentual do 12º colocado mais votado no município (Presidência)</td><td><code>0.05</code></td></tr>
+<tr><td><code>c12_votos</code></td><td>decimal</td><td>Votos do 12º colocado mais votado no município (Presidência)</td><td><code>27.0</code></td></tr>
+<tr><td><code>c1_pct</code></td><td>decimal</td><td>Percentual do 1º colocado</td><td><code>1403.67</code></td></tr>
+<tr><td><code>c1_votos</code></td><td>decimal</td><td>Votos do 1º colocado mais votado no município (Presidência)</td><td><code>303573.0</code></td></tr>
+<tr><td><code>c2_pct</code></td><td>decimal</td><td>Percentual do 2º colocado</td><td><code>690.33</code></td></tr>
+<tr><td><code>c2_votos</code></td><td>decimal</td><td>Votos do 2º colocado mais votado no município (Presidência)</td><td><code>134004.0</code></td></tr>
+<tr><td><code>c3_pct</code></td><td>decimal</td><td>Percentual do 3º colocado mais votado no município (Presidência)</td><td><code>49.06</code></td></tr>
+<tr><td><code>c3_votos</code></td><td>decimal</td><td>Votos do 3º colocado mais votado no município (Presidência)</td><td><code>13571.0</code></td></tr>
+<tr><td><code>c4_pct</code></td><td>decimal</td><td>Percentual do 4º colocado mais votado no município (Presidência)</td><td><code>30.32</code></td></tr>
+<tr><td><code>c4_votos</code></td><td>decimal</td><td>Votos do 4º colocado mais votado no município (Presidência)</td><td><code>8925.0</code></td></tr>
+<tr><td><code>c5_pct</code></td><td>decimal</td><td>Percentual do 5º colocado mais votado no município (Presidência)</td><td><code>22.06</code></td></tr>
+<tr><td><code>c5_votos</code></td><td>decimal</td><td>Votos do 5º colocado mais votado no município (Presidência)</td><td><code>7601.0</code></td></tr>
+<tr><td><code>c6_pct</code></td><td>decimal</td><td>Percentual do 6º colocado mais votado no município (Presidência)</td><td><code>2.03</code></td></tr>
+<tr><td><code>c6_votos</code></td><td>decimal</td><td>Votos do 6º colocado mais votado no município (Presidência)</td><td><code>591.0</code></td></tr>
+<tr><td><code>c7_pct</code></td><td>decimal</td><td>Percentual do 7º colocado mais votado no município (Presidência)</td><td><code>1.15</code></td></tr>
+<tr><td><code>c7_votos</code></td><td>decimal</td><td>Votos do 7º colocado mais votado no município (Presidência)</td><td><code>346.0</code></td></tr>
+<tr><td><code>c8_pct</code></td><td>decimal</td><td>Percentual do 8º colocado mais votado no município (Presidência)</td><td><code>0.7</code></td></tr>
+<tr><td><code>c8_votos</code></td><td>decimal</td><td>Votos do 8º colocado mais votado no município (Presidência)</td><td><code>197.0</code></td></tr>
+<tr><td><code>c9_pct</code></td><td>decimal</td><td>Percentual do 9º colocado mais votado no município (Presidência)</td><td><code>0.38</code></td></tr>
+<tr><td><code>c9_votos</code></td><td>decimal</td><td>Votos do 9º colocado mais votado no município (Presidência)</td><td><code>119.0</code></td></tr>
+<tr><td><code>comparecimento</code></td><td>decimal</td><td>Quantos compareceram</td><td><code>488330.0</code></td></tr>
+<tr><td><code>eleitores_aptos</code></td><td>decimal</td><td>Eleitorado apto no município</td><td><code>613742.0</code></td></tr>
+<tr><td><code>escolaridade_analfabeto</code></td><td>decimal</td><td>Escolaridade: analfabeto</td><td><code>45287.0</code></td></tr>
+<tr><td><code>escolaridade_ensino_fundamental_completo</code></td><td>decimal</td><td>Escolaridade: ensino fundamental completo</td><td><code>28753.0</code></td></tr>
+<tr><td><code>escolaridade_ensino_fundamental_incompleto</code></td><td>decimal</td><td>Escolaridade: ensino fundamental incompleto</td><td><code>117595.0</code></td></tr>
+<tr><td><code>escolaridade_ensino_medio_completo</code></td><td>decimal</td><td>Escolaridade: ensino medio completo</td><td><code>148077.0</code></td></tr>
+<tr><td><code>escolaridade_ensino_medio_incompleto</code></td><td>decimal</td><td>Escolaridade: ensino medio incompleto</td><td><code>124375.0</code></td></tr>
+<tr><td><code>escolaridade_le_e_escreve</code></td><td>decimal</td><td>Escolaridade: lê e escreve</td><td><code>54507.0</code></td></tr>
+<tr><td><code>escolaridade_nao_informado</code></td><td>decimal</td><td>Escolaridade: não informado</td><td><code>0.0</code></td></tr>
+<tr><td><code>escolaridade_superior_completo</code></td><td>decimal</td><td>Escolaridade: superior completo</td><td><code>58615.0</code></td></tr>
+<tr><td><code>escolaridade_superior_incompleto</code></td><td>decimal</td><td>Escolaridade: superior incompleto</td><td><code>37166.0</code></td></tr>
+<tr><td><code>estado_civil_casado</code></td><td>decimal</td><td>Estado civil: casado</td><td><code>144125.0</code></td></tr>
+<tr><td><code>estado_civil_divorciado</code></td><td>decimal</td><td>Estado civil: divorciado</td><td><code>20576.0</code></td></tr>
+<tr><td><code>estado_civil_nao_informado</code></td><td>decimal</td><td>Estado civil: não informado</td><td><code>0.0</code></td></tr>
+<tr><td><code>estado_civil_separado_judicialmente</code></td><td>decimal</td><td>Estado civil: separado judicialmente</td><td><code>2244.0</code></td></tr>
+<tr><td><code>estado_civil_solteiro</code></td><td>decimal</td><td>Estado civil: solteiro</td><td><code>435057.0</code></td></tr>
+<tr><td><code>estado_civil_viuvo</code></td><td>decimal</td><td>Estado civil: viúvo</td><td><code>12373.0</code></td></tr>
+<tr><td><code>faixa_100_anos_ou_mais</code></td><td>decimal</td><td>Eleitores de 100 anos ou mais</td><td><code>225.0</code></td></tr>
+<tr><td><code>faixa_16_anos</code></td><td>decimal</td><td>Eleitores de 16 anos</td><td><code>5374.0</code></td></tr>
+<tr><td><code>faixa_17_anos</code></td><td>decimal</td><td>Eleitores de 17 anos</td><td><code>8690.0</code></td></tr>
+<tr><td><code>faixa_18_anos</code></td><td>decimal</td><td>Eleitores de 18 anos</td><td><code>12179.0</code></td></tr>
+<tr><td><code>faixa_19_anos</code></td><td>decimal</td><td>Eleitores de 19 anos</td><td><code>13500.0</code></td></tr>
+<tr><td><code>faixa_20_anos</code></td><td>decimal</td><td>Eleitores de 20 anos</td><td><code>14159.0</code></td></tr>
+<tr><td><code>faixa_21_a_24_anos</code></td><td>decimal</td><td>Eleitores de 21 a 24 anos</td><td><code>58650.0</code></td></tr>
+<tr><td><code>faixa_25_a_29_anos</code></td><td>decimal</td><td>Eleitores de 25 a 29 anos</td><td><code>73320.0</code></td></tr>
+<tr><td><code>faixa_30_a_34_anos</code></td><td>decimal</td><td>Eleitores de 30 a 34 anos</td><td><code>66535.0</code></td></tr>
+<tr><td><code>faixa_35_a_39_anos</code></td><td>decimal</td><td>Eleitores de 35 a 39 anos</td><td><code>61286.0</code></td></tr>
+<tr><td><code>faixa_40_a_44_anos</code></td><td>decimal</td><td>Eleitores de 40 a 44 anos</td><td><code>61740.0</code></td></tr>
+<tr><td><code>faixa_45_a_49_anos</code></td><td>decimal</td><td>Eleitores de 45 a 49 anos</td><td><code>57218.0</code></td></tr>
+<tr><td><code>faixa_50_a_54_anos</code></td><td>decimal</td><td>Eleitores de 50 a 54 anos</td><td><code>45954.0</code></td></tr>
+<tr><td><code>faixa_55_a_59_anos</code></td><td>decimal</td><td>Eleitores de 55 a 59 anos</td><td><code>37963.0</code></td></tr>
+<tr><td><code>faixa_60_a_64_anos</code></td><td>decimal</td><td>Eleitores de 60 a 64 anos</td><td><code>30709.0</code></td></tr>
+<tr><td><code>faixa_65_a_69_anos</code></td><td>decimal</td><td>Eleitores de 65 a 69 anos</td><td><code>23435.0</code></td></tr>
+<tr><td><code>faixa_70_a_74_anos</code></td><td>decimal</td><td>Eleitores de 70 a 74 anos</td><td><code>17979.0</code></td></tr>
+<tr><td><code>faixa_75_a_79_anos</code></td><td>decimal</td><td>Eleitores de 75 a 79 anos</td><td><code>12007.0</code></td></tr>
+<tr><td><code>faixa_80_a_84_anos</code></td><td>decimal</td><td>Eleitores de 80 a 84 anos</td><td><code>7142.0</code></td></tr>
+<tr><td><code>faixa_85_a_89_anos</code></td><td>decimal</td><td>Eleitores de 85 a 89 anos</td><td><code>3962.0</code></td></tr>
+<tr><td><code>faixa_90_a_94_anos</code></td><td>decimal</td><td>Eleitores de 90 a 94 anos</td><td><code>1660.0</code></td></tr>
+<tr><td><code>faixa_95_a_99_anos</code></td><td>decimal</td><td>Eleitores de 95 a 99 anos</td><td><code>680.0</code></td></tr>
+<tr><td><code>faixa_invalida</code></td><td>decimal</td><td>Eleitores de inválida</td><td><code>8.0</code></td></tr>
+<tr><td><code>genero_feminino</code></td><td>decimal</td><td>Gênero: feminino</td><td><code>317234.0</code></td></tr>
+<tr><td><code>genero_masculino</code></td><td>decimal</td><td>Gênero: masculino</td><td><code>297141.0</code></td></tr>
+<tr><td><code>genero_nao_informado</code></td><td>decimal</td><td>Gênero: não informado</td><td><code>0.0</code></td></tr>
+<tr><td><code>margem_1o_2o_pts</code></td><td>decimal</td><td>Diferença entre 1º e 2º colocado, em pontos do comparecimento</td><td><code>34.72</code></td></tr>
+<tr><td><code>n_municipios</code></td><td>inteiro</td><td>Quantos municípios entram no agregado</td><td><code>22</code></td></tr>
+<tr><td><code>nulos</code></td><td>decimal</td><td>Votos nulos</td><td><code>13662.0</code></td></tr>
+<tr><td><code>pct_abstencao</code></td><td>decimal</td><td>Abstenção calculada sobre os eleitores aptos (%)</td><td><code>20.43</code></td></tr>
+<tr><td><code>perfil_total</code></td><td>decimal</td><td>Eleitorado no perfil do TSE 2026 (confere com eleitores_aptos)</td><td><code>614375.0</code></td></tr>
+<tr><td><code>raca_amarela</code></td><td>decimal</td><td>Corindex.htmlraça: amarela</td><td><code>988.0</code></td></tr>
+<tr><td><code>raca_branca</code></td><td>decimal</td><td>Corindex.htmlraça: branca</td><td><code>25718.0</code></td></tr>
+<tr><td><code>raca_indigena</code></td><td>decimal</td><td>Corindex.htmlraça: indígena</td><td><code>7685.0</code></td></tr>
+<tr><td><code>raca_nao_informado</code></td><td>decimal</td><td>Corindex.htmlraça: não informado</td><td><code>437423.0</code></td></tr>
+<tr><td><code>raca_parda</code></td><td>decimal</td><td>Corindex.htmlraça: parda</td><td><code>127894.0</code></td></tr>
+<tr><td><code>raca_preta</code></td><td>decimal</td><td>Corindex.htmlraça: preta</td><td><code>14667.0</code></td></tr>
+<tr><td><code>secoes_total</code></td><td>decimal</td><td>Número de seções eleitorais</td><td><code>2270.0</code></td></tr>
+<tr><td><code>secoes_totalizadas</code></td><td>decimal</td><td>Seções com resultado totalizado</td><td><code>2270.0</code></td></tr>
+<tr><td><code>taxa_abstencao</code></td><td>decimal</td><td>Taxa de abstenção informada pelo TSE (%)</td><td><code>20.43</code></td></tr>
+<tr><td><code>taxa_comparecimento</code></td><td>decimal</td><td>Taxa de comparecimento informada pelo TSE (%)</td><td><code>79.57</code></td></tr>
+<tr><td><code>uf</code></td><td>texto</td><td>Sigla do estado</td><td><code>AC</code></td></tr>
+<tr><td><code>votos_validos</code></td><td>decimal</td><td>Votos válidos no 1º turno</td><td><code>469066.0</code></td></tr>
+</table>
+<h2><a href="base_regiao_2026.csv">base_regiao_2026.csv</a></h2>
+<p><b>Grão:</b> Uma linha por <b>região</b> (6: Norte, Nordeste, Centro-Oeste, Sudeste, Sul, Exterior).</p>
+<p><b>Fonte:</b> Somatório da base por município.</p>
+<table><caption><a href="base_regiao_2026.csv">base_regiao_2026.csv</a></caption>
+<tr><th scope="col">Coluna</th><th scope="col">Tipo</th><th scope="col">Descrição</th><th scope="col">Exemplo</th></tr>
+<tr><td><code>abstencoes</code></td><td>decimal</td><td>Quantos faltaram</td><td><code>2546182.0</code></td></tr>
+<tr><td><code>brancos</code></td><td>decimal</td><td>Votos em branco</td><td><code>109407.0</code></td></tr>
+<tr><td><code>c10_pct</code></td><td>decimal</td><td>Percentual do 10º colocado mais votado no município (Presidência)</td><td><code>2.58</code></td></tr>
+<tr><td><code>c10_votos</code></td><td>decimal</td><td>Votos do 10º colocado mais votado no município (Presidência)</td><td><code>1225.0</code></td></tr>
+<tr><td><code>c11_pct</code></td><td>decimal</td><td>Percentual do 11º colocado mais votado no município (Presidência)</td><td><code>1.49</code></td></tr>
+<tr><td><code>c11_votos</code></td><td>decimal</td><td>Votos do 11º colocado mais votado no município (Presidência)</td><td><code>858.0</code></td></tr>
+<tr><td><code>c12_pct</code></td><td>decimal</td><td>Percentual do 12º colocado mais votado no município (Presidência)</td><td><code>0.8</code></td></tr>
+<tr><td><code>c12_votos</code></td><td>decimal</td><td>Votos do 12º colocado mais votado no município (Presidência)</td><td><code>534.0</code></td></tr>
+<tr><td><code>c1_pct</code></td><td>decimal</td><td>Percentual do 1º colocado</td><td><code>27398.14</code></td></tr>
+<tr><td><code>c1_votos</code></td><td>decimal</td><td>Votos do 1º colocado mais votado no município (Presidência)</td><td><code>6031796.0</code></td></tr>
+<tr><td><code>c2_pct</code></td><td>decimal</td><td>Percentual do 2º colocado</td><td><code>15418.33</code></td></tr>
+<tr><td><code>c2_votos</code></td><td>decimal</td><td>Votos do 2º colocado mais votado no município (Presidência)</td><td><code>3528243.0</code></td></tr>
+<tr><td><code>c3_pct</code></td><td>decimal</td><td>Percentual do 3º colocado mais votado no município (Presidência)</td><td><code>1051.94</code></td></tr>
+<tr><td><code>c3_votos</code></td><td>decimal</td><td>Votos do 3º colocado mais votado no município (Presidência)</td><td><code>294377.0</code></td></tr>
+<tr><td><code>c4_pct</code></td><td>decimal</td><td>Percentual do 4º colocado mais votado no município (Presidência)</td><td><code>659.87</code></td></tr>
+<tr><td><code>c4_votos</code></td><td>decimal</td><td>Votos do 4º colocado mais votado no município (Presidência)</td><td><code>186916.0</code></td></tr>
+<tr><td><code>c5_pct</code></td><td>decimal</td><td>Percentual do 5º colocado mais votado no município (Presidência)</td><td><code>411.7</code></td></tr>
+<tr><td><code>c5_votos</code></td><td>decimal</td><td>Votos do 5º colocado mais votado no município (Presidência)</td><td><code>125930.0</code></td></tr>
+<tr><td><code>c6_pct</code></td><td>decimal</td><td>Percentual do 6º colocado mais votado no município (Presidência)</td><td><code>27.71</code></td></tr>
+<tr><td><code>c6_votos</code></td><td>decimal</td><td>Votos do 6º colocado mais votado no município (Presidência)</td><td><code>9599.0</code></td></tr>
+<tr><td><code>c7_pct</code></td><td>decimal</td><td>Percentual do 7º colocado mais votado no município (Presidência)</td><td><code>15.44</code></td></tr>
+<tr><td><code>c7_votos</code></td><td>decimal</td><td>Votos do 7º colocado mais votado no município (Presidência)</td><td><code>6797.0</code></td></tr>
+<tr><td><code>c8_pct</code></td><td>decimal</td><td>Percentual do 8º colocado mais votado no município (Presidência)</td><td><code>8.3</code></td></tr>
+<tr><td><code>c8_votos</code></td><td>decimal</td><td>Votos do 8º colocado mais votado no município (Presidência)</td><td><code>3422.0</code></td></tr>
+<tr><td><code>c9_pct</code></td><td>decimal</td><td>Percentual do 9º colocado mais votado no município (Presidência)</td><td><code>4.85</code></td></tr>
+<tr><td><code>c9_votos</code></td><td>decimal</td><td>Votos do 9º colocado mais votado no município (Presidência)</td><td><code>2213.0</code></td></tr>
+<tr><td><code>comparecimento</code></td><td>decimal</td><td>Quantos compareceram</td><td><code>10554993.0</code></td></tr>
+<tr><td><code>eleitores_aptos</code></td><td>decimal</td><td>Eleitorado apto no município</td><td><code>13101175.0</code></td></tr>
+<tr><td><code>escolaridade_analfabeto</code></td><td>decimal</td><td>Escolaridade: analfabeto</td><td><code>553096.0</code></td></tr>
+<tr><td><code>escolaridade_ensino_fundamental_completo</code></td><td>decimal</td><td>Escolaridade: ensino fundamental completo</td><td><code>665474.0</code></td></tr>
+<tr><td><code>escolaridade_ensino_fundamental_incompleto</code></td><td>decimal</td><td>Escolaridade: ensino fundamental incompleto</td><td><code>2914882.0</code></td></tr>
+<tr><td><code>escolaridade_ensino_medio_completo</code></td><td>decimal</td><td>Escolaridade: ensino medio completo</td><td><code>3645179.0</code></td></tr>
+<tr><td><code>escolaridade_ensino_medio_incompleto</code></td><td>decimal</td><td>Escolaridade: ensino medio incompleto</td><td><code>2576433.0</code></td></tr>
+<tr><td><code>escolaridade_le_e_escreve</code></td><td>decimal</td><td>Escolaridade: lê e escreve</td><td><code>921904.0</code></td></tr>
+<tr><td><code>escolaridade_nao_informado</code></td><td>decimal</td><td>Escolaridade: não informado</td><td><code>15.0</code></td></tr>
+<tr><td><code>escolaridade_superior_completo</code></td><td>decimal</td><td>Escolaridade: superior completo</td><td><code>1129808.0</code></td></tr>
+<tr><td><code>escolaridade_superior_incompleto</code></td><td>decimal</td><td>Escolaridade: superior incompleto</td><td><code>702563.0</code></td></tr>
+<tr><td><code>estado_civil_casado</code></td><td>decimal</td><td>Estado civil: casado</td><td><code>3055695.0</code></td></tr>
+<tr><td><code>estado_civil_divorciado</code></td><td>decimal</td><td>Estado civil: divorciado</td><td><code>374003.0</code></td></tr>
+<tr><td><code>estado_civil_nao_informado</code></td><td>decimal</td><td>Estado civil: não informado</td><td><code>27.0</code></td></tr>
+<tr><td><code>estado_civil_separado_judicialmente</code></td><td>decimal</td><td>Estado civil: separado judicialmente</td><td><code>60470.0</code></td></tr>
+<tr><td><code>estado_civil_solteiro</code></td><td>decimal</td><td>Estado civil: solteiro</td><td><code>9366527.0</code></td></tr>
+<tr><td><code>estado_civil_viuvo</code></td><td>decimal</td><td>Estado civil: viúvo</td><td><code>252632.0</code></td></tr>
+<tr><td><code>faixa_100_anos_ou_mais</code></td><td>decimal</td><td>Eleitores de 100 anos ou mais</td><td><code>4302.0</code></td></tr>
+<tr><td><code>faixa_16_anos</code></td><td>decimal</td><td>Eleitores de 16 anos</td><td><code>93217.0</code></td></tr>
+<tr><td><code>faixa_17_anos</code></td><td>decimal</td><td>Eleitores de 17 anos</td><td><code>152919.0</code></td></tr>
+<tr><td><code>faixa_18_anos</code></td><td>decimal</td><td>Eleitores de 18 anos</td><td><code>231934.0</code></td></tr>
+<tr><td><code>faixa_19_anos</code></td><td>decimal</td><td>Eleitores de 19 anos</td><td><code>261728.0</code></td></tr>
+<tr><td><code>faixa_20_anos</code></td><td>decimal</td><td>Eleitores de 20 anos</td><td><code>281175.0</code></td></tr>
+<tr><td><code>faixa_21_a_24_anos</code></td><td>decimal</td><td>Eleitores de 21 a 24 anos</td><td><code>1160344.0</code></td></tr>
+<tr><td><code>faixa_25_a_29_anos</code></td><td>decimal</td><td>Eleitores de 25 a 29 anos</td><td><code>1476661.0</code></td></tr>
+<tr><td><code>faixa_30_a_34_anos</code></td><td>decimal</td><td>Eleitores de 30 a 34 anos</td><td><code>1424804.0</code></td></tr>
+<tr><td><code>faixa_35_a_39_anos</code></td><td>decimal</td><td>Eleitores de 35 a 39 anos</td><td><code>1331324.0</code></td></tr>
+<tr><td><code>faixa_40_a_44_anos</code></td><td>decimal</td><td>Eleitores de 40 a 44 anos</td><td><code>1350842.0</code></td></tr>
+<tr><td><code>faixa_45_a_49_anos</code></td><td>decimal</td><td>Eleitores de 45 a 49 anos</td><td><code>1229158.0</code></td></tr>
+<tr><td><code>faixa_50_a_54_anos</code></td><td>decimal</td><td>Eleitores de 50 a 54 anos</td><td><code>1020869.0</code></td></tr>
+<tr><td><code>faixa_55_a_59_anos</code></td><td>decimal</td><td>Eleitores de 55 a 59 anos</td><td><code>854681.0</code></td></tr>
+<tr><td><code>faixa_60_a_64_anos</code></td><td>decimal</td><td>Eleitores de 60 a 64 anos</td><td><code>714619.0</code></td></tr>
+<tr><td><code>faixa_65_a_69_anos</code></td><td>decimal</td><td>Eleitores de 65 a 69 anos</td><td><code>552612.0</code></td></tr>
+<tr><td><code>faixa_70_a_74_anos</code></td><td>decimal</td><td>Eleitores de 70 a 74 anos</td><td><code>413846.0</code></td></tr>
+<tr><td><code>faixa_75_a_79_anos</code></td><td>decimal</td><td>Eleitores de 75 a 79 anos</td><td><code>271184.0</code></td></tr>
+<tr><td><code>faixa_80_a_84_anos</code></td><td>decimal</td><td>Eleitores de 80 a 84 anos</td><td><code>158190.0</code></td></tr>
+<tr><td><code>faixa_85_a_89_anos</code></td><td>decimal</td><td>Eleitores de 85 a 89 anos</td><td><code>81111.0</code></td></tr>
+<tr><td><code>faixa_90_a_94_anos</code></td><td>decimal</td><td>Eleitores de 90 a 94 anos</td><td><code>32972.0</code></td></tr>
+<tr><td><code>faixa_95_a_99_anos</code></td><td>decimal</td><td>Eleitores de 95 a 99 anos</td><td><code>10754.0</code></td></tr>
+<tr><td><code>faixa_invalida</code></td><td>decimal</td><td>Eleitores de inválida</td><td><code>108.0</code></td></tr>
+<tr><td><code>genero_feminino</code></td><td>decimal</td><td>Gênero: feminino</td><td><code>6694588.0</code></td></tr>
+<tr><td><code>genero_masculino</code></td><td>decimal</td><td>Gênero: masculino</td><td><code>6414759.0</code></td></tr>
+<tr><td><code>genero_nao_informado</code></td><td>decimal</td><td>Gênero: não informado</td><td><code>7.0</code></td></tr>
+<tr><td><code>margem_1o_2o_pts</code></td><td>decimal</td><td>Diferença entre 1º e 2º colocado, em pontos do comparecimento</td><td><code>23.72</code></td></tr>
+<tr><td><code>n_municipios</code></td><td>inteiro</td><td>Quantos municípios entram no agregado</td><td><code>450</code></td></tr>
+<tr><td><code>nulos</code></td><td>decimal</td><td>Votos nulos</td><td><code>253263.0</code></td></tr>
+<tr><td><code>pct_abstencao</code></td><td>decimal</td><td>Abstenção calculada sobre os eleitores aptos (%)</td><td><code>19.43</code></td></tr>
+<tr><td><code>perfil_total</code></td><td>decimal</td><td>Eleitorado no perfil do TSE 2026 (confere com eleitores_aptos)</td><td><code>13109354.0</code></td></tr>
+<tr><td><code>raca_amarela</code></td><td>decimal</td><td>Corindex.htmlraça: amarela</td><td><code>19604.0</code></td></tr>
+<tr><td><code>raca_branca</code></td><td>decimal</td><td>Corindex.htmlraça: branca</td><td><code>555406.0</code></td></tr>
+<tr><td><code>raca_indigena</code></td><td>decimal</td><td>Corindex.htmlraça: indígena</td><td><code>136978.0</code></td></tr>
+<tr><td><code>raca_nao_informado</code></td><td>decimal</td><td>Corindex.htmlraça: não informado</td><td><code>9150542.0</code></td></tr>
+<tr><td><code>raca_parda</code></td><td>decimal</td><td>Corindex.htmlraça: parda</td><td><code>2907788.0</code></td></tr>
+<tr><td><code>raca_preta</code></td><td>decimal</td><td>Corindex.htmlraça: preta</td><td><code>339036.0</code></td></tr>
+<tr><td><code>regiao</code></td><td>texto</td><td>Região do país</td><td><code>Norte</code></td></tr>
+<tr><td><code>secoes_total</code></td><td>decimal</td><td>Número de seções eleitorais</td><td><code>43769.0</code></td></tr>
+<tr><td><code>secoes_totalizadas</code></td><td>decimal</td><td>Seções com resultado totalizado</td><td><code>43769.0</code></td></tr>
+<tr><td><code>taxa_abstencao</code></td><td>decimal</td><td>Taxa de abstenção informada pelo TSE (%)</td><td><code>19.43</code></td></tr>
+<tr><td><code>taxa_comparecimento</code></td><td>decimal</td><td>Taxa de comparecimento informada pelo TSE (%)</td><td><code>80.57</code></td></tr>
+<tr><td><code>votos_validos</code></td><td>decimal</td><td>Votos válidos no 1º turno</td><td><code>10191910.0</code></td></tr>
+</table>
+<h2><a href="base_abst_perfil_2022.csv">base_abst_perfil_2022.csv</a></h2>
+<p><b>Grão:</b> Uma linha por <b>município × dimensão × grupo</b> (216.507). Formato longo: pivote pela coluna <code>dimensao</code>.</p>
+<p><b>Fonte:</b> TSE — Perfil de Comparecimento e Abstenção 2022, <b>1º turno</b>. É a base mais recente de abstenção aberta por demografia que o TSE publica.</p>
+<table><caption><a href="base_abst_perfil_2022.csv">base_abst_perfil_2022.csv</a></caption>
+<tr><th scope="col">Coluna</th><th scope="col">Tipo</th><th scope="col">Descrição</th><th scope="col">Exemplo</th></tr>
+<tr><td><code>uf</code></td><td>texto</td><td>Sigla do estado</td><td><code>AC</code></td></tr>
+<tr><td><code>cod_municipio</code></td><td>inteiro</td><td>Código do município no TSE</td><td><code>01007</code></td></tr>
+<tr><td><code>municipio</code></td><td>texto</td><td>Nome do município</td><td><code>BUJARI</code></td></tr>
+<tr><td><code>dimensao</code></td><td>texto</td><td>Dimensão demográfica: faixa_etaria, escolaridade, genero, estado_civil ou cor_raca</td><td><code>faixa_etaria</code></td></tr>
+<tr><td><code>grupo</code></td><td>texto</td><td>Valor dentro da dimensão (ex.: “21 a 24 anos”)</td><td><code>16 anos</code></td></tr>
+<tr><td><code>aptos</code></td><td>inteiro</td><td>Eleitores aptos no grupo (inclui quem tem voto facultativo)</td><td><code>69</code></td></tr>
+<tr><td><code>abstencoes</code></td><td>inteiro</td><td>Quantos faltaram</td><td><code>11</code></td></tr>
+<tr><td><code>taxa_abst</code></td><td>decimal</td><td>Abstenção no grupo sobre todos os aptos (%) — <b>mistura voto facultativo; prefira taxa_obrig</b></td><td><code>15.94</code></td></tr>
+<tr><td><code>aptos_obrig</code></td><td>inteiro</td><td>Aptos no grupo considerando <b>só o voto obrigatório</b></td><td><code>0</code></td></tr>
+<tr><td><code>abst_obrig</code></td><td>inteiro</td><td>Abstenções no grupo no voto obrigatório</td><td><code>0</code></td></tr>
+<tr><td><code>taxa_obrig</code></td><td>decimal</td><td>Abstenção no grupo no <b>voto obrigatório (%)</b> — este é o número correto</td><td><code>0.0</code></td></tr>
+</table>
+<h2><a href="base_mudanca.csv">base_mudanca.csv</a></h2>
+<p><b>Grão:</b> Uma linha por <b>município</b> (5.569) com disputa calculável no 1º turno.</p>
+<p><b>Fonte:</b> TSE — resultados 2026, 1º turno, Presidência.</p>
+<table><caption><a href="base_mudanca.csv">base_mudanca.csv</a></caption>
+<tr><th scope="col">Coluna</th><th scope="col">Tipo</th><th scope="col">Descrição</th><th scope="col">Exemplo</th></tr>
+<tr><td><code>uf</code></td><td>texto</td><td>Sigla do estado</td><td><code>ac</code></td></tr>
+<tr><td><code>nome</code></td><td>texto</td><td>Nome do município</td><td><code>ACRELÂNDIA</code></td></tr>
+<tr><td><code>ufnome</code></td><td>texto</td><td>Nome do estado</td><td><code>Acre</code></td></tr>
+<tr><td><code>regiao</code></td><td>texto</td><td>Região do país</td><td><code>Norte</code></td></tr>
+<tr><td><code>lat</code></td><td>decimal</td><td>lat</td><td><code>-10.00163</code></td></tr>
+<tr><td><code>lon</code></td><td>decimal</td><td>lon</td><td><code>-67.02437</code></td></tr>
+<tr><td><code>eleitores</code></td><td>inteiro</td><td>Eleitores aptos</td><td><code>10207</code></td></tr>
+<tr><td><code>abst_taxa</code></td><td>decimal</td><td>Taxa de abstenção (%)</td><td><code>21.08</code></td></tr>
+<tr><td><code>brancos_nulos</code></td><td>inteiro</td><td>Brancos mais nulos</td><td><code>208</code></td></tr>
+<tr><td><code>secoes</code></td><td>inteiro</td><td>Seções eleitorais</td><td><code>45</code></td></tr>
+<tr><td><code>c1</code></td><td>texto</td><td>Nome do 1º colocado</td><td><code>FLAVIO BOLSONARO</code></td></tr>
+<tr><td><code>c1p</code></td><td>texto</td><td>Partido do 1º colocado</td><td><code>PL</code></td></tr>
+<tr><td><code>c1v</code></td><td>inteiro</td><td>Votos do 1º colocado</td><td><code>5940</code></td></tr>
+<tr><td><code>c1pct</code></td><td>decimal</td><td>Percentual do 1º colocado</td><td><code>76,24</code></td></tr>
+<tr><td><code>c2</code></td><td>texto</td><td>Nome do 2º colocado</td><td><code>LULA</code></td></tr>
+<tr><td><code>c2p</code></td><td>texto</td><td>Partido do 2º colocado</td><td><code>PT</code></td></tr>
+<tr><td><code>c2v</code></td><td>inteiro</td><td>Votos do 2º colocado</td><td><code>1508</code></td></tr>
+<tr><td><code>c2pct</code></td><td>decimal</td><td>Percentual do 2º colocado</td><td><code>19,36</code></td></tr>
+<tr><td><code>margem</code></td><td>decimal</td><td>Margem entre 1º e 2º colocado, em pontos</td><td><code>55.02</code></td></tr>
+<tr><td><code>votos_em_jogo</code></td><td>inteiro</td><td>Votos do 2º colocado — estoque mínimo a virar para inverter</td><td><code>1508</code></td></tr>
+<tr><td><code>p21</code></td><td>decimal</td><td>Percentual de 21 a 34 anos</td><td><code>29.9</code></td></tr>
+<tr><td><code>pesc</code></td><td>decimal</td><td>Percentual com escolaridade baixa</td><td><code>52.3</code></td></tr>
+<tr><td><code>pmas</code></td><td>decimal</td><td>Percentual de homens</td><td><code>50.1</code></td></tr>
+</table>
+<h2><a href="base_nacional.csv">base_nacional.csv</a></h2>
+<p><b>Grão:</b> Uma linha por <b>município</b> (5.569) com perfil e coordenada.</p>
+<p><b>Fonte:</b> TSE — abstenção 2026 e perfil do eleitorado 2026.</p>
+<table><caption><a href="base_nacional.csv">base_nacional.csv</a></caption>
+<tr><th scope="col">Coluna</th><th scope="col">Tipo</th><th scope="col">Descrição</th><th scope="col">Exemplo</th></tr>
+<tr><td><code>uf</code></td><td>texto</td><td>Sigla do estado</td><td><code>ac</code></td></tr>
+<tr><td><code>mu</code></td><td>inteiro</td><td>mu</td><td><code>01120</code></td></tr>
+<tr><td><code>nome</code></td><td>texto</td><td>Nome do município</td><td><code>ACRELÂNDIA</code></td></tr>
+<tr><td><code>ufnome</code></td><td>texto</td><td>Nome do estado</td><td><code>Acre</code></td></tr>
+<tr><td><code>regiao</code></td><td>texto</td><td>Região do país</td><td><code>Norte</code></td></tr>
+<tr><td><code>lat</code></td><td>decimal</td><td>lat</td><td><code>-10.00163</code></td></tr>
+<tr><td><code>lon</code></td><td>decimal</td><td>lon</td><td><code>-67.02437</code></td></tr>
+<tr><td><code>eleitores</code></td><td>inteiro</td><td>Eleitores aptos</td><td><code>10207</code></td></tr>
+<tr><td><code>abstencao</code></td><td>inteiro</td><td>abstencao</td><td><code>2152</code></td></tr>
+<tr><td><code>taxa_abst</code></td><td>decimal</td><td>Abstenção no grupo sobre todos os aptos (%) — <b>mistura voto facultativo; prefira taxa_obrig</b></td><td><code>21.08</code></td></tr>
+<tr><td><code>secoes</code></td><td>inteiro</td><td>Seções eleitorais</td><td><code>45</code></td></tr>
+<tr><td><code>pct_21_34</code></td><td>decimal</td><td>pct 21 34</td><td><code>29.9</code></td></tr>
+<tr><td><code>pct_escol_baixa</code></td><td>decimal</td><td>pct escol baixa</td><td><code>52.3</code></td></tr>
+<tr><td><code>pct_masculino</code></td><td>decimal</td><td>pct masculino</td><td><code>50.1</code></td></tr>
+<tr><td><code>densidade_alvo</code></td><td>decimal</td><td>Densidade do público-alvo (média geométrica de p21, pesc e pmas)</td><td><code>0.428</code></td></tr>
+<tr><td><code>votos_recuperaveis</code></td><td>decimal</td><td>Estimativa da [métrica NÃO validada nacionalmente]: eleitores × abstenção × densidade do alvo</td><td><code>921.0</code></td></tr>
+</table>
+<h2><a href="base_rio.csv">base_rio.csv</a></h2>
+<p><b>Grão:</b> Uma linha por <b>seção eleitoral</b> do município do Rio (12.809).</p>
+<p><b>Fonte:</b> TSE — perfil do eleitorado 2026 e locais de votação 2026.</p>
+<table><caption><a href="base_rio.csv">base_rio.csv</a></caption>
+<tr><th scope="col">Coluna</th><th scope="col">Tipo</th><th scope="col">Descrição</th><th scope="col">Exemplo</th></tr>
+<tr><td><code>zona</code></td><td>inteiro</td><td>zona</td><td><code>10</code></td></tr>
+<tr><td><code>secao</code></td><td>inteiro</td><td>secao</td><td><code>329</code></td></tr>
+<tr><td><code>bairro</code></td><td>texto</td><td>bairro</td><td><code>Oswaldo Cruz</code></td></tr>
+<tr><td><code>local</code></td><td>texto</td><td>local</td><td><code>ESCOLA MUNICIPAL WALDEMAR FALCÃO</code></td></tr>
+<tr><td><code>endereco</code></td><td>texto</td><td>endereco</td><td><code>PRACA JAGUARÉ,  53</code></td></tr>
+<tr><td><code>cep</code></td><td>inteiro</td><td>cep</td><td><code>21340420</code></td></tr>
+<tr><td><code>lat</code></td><td>decimal</td><td>lat</td><td><code>-22.8758206</code></td></tr>
+<tr><td><code>lon</code></td><td>decimal</td><td>lon</td><td><code>-43.3551757</code></td></tr>
+<tr><td><code>eleitores_2026</code></td><td>inteiro</td><td>eleitores 2026</td><td><code>385</code></td></tr>
+<tr><td><code>aptos_2024</code></td><td>inteiro</td><td>aptos 2024</td><td><code>401</code></td></tr>
+<tr><td><code>abstencoes_2024</code></td><td>inteiro</td><td>abstencoes 2024</td><td><code>132</code></td></tr>
+<tr><td><code>taxa_abst_2024</code></td><td>decimal</td><td>taxa abst 2024</td><td><code>32.9</code></td></tr>
+<tr><td><code>pct_21_34</code></td><td>decimal</td><td>pct 21 34</td><td><code>20.5</code></td></tr>
+<tr><td><code>pct_escol_baixa</code></td><td>decimal</td><td>pct escol baixa</td><td><code>32.7</code></td></tr>
+<tr><td><code>pct_masculino</code></td><td>decimal</td><td>pct masculino</td><td><code>39.2</code></td></tr>
+<tr><td><code>tem_abstencao_2024</code></td><td>texto</td><td>tem abstencao 2024</td><td><code>sim</code></td></tr>
+<tr><td><code>votos_recuperaveis</code></td><td>decimal</td><td>Estimativa da [métrica NÃO validada nacionalmente]: eleitores × abstenção × densidade do alvo</td><td><code>39.3</code></td></tr>
+<tr><td><code>densidade_alvo</code></td><td>decimal</td><td>Densidade do público-alvo (média geométrica de p21, pesc e pmas)</td><td><code>0.298</code></td></tr>
+</table>
+<hr>
+<h2>Limitações que afetam a leitura</h2>
+<ol>
+<li><b>Perfil demográfico é de 2022.</b> É a base mais recente de abstenção aberta por demografia que o TSE publica. Para 2026 existe a abstenção geral por município (essa é de 2026), mas não aberta por idade, escolaridade ou gênero.</li>
+</ol>
+<ol>
+<li><b>Composição demográfica não prediz voto nem abstenção.</b> Testado em escala nacional, a correlação entre densidade dos perfis e abstenção é praticamente nula (−0,10). O perfil serve para saber <b>com quem falar e onde esse perfil está</b>, não como previsão.</li>
+</ol>
+<ol>
+<li><b>Abstenção não é voto recuperável.</b> Parte de quem falta não vota nem com mobilização. Qualquer número derivado é teto teórico, nunca previsão.</li>
+</ol>
+<ol>
+<li><b><code>votos_recuperaveis</code> não está validado em escala nacional</b> — está na base por transparência, não como recomendação.</li>
+</ol>
+<ol>
+<li><b>Corindex.htmlraça é inutilizável</b>: predomina “não informado”.</li>
+</ol>
+<ol>
+<li><b>Cobertura:</b> 5.569 dos 5.757 municípios têm perfil e coordenada; os 188 restantes são quase todos do exterior.</li>
+</ol>
+<ol>
+<li><b>Seções criadas após a eleição anterior não têm abstenção medida</b> — no Rio são 591 seções e 177.279 eleitores (3,6%).</li>
+</ol>
+<ol>
+<li><b><code>taxa_abst</code> mistura voto facultativo</b> (16–17 anos, 70 ou mais, analfabeto). Para comparação entre grupos, use <b><code>taxa_obrig</code></b>.</li>
+</ol>
+<hr>
+<h2>Origem técnica</h2>
+<p>Os dados de abstenção e votos vêm do portal oficial de resultados do TSE, cujos endereços por UF, município e zona foram identificados a partir do próprio aplicativo do TSE. O boletim de urna por seção existe, mas é binário (ASN.1) e exige decodificação — não foi usado aqui.</p></div></main>
+<style>.pular:focus{top:0}</style></body></html>
