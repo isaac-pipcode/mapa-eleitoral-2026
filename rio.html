@@ -114,7 +114,7 @@ function fundoVetorial(arq,corBorda,corFundo){
   var fs=Object.keys(M).map(function(k){
    return {type:'Feature',properties:{n:k},
     geometry:{type:'MultiPolygon',coordinates:M[k].map(function(poly){
-     return [poly.map(function(a){return a.map(function(p){return [p[1],p[0]];});})];})}};});
+     return poly.map(function(a){return a.map(function(p){return [p[1],p[0]];});});})}};});
   L.geoJSON({type:'FeatureCollection',features:fs},
    {style:{color:corBorda,weight:0.9,fillColor:corFundo,fillOpacity:1,interactive:false}})
    .addTo(map);
