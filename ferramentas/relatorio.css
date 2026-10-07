@@ -7,7 +7,7 @@
 @font-face{font-family:"Source Serif 4";font-weight:600;src:url(../fontes/source-serif-4-latin-600-normal.woff2) format("woff2")}
 @font-face{font-family:"Source Serif 4";font-weight:700;src:url(../fontes/source-serif-4-latin-700-normal.woff2) format("woff2")}
 
-:root{--teal:#0b7fab;--teal-esc:#075a7a;--tinta:#1a1d21;--tinta2:#3f454d;--mudo:#6b7280;--papel:#f3f3f1;--linha:#d9dde2}
+:root{--teal:#b8282e;--teal-esc:#7d161b;--tinta:#1a1d21;--tinta2:#3f454d;--mudo:#6b7280;--papel:#f3f3f1;--linha:#d9dde2}
 @page{size:A4;margin:0}
 *{box-sizing:border-box}
 html{-webkit-print-color-adjust:exact;print-color-adjust:exact}

@@ -29,17 +29,17 @@ def mi(v, d=1): return nf(v / 1e6, d) + ' mi'
 def inteiro(v): return nf(v, 0)
 
 # ------------------------------------------------------------------ cores (papéis)
-TEAL = '#0b7fab'          # identidade do boletim e abstenção
-TEAL_ESC = '#075a7a'
+TEAL = '#b8282e'          # identidade do boletim e abstenção (vermelho)
+TEAL_ESC = '#7d161b'
 AMBAR = '#c98500'         # brancos
-CORAL = '#d64545'         # nulos
+CORAL = '#6a4fae'         # nulos (violeta: o vermelho é a identidade)
 NEUTRO = '#c9d2db'        # votos válidos / contexto
 TINTA, TINTA2, MUDO, GRADE = '#1a1d21', '#4a515a', '#6b7280', '#dfe3e8'
 # rampas sequenciais de um matiz (claro → escuro), uma por métrica
 RAMPA = {
-    'abst': ['#d6ecf5', '#9dd0e6', '#56acd0', '#1a86b4', '#075a7a'],
+    'abst': ['#fbe0de', '#f3aca7', '#e2716a', '#b8282e', '#7d161b'],
     'br': ['#f8ebc8', '#efd08a', '#e2b14a', '#c98500', '#8a5b00'],
-    'nu': ['#f8d9d6', '#efaaa4', '#e27770', '#c94848', '#8c2626'],
+    'nu': ['#e9e3f4', '#c6b8e4', '#9a84cf', '#6a4fae', '#43307a'],
 }
 
 REGIOES = ['Norte', 'Nordeste', 'Centro-Oeste', 'Sudeste', 'Sul']
@@ -268,7 +268,7 @@ def fig_idade(D):
         c += texto(ml - 5, y + 3, str(t), 8, MUDO, 'end')
     for i, d in enumerate(I):
         x = ml + i * bw; h = (base - top) * d['taxa'] / 100
-        cor = TEAL if not d['fac'] else '#8fc7dd'
+        cor = TEAL if not d['fac'] else '#f0aaa5'
         c += f'<rect x="{x + 1.5:.1f}" y="{base - h:.1f}" width="{bw - 3:.1f}" height="{h:.1f}" fill="{cor}"/>'
         if d['fac'] and d['taxa'] > 30:
             c += f'<rect x="{x + 1.5:.1f}" y="{base - h:.1f}" width="{bw - 3:.1f}" height="{h:.1f}" fill="url(#hach)"/>'
@@ -282,7 +282,7 @@ def fig_idade(D):
     for i, d in enumerate(I):
         x = ml + i * bw
         h = d['pa'] * esc_
-        c += f'<rect x="{x + 1.5:.1f}" y="{y0 + 52 - h:.1f}" width="{bw - 3:.1f}" height="{h:.1f}" fill="{TEAL_ESC if not d["fac"] else "#5aa9c8"}"/>'
+        c += f'<rect x="{x + 1.5:.1f}" y="{y0 + 52 - h:.1f}" width="{bw - 3:.1f}" height="{h:.1f}" fill="{TEAL_ESC if not d["fac"] else "#dd7a73"}"/>'
         ye = y0 + 52 - d['pe'] * esc_
         c += f'<line x1="{x + 1:.1f}" y1="{ye:.1f}" x2="{x + bw - 1:.1f}" y2="{ye:.1f}" stroke="{TINTA}" stroke-width="1.6"/>'
     c += f'<line x1="{ml}" y1="{y0 + 52}" x2="{W - mr}" y2="{y0 + 52}" stroke="{MUDO}" stroke-width="0.8"/>'
@@ -291,7 +291,7 @@ def fig_idade(D):
         c += f'<line x1="{ml}" y1="{yt:.1f}" x2="{W - mr}" y2="{yt:.1f}" stroke="{GRADE}" stroke-width="0.6"/>' + texto(ml - 5, yt + 3, str(t), 8, MUDO, 'end')
     # chave
     c += f'<rect x="{W - 190}" y="2" width="10" height="10" fill="{TEAL}"/>' + texto(W - 176, 11, 'voto obrigatório', 8.5)
-    c += f'<rect x="{W - 100}" y="2" width="10" height="10" fill="#8fc7dd"/><rect x="{W - 100}" y="2" width="10" height="10" fill="url(#hach)"/>' + texto(W - 86, 11, 'facultativo', 8.5)
+    c += f'<rect x="{W - 100}" y="2" width="10" height="10" fill="#f0aaa5"/><rect x="{W - 100}" y="2" width="10" height="10" fill="url(#hach)"/>' + texto(W - 86, 11, 'facultativo', 8.5)
     defs = f'<defs><pattern id="hach" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="5" stroke="{TEAL_ESC}" stroke-width="1.2" opacity=".5"/></pattern></defs>'
     return svg(W, H, defs + c, 'Taxa de abstenção por idade em 2022 e participação de cada idade no total de abstenções')
 
@@ -306,7 +306,7 @@ def fig_escolaridade(D):
         c += texto(lx - 5, y + 11, d['g'], 8.5, TINTA2, 'end')
         if d['obrig'] is None:
             v = d['bruto']; w = lw * min(v, 60) / 60 * 0.62
-            c += f'<rect x="{lx}" y="{y + 2}" width="{w:.1f}" height="12" fill="#8fc7dd"/><rect x="{lx}" y="{y + 2}" width="{w:.1f}" height="12" fill="url(#hach2)"/>'
+            c += f'<rect x="{lx}" y="{y + 2}" width="{w:.1f}" height="12" fill="#f0aaa5"/><rect x="{lx}" y="{y + 2}" width="{w:.1f}" height="12" fill="url(#hach2)"/>'
             c += texto(lx + w + 4, y + 12, f'{pct(v)} · facultativo', 8.5, TINTA, peso=600)
         else:
             w = lw * d['obrig'] / 60 * 1.9
@@ -561,7 +561,7 @@ def monta(D):
   <p class="lead-lado">O TSE não publica o perfil de quem anulou ou votou em branco. O que se pode observar é em que tipo de município esses votos se concentram.</p>
  </div>
  <div class="figs2">
-  <figure>{fig_quintis([('Brasil', qb, CORAL), ('Nordeste', qn, '#8c2626')], 'Nulos (% dos votantes)', ['Quintis de municípios pela % do eleitorado', 'com até o fundamental incompleto'], CORAL)}<figcaption><b>Fig. 8</b> Votos nulos segundo a escolaridade do eleitorado do município. Média ponderada pelo eleitorado em cada quintil.</figcaption></figure>
+  <figure>{fig_quintis([('Brasil', qb, CORAL), ('Nordeste', qn, '#43307a')], 'Nulos (% dos votantes)', ['Quintis de municípios pela % do eleitorado', 'com até o fundamental incompleto'], CORAL)}<figcaption><b>Fig. 8</b> Votos nulos segundo a escolaridade do eleitorado do município. Média ponderada pelo eleitorado em cada quintil.</figcaption></figure>
   <figure>{fig_quintis([('Brasil', Q['br_sup_BR'], AMBAR)], 'Brancos (% dos votantes)', ['Quintis de municípios pela % do eleitorado', 'com ensino superior (completo ou não)'], AMBAR)}<figcaption><b>Fig. 9</b> Votos brancos segundo a escolaridade do eleitorado do município. Média ponderada pelo eleitorado em cada quintil.</figcaption></figure>
  </div>
  <div class="col2">
