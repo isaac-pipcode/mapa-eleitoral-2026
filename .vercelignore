@@ -1,0 +1,4 @@
+# ferramentas de geração: rodam localmente, não no site
+ferramentas/
+*.py
+.nojekyll

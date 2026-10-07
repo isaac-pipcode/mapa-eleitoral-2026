@@ -8,8 +8,8 @@ Se a base mudar, basta rodar de novo — o dicionário não pode divergir do dad
 | Arquivo | Grão (uma linha por) | Linhas | Colunas |
 |---|---|---|---|
 | `base_brasil_2026.csv` | Uma linha por **município** (5.757). | 5.757 | 117 |
-| `base_uf_2026.csv` | Uma linha por **estado** (28, incluindo Distrito Federal e exterior). | 28 | 86 |
-| `base_regiao_2026.csv` | Uma linha por **região** (6: Norte, Nordeste, Centro-Oeste, Sudeste, Sul, Exterior). | 6 | 86 |
+| `base_uf_2026.csv` | Uma linha por **estado** (28, incluindo Distrito Federal e exterior). | 28 | 114 |
+| `base_regiao_2026.csv` | Uma linha por **região** (6: Norte, Nordeste, Centro-Oeste, Sudeste, Sul, Exterior). | 6 | 113 |
 | `base_abst_perfil_2022.csv` | Uma linha por **município × dimensão × grupo** (216.507). Formato longo: pivote pela coluna `dimensao`. | 216.507 | 11 |
 | `base_mudanca.csv` | Uma linha por **município** (5.569) com disputa calculável no 1º turno. | 5.569 | 23 |
 | `base_nacional.csv` | Uma linha por **município** (5.569) com perfil e coordenada. | 5.569 | 16 |
@@ -145,193 +145,248 @@ Se a base mudar, basta rodar de novo — o dicionário não pode divergir do dad
 
 ## `base_uf_2026.csv`
 
-**Grão:** Uma linha por **estado** (28, incluindo Distrito Federal e exterior).
+**Grão:** Uma linha por **estado** (27 UFs + ZZ, seções no exterior).
 
-**Fonte:** Somatório da base por município. Colunas iguais às de `base_brasil_2026.csv`.
+**Fonte:** Somatório da base por município (`ferramentas/corrige_bases.py`). Contagens somadas; taxas recalculadas como razão das somas; candidatos somados por nome e reordenados no agregado.
 
 | Coluna | Tipo | Descrição | Exemplo |
 |---|---|---|---|
-| `abstencoes` | decimal | Quantos faltaram | `125412.0` |
-| `brancos` | decimal | Votos em branco | `5579.0` |
-| `c10_pct` | decimal | Percentual do 10º colocado mais votado no município (Presidência) | `0.23` |
-| `c10_votos` | decimal | Votos do 10º colocado mais votado no município (Presidência) | `72.0` |
-| `c11_pct` | decimal | Percentual do 11º colocado mais votado no município (Presidência) | `0.12` |
-| `c11_votos` | decimal | Votos do 11º colocado mais votado no município (Presidência) | `40.0` |
-| `c12_pct` | decimal | Percentual do 12º colocado mais votado no município (Presidência) | `0.05` |
-| `c12_votos` | decimal | Votos do 12º colocado mais votado no município (Presidência) | `27.0` |
-| `c1_pct` | decimal | Percentual do 1º colocado | `1403.67` |
-| `c1_votos` | decimal | Votos do 1º colocado mais votado no município (Presidência) | `303573.0` |
-| `c2_pct` | decimal | Percentual do 2º colocado | `690.33` |
-| `c2_votos` | decimal | Votos do 2º colocado mais votado no município (Presidência) | `134004.0` |
-| `c3_pct` | decimal | Percentual do 3º colocado mais votado no município (Presidência) | `49.06` |
-| `c3_votos` | decimal | Votos do 3º colocado mais votado no município (Presidência) | `13571.0` |
-| `c4_pct` | decimal | Percentual do 4º colocado mais votado no município (Presidência) | `30.32` |
-| `c4_votos` | decimal | Votos do 4º colocado mais votado no município (Presidência) | `8925.0` |
-| `c5_pct` | decimal | Percentual do 5º colocado mais votado no município (Presidência) | `22.06` |
-| `c5_votos` | decimal | Votos do 5º colocado mais votado no município (Presidência) | `7601.0` |
-| `c6_pct` | decimal | Percentual do 6º colocado mais votado no município (Presidência) | `2.03` |
-| `c6_votos` | decimal | Votos do 6º colocado mais votado no município (Presidência) | `591.0` |
-| `c7_pct` | decimal | Percentual do 7º colocado mais votado no município (Presidência) | `1.15` |
-| `c7_votos` | decimal | Votos do 7º colocado mais votado no município (Presidência) | `346.0` |
-| `c8_pct` | decimal | Percentual do 8º colocado mais votado no município (Presidência) | `0.7` |
-| `c8_votos` | decimal | Votos do 8º colocado mais votado no município (Presidência) | `197.0` |
-| `c9_pct` | decimal | Percentual do 9º colocado mais votado no município (Presidência) | `0.38` |
-| `c9_votos` | decimal | Votos do 9º colocado mais votado no município (Presidência) | `119.0` |
-| `comparecimento` | decimal | Quantos compareceram | `488330.0` |
-| `eleitores_aptos` | decimal | Eleitorado apto no município | `613742.0` |
-| `escolaridade_analfabeto` | decimal | Escolaridade: analfabeto | `45287.0` |
-| `escolaridade_ensino_fundamental_completo` | decimal | Escolaridade: ensino fundamental completo | `28753.0` |
-| `escolaridade_ensino_fundamental_incompleto` | decimal | Escolaridade: ensino fundamental incompleto | `117595.0` |
-| `escolaridade_ensino_medio_completo` | decimal | Escolaridade: ensino medio completo | `148077.0` |
-| `escolaridade_ensino_medio_incompleto` | decimal | Escolaridade: ensino medio incompleto | `124375.0` |
-| `escolaridade_le_e_escreve` | decimal | Escolaridade: lê e escreve | `54507.0` |
-| `escolaridade_nao_informado` | decimal | Escolaridade: não informado | `0.0` |
-| `escolaridade_superior_completo` | decimal | Escolaridade: superior completo | `58615.0` |
-| `escolaridade_superior_incompleto` | decimal | Escolaridade: superior incompleto | `37166.0` |
-| `estado_civil_casado` | decimal | Estado civil: casado | `144125.0` |
-| `estado_civil_divorciado` | decimal | Estado civil: divorciado | `20576.0` |
-| `estado_civil_nao_informado` | decimal | Estado civil: não informado | `0.0` |
-| `estado_civil_separado_judicialmente` | decimal | Estado civil: separado judicialmente | `2244.0` |
-| `estado_civil_solteiro` | decimal | Estado civil: solteiro | `435057.0` |
-| `estado_civil_viuvo` | decimal | Estado civil: viúvo | `12373.0` |
-| `faixa_100_anos_ou_mais` | decimal | Eleitores de 100 anos ou mais | `225.0` |
-| `faixa_16_anos` | decimal | Eleitores de 16 anos | `5374.0` |
-| `faixa_17_anos` | decimal | Eleitores de 17 anos | `8690.0` |
-| `faixa_18_anos` | decimal | Eleitores de 18 anos | `12179.0` |
-| `faixa_19_anos` | decimal | Eleitores de 19 anos | `13500.0` |
-| `faixa_20_anos` | decimal | Eleitores de 20 anos | `14159.0` |
-| `faixa_21_a_24_anos` | decimal | Eleitores de 21 a 24 anos | `58650.0` |
-| `faixa_25_a_29_anos` | decimal | Eleitores de 25 a 29 anos | `73320.0` |
-| `faixa_30_a_34_anos` | decimal | Eleitores de 30 a 34 anos | `66535.0` |
-| `faixa_35_a_39_anos` | decimal | Eleitores de 35 a 39 anos | `61286.0` |
-| `faixa_40_a_44_anos` | decimal | Eleitores de 40 a 44 anos | `61740.0` |
-| `faixa_45_a_49_anos` | decimal | Eleitores de 45 a 49 anos | `57218.0` |
-| `faixa_50_a_54_anos` | decimal | Eleitores de 50 a 54 anos | `45954.0` |
-| `faixa_55_a_59_anos` | decimal | Eleitores de 55 a 59 anos | `37963.0` |
-| `faixa_60_a_64_anos` | decimal | Eleitores de 60 a 64 anos | `30709.0` |
-| `faixa_65_a_69_anos` | decimal | Eleitores de 65 a 69 anos | `23435.0` |
-| `faixa_70_a_74_anos` | decimal | Eleitores de 70 a 74 anos | `17979.0` |
-| `faixa_75_a_79_anos` | decimal | Eleitores de 75 a 79 anos | `12007.0` |
-| `faixa_80_a_84_anos` | decimal | Eleitores de 80 a 84 anos | `7142.0` |
-| `faixa_85_a_89_anos` | decimal | Eleitores de 85 a 89 anos | `3962.0` |
-| `faixa_90_a_94_anos` | decimal | Eleitores de 90 a 94 anos | `1660.0` |
-| `faixa_95_a_99_anos` | decimal | Eleitores de 95 a 99 anos | `680.0` |
-| `faixa_invalida` | decimal | Eleitores de inválida | `8.0` |
-| `genero_feminino` | decimal | Gênero: feminino | `317234.0` |
-| `genero_masculino` | decimal | Gênero: masculino | `297141.0` |
-| `genero_nao_informado` | decimal | Gênero: não informado | `0.0` |
-| `margem_1o_2o_pts` | decimal | Diferença entre 1º e 2º colocado, em pontos do comparecimento | `34.72` |
-| `n_municipios` | inteiro | Quantos municípios entram no agregado | `22` |
-| `nulos` | decimal | Votos nulos | `13662.0` |
+| `uf` | texto | Sigla do estado (ZZ = seções no exterior) | `AC` |
+| `regiao` | texto | Região do país | `Norte` |
+| `n_municipios` | inteiro | Quantos municípios (ou localidades no exterior) entram no agregado | `22` |
+| `eleitores_aptos` | inteiro | Eleitorado apto no município (soma dos municípios) | `613742` |
+| `comparecimento` | inteiro | Quantos compareceram (soma dos municípios) | `488330` |
+| `abstencoes` | inteiro | Quantos faltaram (soma dos municípios) | `125412` |
+| `taxa_abstencao` | decimal | Taxa de abstenção recalculada: razão das somas (%) | `20.43` |
+| `taxa_comparecimento` | decimal | Taxa de comparecimento recalculada: razão das somas (%) | `79.57` |
+| `votos_validos` | inteiro | Votos válidos no 1º turno (soma dos municípios) | `469066` |
+| `brancos` | inteiro | Votos em branco (soma dos municípios) | `5579` |
+| `nulos` | inteiro | Votos nulos (soma dos municípios) | `13662` |
+| `secoes_totalizadas` | inteiro | Seções com resultado totalizado (soma dos municípios) | `2270` |
+| `secoes_total` | inteiro | Número de seções eleitorais (soma dos municípios) | `2270` |
 | `pct_abstencao` | decimal | Abstenção calculada sobre os eleitores aptos (%) | `20.43` |
-| `perfil_total` | decimal | Eleitorado no perfil do TSE 2026 (confere com eleitores_aptos) | `614375.0` |
-| `raca_amarela` | decimal | Cor/raça: amarela | `988.0` |
-| `raca_branca` | decimal | Cor/raça: branca | `25718.0` |
-| `raca_indigena` | decimal | Cor/raça: indígena | `7685.0` |
-| `raca_nao_informado` | decimal | Cor/raça: não informado | `437423.0` |
-| `raca_parda` | decimal | Cor/raça: parda | `127894.0` |
-| `raca_preta` | decimal | Cor/raça: preta | `14667.0` |
-| `secoes_total` | decimal | Número de seções eleitorais | `2270.0` |
-| `secoes_totalizadas` | decimal | Seções com resultado totalizado | `2270.0` |
-| `taxa_abstencao` | decimal | Taxa de abstenção informada pelo TSE (%) | `20.43` |
-| `taxa_comparecimento` | decimal | Taxa de comparecimento informada pelo TSE (%) | `79.57` |
-| `uf` | texto | Sigla do estado | `AC` |
-| `votos_validos` | decimal | Votos válidos no 1º turno | `469066.0` |
+| `pct_brancos` | decimal | Votos brancos sobre os eleitores aptos (%) | `0.91` |
+| `pct_nulos` | decimal | Votos nulos sobre os eleitores aptos (%) | `2.23` |
+| `pct_validos` | decimal | Votos válidos sobre os eleitores aptos (%) | `76.43` |
+| `perfil_total` | inteiro | Eleitorado no perfil do TSE 2026 (confere com eleitores_aptos) (soma dos municípios) | `614375` |
+| `faixa_100_anos_ou_mais` | inteiro | Eleitores de 100 anos ou mais (soma dos municípios) | `225` |
+| `faixa_16_anos` | inteiro | Eleitores de 16 anos (soma dos municípios) | `5374` |
+| `faixa_17_anos` | inteiro | Eleitores de 17 anos (soma dos municípios) | `8690` |
+| `faixa_18_anos` | inteiro | Eleitores de 18 anos (soma dos municípios) | `12179` |
+| `faixa_19_anos` | inteiro | Eleitores de 19 anos (soma dos municípios) | `13500` |
+| `faixa_20_anos` | inteiro | Eleitores de 20 anos (soma dos municípios) | `14159` |
+| `faixa_21_a_24_anos` | inteiro | Eleitores de 21 a 24 anos (soma dos municípios) | `58650` |
+| `faixa_25_a_29_anos` | inteiro | Eleitores de 25 a 29 anos (soma dos municípios) | `73320` |
+| `faixa_30_a_34_anos` | inteiro | Eleitores de 30 a 34 anos (soma dos municípios) | `66535` |
+| `faixa_35_a_39_anos` | inteiro | Eleitores de 35 a 39 anos (soma dos municípios) | `61286` |
+| `faixa_40_a_44_anos` | inteiro | Eleitores de 40 a 44 anos (soma dos municípios) | `61740` |
+| `faixa_45_a_49_anos` | inteiro | Eleitores de 45 a 49 anos (soma dos municípios) | `57218` |
+| `faixa_50_a_54_anos` | inteiro | Eleitores de 50 a 54 anos (soma dos municípios) | `45954` |
+| `faixa_55_a_59_anos` | inteiro | Eleitores de 55 a 59 anos (soma dos municípios) | `37963` |
+| `faixa_60_a_64_anos` | inteiro | Eleitores de 60 a 64 anos (soma dos municípios) | `30709` |
+| `faixa_65_a_69_anos` | inteiro | Eleitores de 65 a 69 anos (soma dos municípios) | `23435` |
+| `faixa_70_a_74_anos` | inteiro | Eleitores de 70 a 74 anos (soma dos municípios) | `17979` |
+| `faixa_75_a_79_anos` | inteiro | Eleitores de 75 a 79 anos (soma dos municípios) | `12007` |
+| `faixa_80_a_84_anos` | inteiro | Eleitores de 80 a 84 anos (soma dos municípios) | `7142` |
+| `faixa_85_a_89_anos` | inteiro | Eleitores de 85 a 89 anos (soma dos municípios) | `3962` |
+| `faixa_90_a_94_anos` | inteiro | Eleitores de 90 a 94 anos (soma dos municípios) | `1660` |
+| `faixa_95_a_99_anos` | inteiro | Eleitores de 95 a 99 anos (soma dos municípios) | `680` |
+| `faixa_invalida` | inteiro | Eleitores de inválida (soma dos municípios) | `8` |
+| `escolaridade_analfabeto` | inteiro | Escolaridade: analfabeto (soma dos municípios) | `45287` |
+| `escolaridade_ensino_fundamental_completo` | inteiro | Escolaridade: ensino fundamental completo (soma dos municípios) | `28753` |
+| `escolaridade_ensino_fundamental_incompleto` | inteiro | Escolaridade: ensino fundamental incompleto (soma dos municípios) | `117595` |
+| `escolaridade_ensino_medio_completo` | inteiro | Escolaridade: ensino medio completo (soma dos municípios) | `148077` |
+| `escolaridade_ensino_medio_incompleto` | inteiro | Escolaridade: ensino medio incompleto (soma dos municípios) | `124375` |
+| `escolaridade_le_e_escreve` | inteiro | Escolaridade: lê e escreve (soma dos municípios) | `54507` |
+| `escolaridade_nao_informado` | inteiro | Escolaridade: não informado (soma dos municípios) | `0` |
+| `escolaridade_superior_completo` | inteiro | Escolaridade: superior completo (soma dos municípios) | `58615` |
+| `escolaridade_superior_incompleto` | inteiro | Escolaridade: superior incompleto (soma dos municípios) | `37166` |
+| `genero_feminino` | inteiro | Gênero: feminino (soma dos municípios) | `317234` |
+| `genero_masculino` | inteiro | Gênero: masculino (soma dos municípios) | `297141` |
+| `genero_nao_informado` | inteiro | Gênero: não informado (soma dos municípios) | `0` |
+| `estado_civil_casado` | inteiro | Estado civil: casado (soma dos municípios) | `144125` |
+| `estado_civil_divorciado` | inteiro | Estado civil: divorciado (soma dos municípios) | `20576` |
+| `estado_civil_nao_informado` | inteiro | Estado civil: não informado (soma dos municípios) | `0` |
+| `estado_civil_separado_judicialmente` | inteiro | Estado civil: separado judicialmente (soma dos municípios) | `2244` |
+| `estado_civil_solteiro` | inteiro | Estado civil: solteiro (soma dos municípios) | `435057` |
+| `estado_civil_viuvo` | inteiro | Estado civil: viúvo (soma dos municípios) | `12373` |
+| `raca_amarela` | inteiro | Cor/raça: amarela (soma dos municípios) | `988` |
+| `raca_branca` | inteiro | Cor/raça: branca (soma dos municípios) | `25718` |
+| `raca_indigena` | inteiro | Cor/raça: indígena (soma dos municípios) | `7685` |
+| `raca_nao_informado` | inteiro | Cor/raça: não informado (soma dos municípios) | `437423` |
+| `raca_parda` | inteiro | Cor/raça: parda (soma dos municípios) | `127894` |
+| `raca_preta` | inteiro | Cor/raça: preta (soma dos municípios) | `14667` |
+| `c1_nome` | texto | Nome do 1º candidato mais votado no estado (Presidência) | `FLAVIO BOLSONARO` |
+| `c1_partido` | texto | Partido do 1º candidato mais votado no estado | `PL` |
+| `c1_votos` | inteiro | Votos do 1º candidato mais votado no estado, somados por candidato | `302807` |
+| `c1_pct` | decimal | Votos do 1º candidato sobre os votos válidos no estado (%) | `64.56` |
+| `c2_nome` | texto | Nome do 2º candidato mais votado no estado (Presidência) | `LULA` |
+| `c2_partido` | texto | Partido do 2º candidato mais votado no estado | `PT` |
+| `c2_votos` | inteiro | Votos do 2º candidato mais votado no estado, somados por candidato | `134770` |
+| `c2_pct` | decimal | Votos do 2º candidato sobre os votos válidos no estado (%) | `28.73` |
+| `c3_nome` | texto | Nome do 3º candidato mais votado no estado (Presidência) | `ESCRITOR AUGUSTO CURY` |
+| `c3_partido` | texto | Partido do 3º candidato mais votado no estado | `AVANTE` |
+| `c3_votos` | inteiro | Votos do 3º candidato mais votado no estado, somados por candidato | `13523` |
+| `c3_pct` | decimal | Votos do 3º candidato sobre os votos válidos no estado (%) | `2.88` |
+| `c4_nome` | texto | Nome do 4º candidato mais votado no estado (Presidência) | `RONALDO CAIADO` |
+| `c4_partido` | texto | Partido do 4º candidato mais votado no estado | `PSD` |
+| `c4_votos` | inteiro | Votos do 4º candidato mais votado no estado, somados por candidato | `8594` |
+| `c4_pct` | decimal | Votos do 4º candidato sobre os votos válidos no estado (%) | `1.83` |
+| `c5_nome` | texto | Nome do 5º candidato mais votado no estado (Presidência) | `RENAN SANTOS` |
+| `c5_partido` | texto | Partido do 5º candidato mais votado no estado | `MISSÃO` |
+| `c5_votos` | inteiro | Votos do 5º candidato mais votado no estado, somados por candidato | `7980` |
+| `c5_pct` | decimal | Votos do 5º candidato sobre os votos válidos no estado (%) | `1.7` |
+| `c6_nome` | texto | Nome do 6º candidato mais votado no estado (Presidência) | `ZEMA` |
+| `c6_partido` | texto | Partido do 6º candidato mais votado no estado | `NOVO` |
+| `c6_votos` | inteiro | Votos do 6º candidato mais votado no estado, somados por candidato | `573` |
+| `c6_pct` | decimal | Votos do 6º candidato sobre os votos válidos no estado (%) | `0.12` |
+| `c7_nome` | texto | Nome do 7º candidato mais votado no estado (Presidência) | `SAMARA` |
+| `c7_partido` | texto | Partido do 7º candidato mais votado no estado | `UP` |
+| `c7_votos` | inteiro | Votos do 7º candidato mais votado no estado, somados por candidato | `314` |
+| `c7_pct` | decimal | Votos do 7º candidato sobre os votos válidos no estado (%) | `0.07` |
+| `c8_nome` | texto | Nome do 8º candidato mais votado no estado (Presidência) | `CLARIANA BARAO` |
+| `c8_partido` | texto | Partido do 8º candidato mais votado no estado | `DC` |
+| `c8_votos` | inteiro | Votos do 8º candidato mais votado no estado, somados por candidato | `215` |
+| `c8_pct` | decimal | Votos do 8º candidato sobre os votos válidos no estado (%) | `0.05` |
+| `c9_nome` | texto | Nome do 9º candidato mais votado no estado (Presidência) | `EDMILSON COSTA` |
+| `c9_partido` | texto | Partido do 9º candidato mais votado no estado | `PCB` |
+| `c9_votos` | inteiro | Votos do 9º candidato mais votado no estado, somados por candidato | `140` |
+| `c9_pct` | decimal | Votos do 9º candidato sobre os votos válidos no estado (%) | `0.03` |
+| `c10_nome` | texto | Nome do 10º candidato mais votado no estado (Presidência) | `HERTZ DIAS` |
+| `c10_partido` | texto | Partido do 10º candidato mais votado no estado | `PSTU` |
+| `c10_votos` | inteiro | Votos do 10º candidato mais votado no estado, somados por candidato | `71` |
+| `c10_pct` | decimal | Votos do 10º candidato sobre os votos válidos no estado (%) | `0.02` |
+| `c11_nome` | texto | Nome do 11º candidato mais votado no estado (Presidência) | `RUI COSTA PIMENTA` |
+| `c11_partido` | texto | Partido do 11º candidato mais votado no estado | `PCO` |
+| `c11_votos` | inteiro | Votos do 11º candidato mais votado no estado, somados por candidato | `40` |
+| `c11_pct` | decimal | Votos do 11º candidato sobre os votos válidos no estado (%) | `0.01` |
+| `c12_nome` | texto | Nome do 12º candidato mais votado no estado (Presidência) | `VETERINÁRIO WILSON GRASSI` |
+| `c12_partido` | texto | Partido do 12º candidato mais votado no estado | `DEMOCRATA` |
+| `c12_votos` | inteiro | Votos do 12º candidato mais votado no estado, somados por candidato | `39` |
+| `c12_pct` | decimal | Votos do 12º candidato sobre os votos válidos no estado (%) | `0.01` |
+| `margem_1o_2o_pts` | decimal | (votos do 1º − votos do 2º no estado) ÷ comparecimento, em pontos | `34.41` |
 
 ## `base_regiao_2026.csv`
 
-**Grão:** Uma linha por **região** (6: Norte, Nordeste, Centro-Oeste, Sudeste, Sul, Exterior).
+**Grão:** Uma linha por **região** (Norte, Nordeste, Centro-Oeste, Sudeste, Sul, Exterior).
 
-**Fonte:** Somatório da base por município.
+**Fonte:** Somatório da base por município (`ferramentas/corrige_bases.py`). Contagens somadas; taxas recalculadas como razão das somas; candidatos somados por nome e reordenados no agregado.
 
 | Coluna | Tipo | Descrição | Exemplo |
 |---|---|---|---|
-| `abstencoes` | decimal | Quantos faltaram | `2546182.0` |
-| `brancos` | decimal | Votos em branco | `109407.0` |
-| `c10_pct` | decimal | Percentual do 10º colocado mais votado no município (Presidência) | `2.58` |
-| `c10_votos` | decimal | Votos do 10º colocado mais votado no município (Presidência) | `1225.0` |
-| `c11_pct` | decimal | Percentual do 11º colocado mais votado no município (Presidência) | `1.49` |
-| `c11_votos` | decimal | Votos do 11º colocado mais votado no município (Presidência) | `858.0` |
-| `c12_pct` | decimal | Percentual do 12º colocado mais votado no município (Presidência) | `0.8` |
-| `c12_votos` | decimal | Votos do 12º colocado mais votado no município (Presidência) | `534.0` |
-| `c1_pct` | decimal | Percentual do 1º colocado | `27398.14` |
-| `c1_votos` | decimal | Votos do 1º colocado mais votado no município (Presidência) | `6031796.0` |
-| `c2_pct` | decimal | Percentual do 2º colocado | `15418.33` |
-| `c2_votos` | decimal | Votos do 2º colocado mais votado no município (Presidência) | `3528243.0` |
-| `c3_pct` | decimal | Percentual do 3º colocado mais votado no município (Presidência) | `1051.94` |
-| `c3_votos` | decimal | Votos do 3º colocado mais votado no município (Presidência) | `294377.0` |
-| `c4_pct` | decimal | Percentual do 4º colocado mais votado no município (Presidência) | `659.87` |
-| `c4_votos` | decimal | Votos do 4º colocado mais votado no município (Presidência) | `186916.0` |
-| `c5_pct` | decimal | Percentual do 5º colocado mais votado no município (Presidência) | `411.7` |
-| `c5_votos` | decimal | Votos do 5º colocado mais votado no município (Presidência) | `125930.0` |
-| `c6_pct` | decimal | Percentual do 6º colocado mais votado no município (Presidência) | `27.71` |
-| `c6_votos` | decimal | Votos do 6º colocado mais votado no município (Presidência) | `9599.0` |
-| `c7_pct` | decimal | Percentual do 7º colocado mais votado no município (Presidência) | `15.44` |
-| `c7_votos` | decimal | Votos do 7º colocado mais votado no município (Presidência) | `6797.0` |
-| `c8_pct` | decimal | Percentual do 8º colocado mais votado no município (Presidência) | `8.3` |
-| `c8_votos` | decimal | Votos do 8º colocado mais votado no município (Presidência) | `3422.0` |
-| `c9_pct` | decimal | Percentual do 9º colocado mais votado no município (Presidência) | `4.85` |
-| `c9_votos` | decimal | Votos do 9º colocado mais votado no município (Presidência) | `2213.0` |
-| `comparecimento` | decimal | Quantos compareceram | `10554993.0` |
-| `eleitores_aptos` | decimal | Eleitorado apto no município | `13101175.0` |
-| `escolaridade_analfabeto` | decimal | Escolaridade: analfabeto | `553096.0` |
-| `escolaridade_ensino_fundamental_completo` | decimal | Escolaridade: ensino fundamental completo | `665474.0` |
-| `escolaridade_ensino_fundamental_incompleto` | decimal | Escolaridade: ensino fundamental incompleto | `2914882.0` |
-| `escolaridade_ensino_medio_completo` | decimal | Escolaridade: ensino medio completo | `3645179.0` |
-| `escolaridade_ensino_medio_incompleto` | decimal | Escolaridade: ensino medio incompleto | `2576433.0` |
-| `escolaridade_le_e_escreve` | decimal | Escolaridade: lê e escreve | `921904.0` |
-| `escolaridade_nao_informado` | decimal | Escolaridade: não informado | `15.0` |
-| `escolaridade_superior_completo` | decimal | Escolaridade: superior completo | `1129808.0` |
-| `escolaridade_superior_incompleto` | decimal | Escolaridade: superior incompleto | `702563.0` |
-| `estado_civil_casado` | decimal | Estado civil: casado | `3055695.0` |
-| `estado_civil_divorciado` | decimal | Estado civil: divorciado | `374003.0` |
-| `estado_civil_nao_informado` | decimal | Estado civil: não informado | `27.0` |
-| `estado_civil_separado_judicialmente` | decimal | Estado civil: separado judicialmente | `60470.0` |
-| `estado_civil_solteiro` | decimal | Estado civil: solteiro | `9366527.0` |
-| `estado_civil_viuvo` | decimal | Estado civil: viúvo | `252632.0` |
-| `faixa_100_anos_ou_mais` | decimal | Eleitores de 100 anos ou mais | `4302.0` |
-| `faixa_16_anos` | decimal | Eleitores de 16 anos | `93217.0` |
-| `faixa_17_anos` | decimal | Eleitores de 17 anos | `152919.0` |
-| `faixa_18_anos` | decimal | Eleitores de 18 anos | `231934.0` |
-| `faixa_19_anos` | decimal | Eleitores de 19 anos | `261728.0` |
-| `faixa_20_anos` | decimal | Eleitores de 20 anos | `281175.0` |
-| `faixa_21_a_24_anos` | decimal | Eleitores de 21 a 24 anos | `1160344.0` |
-| `faixa_25_a_29_anos` | decimal | Eleitores de 25 a 29 anos | `1476661.0` |
-| `faixa_30_a_34_anos` | decimal | Eleitores de 30 a 34 anos | `1424804.0` |
-| `faixa_35_a_39_anos` | decimal | Eleitores de 35 a 39 anos | `1331324.0` |
-| `faixa_40_a_44_anos` | decimal | Eleitores de 40 a 44 anos | `1350842.0` |
-| `faixa_45_a_49_anos` | decimal | Eleitores de 45 a 49 anos | `1229158.0` |
-| `faixa_50_a_54_anos` | decimal | Eleitores de 50 a 54 anos | `1020869.0` |
-| `faixa_55_a_59_anos` | decimal | Eleitores de 55 a 59 anos | `854681.0` |
-| `faixa_60_a_64_anos` | decimal | Eleitores de 60 a 64 anos | `714619.0` |
-| `faixa_65_a_69_anos` | decimal | Eleitores de 65 a 69 anos | `552612.0` |
-| `faixa_70_a_74_anos` | decimal | Eleitores de 70 a 74 anos | `413846.0` |
-| `faixa_75_a_79_anos` | decimal | Eleitores de 75 a 79 anos | `271184.0` |
-| `faixa_80_a_84_anos` | decimal | Eleitores de 80 a 84 anos | `158190.0` |
-| `faixa_85_a_89_anos` | decimal | Eleitores de 85 a 89 anos | `81111.0` |
-| `faixa_90_a_94_anos` | decimal | Eleitores de 90 a 94 anos | `32972.0` |
-| `faixa_95_a_99_anos` | decimal | Eleitores de 95 a 99 anos | `10754.0` |
-| `faixa_invalida` | decimal | Eleitores de inválida | `108.0` |
-| `genero_feminino` | decimal | Gênero: feminino | `6694588.0` |
-| `genero_masculino` | decimal | Gênero: masculino | `6414759.0` |
-| `genero_nao_informado` | decimal | Gênero: não informado | `7.0` |
-| `margem_1o_2o_pts` | decimal | Diferença entre 1º e 2º colocado, em pontos do comparecimento | `23.72` |
-| `n_municipios` | inteiro | Quantos municípios entram no agregado | `450` |
-| `nulos` | decimal | Votos nulos | `253263.0` |
-| `pct_abstencao` | decimal | Abstenção calculada sobre os eleitores aptos (%) | `19.43` |
-| `perfil_total` | decimal | Eleitorado no perfil do TSE 2026 (confere com eleitores_aptos) | `13109354.0` |
-| `raca_amarela` | decimal | Cor/raça: amarela | `19604.0` |
-| `raca_branca` | decimal | Cor/raça: branca | `555406.0` |
-| `raca_indigena` | decimal | Cor/raça: indígena | `136978.0` |
-| `raca_nao_informado` | decimal | Cor/raça: não informado | `9150542.0` |
-| `raca_parda` | decimal | Cor/raça: parda | `2907788.0` |
-| `raca_preta` | decimal | Cor/raça: preta | `339036.0` |
 | `regiao` | texto | Região do país | `Norte` |
-| `secoes_total` | decimal | Número de seções eleitorais | `43769.0` |
-| `secoes_totalizadas` | decimal | Seções com resultado totalizado | `43769.0` |
-| `taxa_abstencao` | decimal | Taxa de abstenção informada pelo TSE (%) | `19.43` |
-| `taxa_comparecimento` | decimal | Taxa de comparecimento informada pelo TSE (%) | `80.57` |
-| `votos_validos` | decimal | Votos válidos no 1º turno | `10191910.0` |
+| `n_municipios` | inteiro | Quantos municípios (ou localidades no exterior) entram no agregado | `450` |
+| `eleitores_aptos` | inteiro | Eleitorado apto no município (soma dos municípios) | `13101175` |
+| `comparecimento` | inteiro | Quantos compareceram (soma dos municípios) | `10554993` |
+| `abstencoes` | inteiro | Quantos faltaram (soma dos municípios) | `2546182` |
+| `taxa_abstencao` | decimal | Taxa de abstenção recalculada: razão das somas (%) | `19.43` |
+| `taxa_comparecimento` | decimal | Taxa de comparecimento recalculada: razão das somas (%) | `80.57` |
+| `votos_validos` | inteiro | Votos válidos no 1º turno (soma dos municípios) | `10191910` |
+| `brancos` | inteiro | Votos em branco (soma dos municípios) | `109407` |
+| `nulos` | inteiro | Votos nulos (soma dos municípios) | `253263` |
+| `secoes_totalizadas` | inteiro | Seções com resultado totalizado (soma dos municípios) | `43769` |
+| `secoes_total` | inteiro | Número de seções eleitorais (soma dos municípios) | `43769` |
+| `pct_abstencao` | decimal | Abstenção calculada sobre os eleitores aptos (%) | `19.43` |
+| `pct_brancos` | decimal | Votos brancos sobre os eleitores aptos (%) | `0.84` |
+| `pct_nulos` | decimal | Votos nulos sobre os eleitores aptos (%) | `1.93` |
+| `pct_validos` | decimal | Votos válidos sobre os eleitores aptos (%) | `77.79` |
+| `perfil_total` | inteiro | Eleitorado no perfil do TSE 2026 (confere com eleitores_aptos) (soma dos municípios) | `13109354` |
+| `faixa_100_anos_ou_mais` | inteiro | Eleitores de 100 anos ou mais (soma dos municípios) | `4302` |
+| `faixa_16_anos` | inteiro | Eleitores de 16 anos (soma dos municípios) | `93217` |
+| `faixa_17_anos` | inteiro | Eleitores de 17 anos (soma dos municípios) | `152919` |
+| `faixa_18_anos` | inteiro | Eleitores de 18 anos (soma dos municípios) | `231934` |
+| `faixa_19_anos` | inteiro | Eleitores de 19 anos (soma dos municípios) | `261728` |
+| `faixa_20_anos` | inteiro | Eleitores de 20 anos (soma dos municípios) | `281175` |
+| `faixa_21_a_24_anos` | inteiro | Eleitores de 21 a 24 anos (soma dos municípios) | `1160344` |
+| `faixa_25_a_29_anos` | inteiro | Eleitores de 25 a 29 anos (soma dos municípios) | `1476661` |
+| `faixa_30_a_34_anos` | inteiro | Eleitores de 30 a 34 anos (soma dos municípios) | `1424804` |
+| `faixa_35_a_39_anos` | inteiro | Eleitores de 35 a 39 anos (soma dos municípios) | `1331324` |
+| `faixa_40_a_44_anos` | inteiro | Eleitores de 40 a 44 anos (soma dos municípios) | `1350842` |
+| `faixa_45_a_49_anos` | inteiro | Eleitores de 45 a 49 anos (soma dos municípios) | `1229158` |
+| `faixa_50_a_54_anos` | inteiro | Eleitores de 50 a 54 anos (soma dos municípios) | `1020869` |
+| `faixa_55_a_59_anos` | inteiro | Eleitores de 55 a 59 anos (soma dos municípios) | `854681` |
+| `faixa_60_a_64_anos` | inteiro | Eleitores de 60 a 64 anos (soma dos municípios) | `714619` |
+| `faixa_65_a_69_anos` | inteiro | Eleitores de 65 a 69 anos (soma dos municípios) | `552612` |
+| `faixa_70_a_74_anos` | inteiro | Eleitores de 70 a 74 anos (soma dos municípios) | `413846` |
+| `faixa_75_a_79_anos` | inteiro | Eleitores de 75 a 79 anos (soma dos municípios) | `271184` |
+| `faixa_80_a_84_anos` | inteiro | Eleitores de 80 a 84 anos (soma dos municípios) | `158190` |
+| `faixa_85_a_89_anos` | inteiro | Eleitores de 85 a 89 anos (soma dos municípios) | `81111` |
+| `faixa_90_a_94_anos` | inteiro | Eleitores de 90 a 94 anos (soma dos municípios) | `32972` |
+| `faixa_95_a_99_anos` | inteiro | Eleitores de 95 a 99 anos (soma dos municípios) | `10754` |
+| `faixa_invalida` | inteiro | Eleitores de inválida (soma dos municípios) | `108` |
+| `escolaridade_analfabeto` | inteiro | Escolaridade: analfabeto (soma dos municípios) | `553096` |
+| `escolaridade_ensino_fundamental_completo` | inteiro | Escolaridade: ensino fundamental completo (soma dos municípios) | `665474` |
+| `escolaridade_ensino_fundamental_incompleto` | inteiro | Escolaridade: ensino fundamental incompleto (soma dos municípios) | `2914882` |
+| `escolaridade_ensino_medio_completo` | inteiro | Escolaridade: ensino medio completo (soma dos municípios) | `3645179` |
+| `escolaridade_ensino_medio_incompleto` | inteiro | Escolaridade: ensino medio incompleto (soma dos municípios) | `2576433` |
+| `escolaridade_le_e_escreve` | inteiro | Escolaridade: lê e escreve (soma dos municípios) | `921904` |
+| `escolaridade_nao_informado` | inteiro | Escolaridade: não informado (soma dos municípios) | `15` |
+| `escolaridade_superior_completo` | inteiro | Escolaridade: superior completo (soma dos municípios) | `1129808` |
+| `escolaridade_superior_incompleto` | inteiro | Escolaridade: superior incompleto (soma dos municípios) | `702563` |
+| `genero_feminino` | inteiro | Gênero: feminino (soma dos municípios) | `6694588` |
+| `genero_masculino` | inteiro | Gênero: masculino (soma dos municípios) | `6414759` |
+| `genero_nao_informado` | inteiro | Gênero: não informado (soma dos municípios) | `7` |
+| `estado_civil_casado` | inteiro | Estado civil: casado (soma dos municípios) | `3055695` |
+| `estado_civil_divorciado` | inteiro | Estado civil: divorciado (soma dos municípios) | `374003` |
+| `estado_civil_nao_informado` | inteiro | Estado civil: não informado (soma dos municípios) | `27` |
+| `estado_civil_separado_judicialmente` | inteiro | Estado civil: separado judicialmente (soma dos municípios) | `60470` |
+| `estado_civil_solteiro` | inteiro | Estado civil: solteiro (soma dos municípios) | `9366527` |
+| `estado_civil_viuvo` | inteiro | Estado civil: viúvo (soma dos municípios) | `252632` |
+| `raca_amarela` | inteiro | Cor/raça: amarela (soma dos municípios) | `19604` |
+| `raca_branca` | inteiro | Cor/raça: branca (soma dos municípios) | `555406` |
+| `raca_indigena` | inteiro | Cor/raça: indígena (soma dos municípios) | `136978` |
+| `raca_nao_informado` | inteiro | Cor/raça: não informado (soma dos municípios) | `9150542` |
+| `raca_parda` | inteiro | Cor/raça: parda (soma dos municípios) | `2907788` |
+| `raca_preta` | inteiro | Cor/raça: preta (soma dos municípios) | `339036` |
+| `c1_nome` | texto | Nome do 1º candidato mais votado na região (Presidência) | `FLAVIO BOLSONARO` |
+| `c1_partido` | texto | Partido do 1º candidato mais votado na região | `PL` |
+| `c1_votos` | inteiro | Votos do 1º candidato mais votado na região, somados por candidato | `5009437` |
+| `c1_pct` | decimal | Votos do 1º candidato sobre os votos válidos na região (%) | `49.15` |
+| `c2_nome` | texto | Nome do 2º candidato mais votado na região (Presidência) | `LULA` |
+| `c2_partido` | texto | Partido do 2º candidato mais votado na região | `PT` |
+| `c2_votos` | inteiro | Votos do 2º candidato mais votado na região, somados por candidato | `4550602` |
+| `c2_pct` | decimal | Votos do 2º candidato sobre os votos válidos na região (%) | `44.65` |
+| `c3_nome` | texto | Nome do 3º candidato mais votado na região (Presidência) | `ESCRITOR AUGUSTO CURY` |
+| `c3_partido` | texto | Partido do 3º candidato mais votado na região | `AVANTE` |
+| `c3_votos` | inteiro | Votos do 3º candidato mais votado na região, somados por candidato | `291576` |
+| `c3_pct` | decimal | Votos do 3º candidato sobre os votos válidos na região (%) | `2.86` |
+| `c4_nome` | texto | Nome do 4º candidato mais votado na região (Presidência) | `RENAN SANTOS` |
+| `c4_partido` | texto | Partido do 4º candidato mais votado na região | `MISSÃO` |
+| `c4_votos` | inteiro | Votos do 4º candidato mais votado na região, somados por candidato | `177691` |
+| `c4_pct` | decimal | Votos do 4º candidato sobre os votos válidos na região (%) | `1.74` |
+| `c5_nome` | texto | Nome do 5º candidato mais votado na região (Presidência) | `RONALDO CAIADO` |
+| `c5_partido` | texto | Partido do 5º candidato mais votado na região | `PSD` |
+| `c5_votos` | inteiro | Votos do 5º candidato mais votado na região, somados por candidato | `137956` |
+| `c5_pct` | decimal | Votos do 5º candidato sobre os votos válidos na região (%) | `1.35` |
+| `c6_nome` | texto | Nome do 6º candidato mais votado na região (Presidência) | `SAMARA` |
+| `c6_partido` | texto | Partido do 6º candidato mais votado na região | `UP` |
+| `c6_votos` | inteiro | Votos do 6º candidato mais votado na região, somados por candidato | `8031` |
+| `c6_pct` | decimal | Votos do 6º candidato sobre os votos válidos na região (%) | `0.08` |
+| `c7_nome` | texto | Nome do 7º candidato mais votado na região (Presidência) | `ZEMA` |
+| `c7_partido` | texto | Partido do 7º candidato mais votado na região | `NOVO` |
+| `c7_votos` | inteiro | Votos do 7º candidato mais votado na região, somados por candidato | `8009` |
+| `c7_pct` | decimal | Votos do 7º candidato sobre os votos válidos na região (%) | `0.08` |
+| `c8_nome` | texto | Nome do 8º candidato mais votado na região (Presidência) | `CLARIANA BARAO` |
+| `c8_partido` | texto | Partido do 8º candidato mais votado na região | `DC` |
+| `c8_votos` | inteiro | Votos do 8º candidato mais votado na região, somados por candidato | `3361` |
+| `c8_pct` | decimal | Votos do 8º candidato sobre os votos válidos na região (%) | `0.03` |
+| `c9_nome` | texto | Nome do 9º candidato mais votado na região (Presidência) | `HERTZ DIAS` |
+| `c9_partido` | texto | Partido do 9º candidato mais votado na região | `PSTU` |
+| `c9_votos` | inteiro | Votos do 9º candidato mais votado na região, somados por candidato | `2040` |
+| `c9_pct` | decimal | Votos do 9º candidato sobre os votos válidos na região (%) | `0.02` |
+| `c10_nome` | texto | Nome do 10º candidato mais votado na região (Presidência) | `EDMILSON COSTA` |
+| `c10_partido` | texto | Partido do 10º candidato mais votado na região | `PCB` |
+| `c10_votos` | inteiro | Votos do 10º candidato mais votado na região, somados por candidato | `1460` |
+| `c10_pct` | decimal | Votos do 10º candidato sobre os votos válidos na região (%) | `0.01` |
+| `c11_nome` | texto | Nome do 11º candidato mais votado na região (Presidência) | `VETERINÁRIO WILSON GRASSI` |
+| `c11_partido` | texto | Partido do 11º candidato mais votado na região | `DEMOCRATA` |
+| `c11_votos` | inteiro | Votos do 11º candidato mais votado na região, somados por candidato | `1026` |
+| `c11_pct` | decimal | Votos do 11º candidato sobre os votos válidos na região (%) | `0.01` |
+| `c12_nome` | texto | Nome do 12º candidato mais votado na região (Presidência) | `RUI COSTA PIMENTA` |
+| `c12_partido` | texto | Partido do 12º candidato mais votado na região | `PCO` |
+| `c12_votos` | inteiro | Votos do 12º candidato mais votado na região, somados por candidato | `721` |
+| `c12_pct` | decimal | Votos do 12º candidato sobre os votos válidos na região (%) | `0.01` |
+| `margem_1o_2o_pts` | decimal | (votos do 1º − votos do 2º na região) ÷ comparecimento, em pontos | `4.35` |
 
 ## `base_abst_perfil_2022.csv`
 
