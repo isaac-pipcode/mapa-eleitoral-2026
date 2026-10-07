@@ -425,7 +425,7 @@ def monta(D):
     ri = D['reg_idade']
 
     cab = lambda num: f'''<header class="cab"><span class="marca-q"></span>MAPA ELEITORAL 2026 · ANÁLISE DE CONJUNTURA ELEITORAL<span class="dir">Nº 01 · OUTUBRO 2026</span></header>'''
-    rod = lambda num: f'''<footer class="rod"><span>mapa-eleitoral-2026-rho.vercel.app</span><b>{num:02d}</b></footer>'''
+    rod = lambda num: f'''<footer class="rod"><span>perfil-eleitoral-2026.vercel.app</span><b>{num:02d}</b></footer>'''
 
     paginas = []
     # ---------------------------------------------------------------- capa
@@ -441,7 +441,7 @@ def monta(D):
   <h1>Quem não escolheu</h1>
   <p class="sub">Perfil demográfico da abstenção e dos votos brancos e nulos no primeiro turno das Eleições 2026</p>
  </div>
- <div class="capa-pe"><b>OUTUBRO 2026</b><span>mapa-eleitoral-2026-rho.vercel.app</span></div>
+ <div class="capa-pe"><b>OUTUBRO 2026</b><span>perfil-eleitoral-2026.vercel.app</span></div>
 </section>''')
 
     # ---------------------------------------------------------------- 01 panorama
@@ -609,11 +609,11 @@ def monta(D):
   <div>
    <h4>PUBLICAÇÃO</h4><p>Mapa Eleitoral 2026 — Análise de Conjuntura Eleitoral, nº 01</p>
    <h4>DADOS</h4><p>Tribunal Superior Eleitoral (TSE): resultados do 1º turno de 2026, totalização final; perfil do eleitorado 2026; perfil de comparecimento e abstenção 2022, 1º turno. Contornos estaduais: IBGE.</p>
-   <h4>EXPLORAR OS DADOS</h4><p>mapa-eleitoral-2026-rho.vercel.app</p>
+   <h4>EXPLORAR OS DADOS</h4><p>perfil-eleitoral-2026.vercel.app</p>
    <h4>REPRODUZIR</h4><p><code>python3 ferramentas/relatorio_conjuntura.py</code> no repositório do projeto. Todos os números deste boletim são calculados por esse script a partir das bases públicas.</p>
   </div>
   <div>
-   <h4>COMO CITAR</h4><p>MAPA ELEITORAL 2026. <i>Quem não escolheu</i>: perfil demográfico da abstenção e dos votos brancos e nulos no primeiro turno das Eleições 2026. Análise de Conjuntura Eleitoral, n. 1, out. 2026. Disponível em: mapa-eleitoral-2026-rho.vercel.app.</p>
+   <h4>COMO CITAR</h4><p>MAPA ELEITORAL 2026. <i>Quem não escolheu</i>: perfil demográfico da abstenção e dos votos brancos e nulos no primeiro turno das Eleições 2026. Análise de Conjuntura Eleitoral, n. 1, out. 2026. Disponível em: perfil-eleitoral-2026.vercel.app.</p>
    <h4>AUDITORIA DOS DADOS</h4><p>As bases foram conferidas com os números oficiais do TSE: perfil do eleitorado e resultado batem até a unidade. Ver <i>AUDITORIA.md</i> no repositório.</p>
   </div>
  </div>

@@ -46,7 +46,7 @@ def main():
     nu_top = sorted(((k, v['nu']) for k, v in D['uf'].items() if k != 'ZZ'), key=lambda kv: -kv[1])[:3]
     vezes = round(n['abstencoes'] / n['dif12'])
 
-    rod = lambda i, fonte: f'<footer><span>{fonte}</span><span class="pg">{i}/10</span></footer>'
+    rod = lambda i, fonte: f'<footer><span>{fonte}<br><b class="url">perfil-eleitoral-2026.vercel.app</b></span><span class="pg">{i}/10</span></footer>'
     marca = '<div class="marca"><b>Mapa Eleitoral</b> 2026 · Guia do 2º turno</div>'
     F26 = 'Fonte: TSE, resultado do 1º turno de 2026'
     F22 = 'Fonte: TSE, perfil de abstenção do 1º turno de 2022 (último publicado)'

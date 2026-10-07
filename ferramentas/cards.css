@@ -55,3 +55,5 @@ footer .pg{font-weight:700;font-size:26px;color:var(--tinta)}
 .check{list-style:none;margin:0;padding:0;font-size:38px;line-height:1.35}
 .check li{margin:0 0 22px;padding-left:56px;position:relative}
 .check li::before{content:"✓";position:absolute;left:0;font-weight:700}
+footer .url{display:inline-block;margin-top:6px;font-size:24px;font-weight:700;color:var(--verm)}
+.capa footer .url{color:#fff}
