@@ -18,6 +18,8 @@ const fmtInt = v => v == null || !isFinite(v) ? '—' : Math.round(v).toLocaleSt
 const fmtPct = (v, d = 1) => v == null || !isFinite(v) ? '—' : nf(v, d) + '%';
 const fmtPP = (v, d = 1) => v == null || !isFinite(v) ? '—' : (v > 0.05 ? '+' : v < -0.05 ? '−' : '') + nf(Math.abs(v), d) + ' p.p.';
 const pct = (a, b) => b > 0 ? 100 * a / b : null;
+// localidades do exterior sem votação têm aptos > 0 mas nenhum comparecimento nem abstenção
+const semVotacao = u => u.comp + u.abst === 0;
 function svg(tag, attrs, pai) {
   const e = document.createElementNS(NS, tag);
   for (const k in attrs) e.setAttribute(k, attrs[k]);
@@ -119,7 +121,7 @@ let IND = [];
 function montaIndicadores() {
   const A = CANDS[0], B = CANDS[1];
   IND = [
-    { k: 'abst', g: 'Participação', r: 'Abstenção', u: '% dos aptos', fmt: 'pct', f: u => pct(u.abst, u.aptos),
+    { k: 'abst', g: 'Participação', r: 'Abstenção', u: '% dos aptos', fmt: 'pct', f: u => semVotacao(u) ? null : pct(u.abst, u.aptos),
       d: 'Eleitores aptos que não compareceram, sobre o total de aptos.' },
     { k: 'bn', g: 'Participação', r: 'Brancos e nulos', u: '% dos votantes', fmt: 'pct', f: u => pct(u.brancos + u.nulos, u.comp),
       d: 'Votos brancos e nulos sobre quem compareceu.' },
@@ -239,6 +241,7 @@ function irPara(id, opts = {}) {
   S.t = id; S.view = 'explorar';
   const u = U.get(id);
   if (u.tipo === 'uf' || u.tipo === 'mu') S.n = 'mu';
+  if (u.uf === 'ZZ' && S.v === 'mapa') S.v = 'ranking'; // exterior não tem coordenada
   escreveHash(true);
   render();
   if (opts.foco) $('#ficha h2')?.focus();
@@ -266,7 +269,7 @@ function conjunto() {
   return { t, escopo, itens, nivel, total };
 }
 function nomeConjunto(c) {
-  const qual = c.nivel === 'uf' ? 'estados' : 'municípios';
+  const qual = c.nivel === 'uf' ? 'estados' : c.escopo.uf === 'ZZ' ? 'localidades' : 'municípios';
   const onde = c.escopo.uf === 'ZZ' ? 'no exterior' : prep(c.escopo) + ' ' + c.escopo.nome;
   return `${qual} ${onde}`;
 }
@@ -292,7 +295,8 @@ function montaExplorar() {
   const v = document.createElement('div');
   v.id = 'v-explorar';
   v.innerHTML = `
-  <div class="contexto">
+  <section class="contexto" aria-label="Território, indicador e filtros">
+   <h1 class="sr" id="h1-exp">Explorador eleitoral 2026</h1>
    <nav aria-label="Nível territorial"><ol class="migalhas" id="migalhas"></ol></nav>
    <div class="campo"><label for="s-ind">Indicador</label><select id="s-ind"></select></div>
    <div class="campo"><span class="rot" id="r-niv">Unidades</span>
@@ -301,7 +305,7 @@ function montaExplorar() {
    <div class="campo"><label for="i-min">Mín. de eleitores</label>
     <input type="number" id="i-min" min="0" step="1000" inputmode="numeric"></div>
    <p class="ind-desc" id="ind-desc"></p>
-  </div>
+  </section>
   <main id="conteudo" tabindex="-1">
    <div class="grade">
     <section class="cartao" aria-labelledby="h-vis">
@@ -395,6 +399,7 @@ function render() {
 
   const c = conjunto(), ind = indPor(S.i);
   document.title = `${c.t.nome} — ${ind.r} · Explorador eleitoral 2026`;
+  $('#h1-exp').textContent = `Explorador eleitoral 2026: ${rotulo(c.t)}`;
   // contexto
   $('#migalhas').innerHTML = cadeia(c.t).map((u, i, a) => i === a.length - 1
     ? `<li><span aria-current="location">${esc(u.nome)}</span></li>`
@@ -420,6 +425,7 @@ function render() {
 }
 
 /* ================================================================ mapa */
+const LIM_BR = [[-33.8, -74], [5.3, -32.2]]; // inclui Fernando de Noronha
 let mapa, camUF, camPts, camSel, rend, ufLayer = {}, ultimoAjuste = '', mapaPendente = null;
 function iniciaMapa() {
   rend = L.canvas({ padding: 0.4 });
@@ -440,7 +446,7 @@ function iniciaMapa() {
   }).addTo(mapa);
   camPts = L.layerGroup().addTo(mapa);
   camSel = L.layerGroup().addTo(mapa);
-  mapa.fitBounds([[-33.8, -74], [5.3, -34.8]]);
+  mapa.fitBounds(LIM_BR);
 }
 function dicaUnidade(u) {
   const ind = indPor(S.i), v = ind.f(u), r = pai(u) ? ind.f(pai(u)) : null;
@@ -492,8 +498,13 @@ function renderMapa(c) {
   // enquadramento: só quando muda o escopo
   if (ultimoAjuste !== c.escopo.id) {
     ultimoAjuste = c.escopo.id;
-    const b = c.escopo.tipo === 'br' ? L.latLngBounds([[-33.8, -74], [5.3, -34.8]]) : limitesUF([...ufsEscopo]);
+    const b = c.escopo.tipo === 'br' ? L.latLngBounds(LIM_BR) : limitesUF([...ufsEscopo]);
     if (b) mapa.fitBounds(b, { padding: [16, 16], animate: !matchMedia('(prefers-reduced-motion: reduce)').matches });
+  }
+  if (c.nivel === 'mu' && c.itens.length && semCoord === c.itens.length) {
+    $('#legenda').innerHTML = '';
+    $('#nota-mapa').textContent = 'Localidades no exterior não têm coordenada no Brasil. Use as abas Ranking ou Tabela.';
+    return;
   }
   // legenda
   const ref = ind.f(c.escopo);
@@ -726,12 +737,14 @@ function baixaCSV() {
 const P22 = { ag: null, uf: {} };
 async function perfil2022(u) {
   try {
+    if (!P22.ag) P22.ag = fetch('dados/perfil2022/agregados.json').then(r => r.json()).catch(() => ({}));
+    const ag = await P22.ag;
     if (u.tipo === 'mu') {
+      if (!ag['UF:' + u.uf]) return null; // UF sem arquivo (DF, exterior): não pede o que não existe
       if (!P22.uf[u.uf]) P22.uf[u.uf] = fetch(`dados/perfil2022/${u.uf}.json`).then(r => r.ok ? r.json() : {}).catch(() => ({}));
       return (await P22.uf[u.uf])[u.cod] || null;
     }
-    if (!P22.ag) P22.ag = fetch('dados/perfil2022/agregados.json').then(r => r.json()).catch(() => ({}));
-    return (await P22.ag)[u.id] || null;
+    return ag[u.id] || null;
   } catch (e) { return null; }
 }
 function barrasMini(linhas, max, fmt) {
@@ -745,7 +758,7 @@ function posicao(u, ind) {
   if (v == null || u.tipo === 'br') return '';
   const grupos = [];
   if (u.tipo === 'mu') {
-    grupos.push([`municípios ${prep(U.get('UF:' + u.uf))} ${UFNOME[u.uf]}`, MUN.filter(m => m.uf === u.uf)]);
+    grupos.push([u.uf === 'ZZ' ? 'localidades no exterior' : `municípios ${prep(U.get('UF:' + u.uf))} ${UFNOME[u.uf]}`, MUN.filter(m => m.uf === u.uf)]);
     if (u.uf !== 'ZZ') grupos.push(['municípios do Brasil', MUN.filter(m => m.uf !== 'ZZ')]);
   } else if (u.tipo === 'uf' && u.uf !== 'ZZ') grupos.push(['estados', UFS]);
   else if (u.tipo === 'rg') grupos.push(['regiões', REGIOES.map(r => U.get('R:' + r))]);
@@ -764,11 +777,11 @@ function posicao(u, ind) {
 function renderFicha(u) {
   const f = $('#ficha'), p = pai(u), ind = indPor(S.i);
   const o = ordemVotos(u);
-  const abst = pct(u.abst, u.aptos), bn = pct(u.brancos + u.nulos, u.comp);
+  const abst = semVotacao(u) ? null : pct(u.abst, u.aptos), bn = pct(u.brancos + u.nulos, u.comp);
   const pAbst = p ? pct(p.abst, p.aptos) : null, pBn = p ? pct(p.brancos + p.nulos, p.comp) : null;
   const margem = u.validos ? 100 * (o[0][1] - o[1][1]) / u.validos : null;
   const naCmp = S.c.includes(u.id);
-  const sub = u.tipo === 'mu' ? `${UFNOME[u.uf]} · ${u.regiao}` : u.tipo === 'uf' ? (u.uf === 'ZZ' ? 'Seções no exterior' : `${u.regiao} · ${fmtInt(u.nMun)} municípios`) :
+  const sub = u.tipo === 'mu' ? (u.uf === 'ZZ' ? 'Seções eleitorais no exterior' : `${UFNOME[u.uf]} · ${u.regiao}`) : u.tipo === 'uf' ? (u.uf === 'ZZ' ? 'Seções no exterior' : `${u.regiao} · ${fmtInt(u.nMun)} municípios`) :
     u.tipo === 'rg' ? `${fmtInt(u.nMun)} municípios` : `${fmtInt(u.nMun)} municípios e localidades no exterior`;
   const deltaTxt = (a, b) => a == null || b == null ? '' : `<span class="delta">${fmtPP(a - b)}</span> vs ${esc(p.nome)}`;
   // candidatos: até 6 nomeados + outros
@@ -794,8 +807,8 @@ function renderFicha(u) {
   const ehRio = u.tipo === 'mu' && u.uf === 'RJ' && u.chave === 'rio de janeiro';
   f.innerHTML = `
    <div class="ficha-cab">
-    <div class="tipo">${TIPO[u.tipo]}</div>
-    <h2 id="f-nome" tabindex="-1">${esc(u.nome)}${u.tipo === 'mu' ? ` <span style="color:var(--ink-2);font-weight:500">${u.uf}</span>` : ''}</h2>
+    <div class="tipo">${u.tipo === 'mu' && u.uf === 'ZZ' ? 'Localidade no exterior' : TIPO[u.tipo]}</div>
+    <h2 id="f-nome" tabindex="-1">${esc(u.nome)}${u.tipo === 'mu' && u.uf !== 'ZZ' ? ` <span style="color:var(--ink-2);font-weight:500">${u.uf}</span>` : ''}</h2>
     <p class="sub">${esc(sub)}</p>
     <div class="acoes">
      <button type="button" class="btn" id="f-cmp" aria-pressed="${naCmp}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>${naCmp ? 'Na comparação' : 'Comparar'}</button>
@@ -807,12 +820,13 @@ function renderFicha(u) {
    <section class="bloco" aria-labelledby="fb-part">
     <h3 id="fb-part">Participação</h3>
     <div class="tiles">
-     <div class="tile"><div class="r">Eleitores aptos</div><div class="v">${fmtInt(u.aptos)}</div><div class="d">${fmtInt(u.secoes)} seções</div></div>
+     <div class="tile"><div class="r">Eleitores aptos</div><div class="v">${fmtInt(u.aptos)}</div><div class="d">${fmtInt(u.secoes)} ${u.secoes === 1 ? 'seção' : 'seções'}</div></div>
      <div class="tile"><div class="r">Abstenção</div><div class="v">${fmtPct(abst)}</div><div class="d">${fmtInt(u.abst)} eleitores${p ? '<br>' + deltaTxt(abst, pAbst) : ''}</div></div>
      <div class="tile"><div class="r">Brancos e nulos</div><div class="v">${fmtPct(bn)}</div><div class="d">dos votantes${p ? '<br>' + deltaTxt(bn, pBn) : ''}</div></div>
      <div class="tile"><div class="r">Margem 1º–2º</div><div class="v">${margem == null ? '—' : nf(margem, 1) + ' p.p.'}</div><div class="d">${fmtInt(o[0][1] - o[1][1])} votos de diferença</div></div>
     </div>
-    ${u.uf === 'ZZ' || u.tipo === 'br' ? `<p class="aviso">${u.tipo === 'br' ? `Inclui ${fmtInt(U.get('UF:ZZ').aptos)} eleitores no exterior, que não aparecem no mapa.` : 'Seções no exterior: abstenção estruturalmente alta (eleitor mudou de país, voto distante).'}</p>` : ''}
+    ${semVotacao(u) ? `<p class="aviso">Não houve votação nesta localidade: ${fmtInt(u.aptos)} eleitores aptos, nenhum comparecimento ou abstenção registrado. As taxas ficam em branco.</p>` : ''}
+    ${(u.uf === 'ZZ' && !semVotacao(u)) || u.tipo === 'br' ? `<p class="aviso">${u.tipo === 'br' ? `Inclui ${fmtInt(U.get('UF:ZZ').aptos)} eleitores no exterior, que não aparecem no mapa.` : 'Seções no exterior: abstenção estruturalmente alta (eleitor mudou de país, voto distante).'}</p>` : ''}
    </section>
    <section class="bloco" aria-labelledby="fb-res">
     <h3 id="fb-res">Resultado para Presidente — 1º turno</h3>
@@ -988,13 +1002,15 @@ function renderSobre() {
     <li><b>Resultado, comparecimento e abstenção</b> — TSE, portal oficial de resultados, eleição 2026, 1º turno, totalização final.</li>
     <li><b>Composição do eleitorado</b> (idade, escolaridade, gênero, estado civil) — TSE, perfil do eleitorado 2026.</li>
     <li><b>Abstenção por perfil</b> — TSE, perfil de comparecimento e abstenção, <b>2022</b>, 1º turno (último ano publicado nesse recorte).</li>
-    <li><b>Contornos dos estados</b> — IBGE, malhas territoriais. Municípios são posicionados pelo centroide dos locais de votação.</li>
+    <li><b>Contornos dos estados</b> — IBGE, malhas territoriais. Municípios são posicionados pelo centroide dos locais de votação; Serra do Navio (AP) e Fernando de Noronha (PE), sem local geocodificado, pela sede municipal.</li>
    </ul>
    <h2>Método</h2>
    <ul>
     <li>Estados, regiões e Brasil são <b>somados a partir dos municípios</b>. Toda taxa de qualquer recorte é razão de somas (ex.: abstenções ÷ aptos), nunca média de taxas.</li>
     <li>Abstenção é calculada sobre eleitores aptos; brancos e nulos, sobre quem compareceu; votos de candidatos, sobre válidos.</li>
-    <li><b>Margem</b> é a distância, em pontos percentuais dos válidos, entre os dois mais votados <i>naquele território</i>. <b>Vantagem</b> compara sempre os dois mais votados no país.</li>
+    <li><b>Margem</b> é a distância, em pontos percentuais dos válidos, entre os dois mais votados <i>naquele território</i>. <b>Vantagem</b> compara sempre os dois mais votados no país. Atenção: a coluna <code>margem_1o_2o_pts</code> dos CSVs usa o <i>comparecimento</i> como denominador (definição do painel “Margem e votos em jogo”), por isso é menor que a margem mostrada aqui.</li>
+    <li>Em ${fmtInt(MUN.filter(m => m.comp > m.validos + m.brancos + m.nulos).length)} municípios o comparecimento supera válidos + brancos + nulos (resíduo total de ${fmtInt(MUN.reduce((s, m) => s + m.comp - m.validos - m.brancos - m.nulos, 0))} votos, provavelmente anulados apurados em separado). Brancos e nulos são calculados sobre o comparecimento.</li>
+    <li>${fmtInt(MUN.filter(semVotacao).length)} localidades no exterior tiveram eleitores aptos mas nenhuma votação registrada; suas taxas aparecem em branco, não como zero.</li>
     <li>Cores de candidatos seguem a ordem nacional de votos e não mudam com filtros. Mapas usam um único matiz para magnitude e dois polos com meio neutro para vantagem.</li>
     <li>Classes do mapa são quintis das unidades exibidas: a mesma cor pode significar valores diferentes em recortes diferentes. A legenda sempre informa os limites.</li>
    </ul>
@@ -1009,9 +1025,16 @@ function renderSobre() {
     <li><b>Exterior</b>: ${fmtInt(U.get('UF:ZZ').nMun)} localidades sem coordenada; entram no total do Brasil, mas não no mapa. O Distrito Federal não consta do arquivo de abstenção por perfil 2022.</li>
     <li>Municípios muito pequenos produzem taxas extremas por puro acaso. Use o filtro de mínimo de eleitores.</li>
    </ol>
+   <h2>Reprodutibilidade</h2>
+   <ul>
+    <li><code>ferramentas/corrige_bases.py</code> — reconstrói as bases por estado e região a partir dos municípios.</li>
+    <li><code>ferramentas/gera_dados_app.py</code> — gera as bases compactas lidas por este explorador.</li>
+    <li><code>ferramentas/valida_bases.py</code> — checa a consistência de todas as bases; falha se uma contradiz outra.</li>
+   </ul>
    <h2>Baixar</h2>
    <ul>
     <li><a href="base_brasil_2026.csv">base_brasil_2026.csv</a> — uma linha por município, 117 colunas</li>
+    <li><a href="base_uf_2026.csv">base_uf_2026.csv</a> e <a href="base_regiao_2026.csv">base_regiao_2026.csv</a> — mesmos indicadores somados por estado e região</li>
     <li><a href="base_abst_perfil_2022.csv">base_abst_perfil_2022.csv</a> — abstenção por perfil, formato longo</li>
     <li><a href="DICIONARIO.html">Dicionário de dados</a> · <a href="LEIA-ME.html">Índice e notas técnicas</a></li>
     <li>Qualquer recorte do explorador: aba <b>Tabela → Baixar CSV</b>.</li>

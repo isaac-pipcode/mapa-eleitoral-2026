@@ -44,9 +44,12 @@ Geradas por `python3 ferramentas/gera_dados_app.py` a partir de `base_brasil_202
 Brasil são somados no navegador, então toda taxa é razão de somas. Rode o script de novo
 sempre que as bases da raiz mudarem.
 
-**Atenção:** em `base_uf_2026.csv` e `base_regiao_2026.csv`, as colunas `c1_*`…`c12_*` somam
-posições (o 1º colocado de cada município), não candidatos, e os `_pct` são somas de
-percentuais. Não as use; o explorador recalcula por candidato a partir dos municípios.
+### `base_uf_2026.csv` e `base_regiao_2026.csv` — corrigidas em 10/2026
+Reconstruídas por `ferramentas/corrige_bases.py` a partir da base municipal. A versão
+anterior somava `c1_*`…`c12_*` por posição (o 1º colocado de cada município, fosse quem
+fosse) e somava percentuais (Acre: `c1_pct` = 1403); `margem_1o_2o_pts` herdava o erro.
+Agora os votos são somados por candidato e reordenados no agregado, e toda taxa é razão
+de somas. Contagens (eleitores, comparecimento, perfil) não mudaram.
 
 ### `base_brasil_2026.csv` — 5.757 linhas × 117 colunas
 Uma linha por município. Fonte: portal oficial de resultados do TSE, eleição 2026
@@ -128,7 +131,18 @@ Bases que alimentam os painéis `mudanca`, `abstencao` e `rio`.
 6. **Cobertura:** 5.569 dos 5.757 municípios têm perfil e coordenada. Os 188 restantes são
    quase todos do exterior (seções no exterior não têm centroide no Brasil).
 
-7. **Alguns municípios têm seções sem dado de abstenção** — são seções criadas após a
+7. **Comparecimento > válidos + brancos + nulos** em 1.668 municípios (resíduo de 5.246
+   votos, provavelmente anulados apurados em separado; o arquivo não os discrimina).
+
+8. **40 localidades no exterior não tiveram votação** (aptos > 0, comparecimento e
+   abstenção zerados). O explorador mostra suas taxas em branco, não como 0%.
+
+9. **Distrito Federal não consta** do arquivo de abstenção por perfil 2022.
+
+10. **Serra do Navio (AP) e Fernando de Noronha (PE)** não têm local de votação
+   geocodificado; recebem a coordenada da sede municipal.
+
+11. **Alguns municípios têm seções sem dado de abstenção** — são seções criadas após a
    eleição anterior. No Rio são 591 seções e 177.279 eleitores (3,6%), aparecendo marcadas
    no painel `/rio.html`.
 
@@ -136,11 +150,20 @@ Bases que alimentam os painéis `mudanca`, `abstencao` e `rio`.
 
 ## Como reproduzir
 
-Os scripts que geram tudo estão em `~/contra-desinfo/`:
-`base_final.py` (base principal), `abst_perfil_2022.py` (perfis),
-`painel_indicadores.py`, `painel_perfis.py`, `painel_mudanca.py`, `painel_nacional.py`,
-`painel.py` (Rio), `vetorial.py` (malhas), `harness.js` (teste de execução),
-`publicar.sh` (publicação).
+Bases do repositório, nesta ordem:
 
-Antes de publicar qualquer painel, rode `node harness.js <arquivo.html>` — ele executa o
-JavaScript com stubs e pega erro em tempo de execução, que uma checagem de sintaxe não vê.
+```
+python3 ferramentas/corrige_bases.py    # agregados UF/região + coordenadas faltantes + dicionário
+python3 ferramentas/gera_dados_app.py   # dados/ do explorador
+python3 ferramentas/valida_bases.py     # integridade; sai com erro se uma base contradiz outra
+```
+
+`valida_bases.py` tem que terminar com **0 erro(s)** antes de publicar. Os avisos que ele
+emite são características conhecidas do dado do TSE (listadas também em "Limitações").
+
+Os geradores dos painéis temáticos ficam em `~/contra-desinfo/` (fora do repositório):
+`base_final.py`, `abst_perfil_2022.py`, `painel_*.py`, `painel.py` (Rio), `vetorial.py`,
+`harness.js`, `publicar.sh`. **Dois cuidados:** o painel antigo agora se chama
+`dashboard.html` — se `publicar.sh` ainda escreve `index.html`, ele apaga o explorador; e
+se `base_final.py` regerar `base_uf_2026.csv`/`base_regiao_2026.csv`, o erro dos `c*_`
+volta. Rode `corrige_bases.py` depois dele, ou corrija a soma lá.

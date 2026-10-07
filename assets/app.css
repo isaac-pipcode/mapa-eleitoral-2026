@@ -306,8 +306,9 @@ td a,td button.lk{color:var(--accent);background:none;border:0;padding:0;cursor:
  main{padding:10px}
  .topo{padding:8px 10px}
  .marca span{display:none}
- .menu{margin-left:0;width:100%;justify-content:space-between}
- .menu a,.menu button.lnk{padding:10px 8px;font-size:.84rem}
+ .menu{margin-left:0;width:100%;justify-content:space-between;flex-wrap:nowrap;gap:0}
+ .menu a,.menu button.lnk{padding:10px 6px;font-size:.8rem;white-space:nowrap}
+ .menu .longo{display:none}
  .contexto{padding:10px}
  .rank button{grid-template-columns:minmax(96px,40%) 1fr 64px}
  .drop-painel{position:fixed;left:10px;right:10px;width:auto;top:auto}
