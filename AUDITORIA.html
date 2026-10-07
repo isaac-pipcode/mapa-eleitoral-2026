@@ -1,0 +1,89 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<title>Auditoria das bases — eleição 2026, 1º turno</title><style>body{font:1rem/1.6 system-ui,sans-serif;max-width:1000px;margin:0 auto;padding:18px}pre{background:#eef2f7;padding:10px 12px;border-radius:6px;overflow:auto}pre code{background:none;padding:0}
+.pular:focus{top:0}</style></head><body>
+<a class="pular" href="#conteudo" style="position:absolute;left:8px;top:-64px;background:#1d4ed8;color:#fff;padding:12px 18px;border-radius:0 0 8px 8px;text-decoration:none;font-weight:600">Pular para o conteúdo</a>
+<main id="conteudo"><div class="wrap"><header><nav class="nav" aria-label="Painéis disponíveis"><a href="index.html">Explorador</a><a href="indicadores.html">Indicadores</a><a href="perfis.html">Abstenção por perfil</a><a href="mudanca.html">Margem e votos em jogo</a><a href="abstencao.html">Abstenção e público-alvo</a><a href="rio.html">Rio por zona e seção</a><a href="LEIA-ME.html">Índice</a><a href="DICIONARIO.html">Dicionário</a></nav></header>
+<h1>Auditoria das bases — eleição 2026, 1º turno</h1>
+<p>Realizada em 07/10/2026. Reprodutível: <code>python3 ferramentas/audita_bases.py</code> e <code>python3 ferramentas/valida_bases.py</code>.</p>
+<hr>
+<h2>Veredito</h2>
+<p><b>O perfil do eleitorado é o dado oficial do TSE.</b> Confere até a unidade com todas as 15 referências oficiais encontradas, nacionais e estaduais. Pode ser publicado, com a fonte e as ressalvas da seção "O que publicar".</p>
+<p><b>O resultado do 1º turno também confere</b>, com uma exceção já corrigida no explorador: a coluna <code>nulos</code> deixa de fora 5.246 votos que o TSE soma ao total oficial de nulos.</p>
+<p>Nenhum teste forense indicou fabricação ou adulteração.</p>
+<hr>
+<h2>1. Confronto com números oficiais</h2>
+<p>O acesso direto aos portais do TSE está bloqueado no ambiente em que a auditoria rodou. Os números oficiais vieram das notas do TSE e dos TREs e da cobertura da imprensa sobre a totalização final (fontes no fim). A prova não vem de um número isolado, e sim da coincidência exata de muitos números independentes: total, gênero, idade, escolaridade, estados, exterior e candidatos. Uma base fabricada ou adulterada não reproduziria todos até a unidade.</p>
+<h3>Perfil do eleitorado</h3>
+<table><caption>Perfil do eleitorado</caption>
+<tr><th scope="col">Grandeza</th><th scope="col">Oficial</th><th scope="col">Base</th><th scope="col">Diferença</th></tr>
+<tr><td>Eleitorado total</td><td>158.745.463</td><td>158.745.463</td><td>0</td></tr>
+<tr><td>Mulheres</td><td>83.877.126</td><td>83.877.126</td><td>0</td></tr>
+<tr><td>Eleitores até 18 anos</td><td>3.571.159</td><td>3.571.159</td><td>0</td></tr>
+<tr><td>Exterior</td><td>918.876</td><td>918.876</td><td>0</td></tr>
+<tr><td>São Paulo</td><td>34.104.226</td><td>34.104.226</td><td>0</td></tr>
+<tr><td>Minas Gerais</td><td>16.377.659</td><td>16.377.659</td><td>0</td></tr>
+<tr><td>5 maiores colégios</td><td>83.268.916</td><td>83.268.916</td><td>0</td></tr>
+<tr><td>PE — 16 anos / 17 anos / 70 a 79</td><td>36.311 / 59.726 / 494.716</td><td>idênticos</td><td>0</td></tr>
+<tr><td>PB — analfabetos</td><td>204.444</td><td>204.444</td><td>0</td></tr>
+<tr><td>Ensino médio completo¹</td><td>44,2 mi</td><td>44.292.209</td><td>0</td></tr>
+<tr><td>Fundamental incompleto¹</td><td>33,6 mi</td><td>33.604.061</td><td>0</td></tr>
+<tr><td>Médio incompleto¹</td><td>28,8 mi</td><td>28.891.452</td><td>0</td></tr>
+<tr><td>Superior completo¹</td><td>18,0 mi</td><td>18.037.161</td><td>0</td></tr>
+</table>
+<p>¹ O TSE divulga milhões truncados, não arredondados (44.292.209 → "44,2 milhões"). O padrão de truncamento é o mesmo nos quatro níveis.</p>
+<h3>Resultado do 1º turno</h3>
+<table><caption>Resultado do 1º turno</caption>
+<tr><th scope="col">Grandeza</th><th scope="col">Oficial</th><th scope="col">Base</th><th scope="col">Diferença</th></tr>
+<tr><td>Comparecimento</td><td>125.275.835</td><td>125.275.835</td><td>0</td></tr>
+<tr><td>Abstenções</td><td>33.469.244</td><td>33.469.244</td><td>0</td></tr>
+<tr><td>Votos válidos</td><td>119.300.788</td><td>119.300.788</td><td>0</td></tr>
+<tr><td>Brancos</td><td>2.300.798</td><td>2.300.798</td><td>0</td></tr>
+<tr><td>**Nulos (coluna <code>nulos</code>)**</td><td><b>3.674.249</b></td><td><b>3.669.003</b></td><td><b>−5.246</b></td></tr>
+<tr><td>Nulos = comparecimento − válidos − brancos</td><td>3.674.249</td><td>3.674.249</td><td>0</td></tr>
+<tr><td>Seções</td><td>499.248</td><td>499.248</td><td>0</td></tr>
+<tr><td>Flávio Bolsonaro / Lula / Augusto Cury</td><td>56.104.503 / 53.879.538 / 3.448.569</td><td>idênticos</td><td>0</td></tr>
+<tr><td>BA e SP, votos dos dois primeiros</td><td>ver script</td><td>idênticos</td><td>0</td></tr>
+<tr><td>MG, RJ, RS (% dos válidos)</td><td>48,2 / 53,0 / 35,73</td><td>48,24 / 53,01 / 35,73</td><td>arredondamento</td></tr>
+</table>
+<hr>
+<h2>2. Achados</h2>
+<p><b>A1 — Nulos subcontados em 5.246 votos (corrigido no explorador).</b> A coluna <code>nulos</code> omite votos que o TSE inclui no total oficial. A diferença está distribuída por 1.668 municípios e soma exatamente o resíduo comparecimento − válidos − brancos − nulos. O explorador passou a calcular nulos por subtração e reproduz o número oficial; os CSVs mantêm a coluna como veio da fonte. Efeito máximo na taxa nacional de brancos e nulos: 0,004 ponto percentual.</p>
+<p><b>A2 — Duas contagens de "eleitores aptos".</b> O perfil (cadastro) soma 158.745.463; a coluna <code>eleitores_aptos</code> (resultado) soma 158.745.502, ou seja, 39 a mais. Por estado a diferença chega a milhares (SP: +18.666 no resultado; BA: −8.253). Hipótese não verificada: voto em trânsito, em que o eleitor vota em outro município e entra como apto onde vota. Os totais nacionais quase coincidem, o que é coerente com essa hipótese. **Para o perfil, use <code>perfil_total</code> e as colunas de composição, que são as que conferem com o TSE.**</p>
+<p><b>A3 — 423 aptos em 40 localidades do exterior sem votação.</b> O comparecimento mais as abstenções oficiais somam 158.745.079, exatamente a base menos esses 423. O explorador já mostra essas localidades como "sem votação".</p>
+<p><b>A4 — Divergência na imprensa sobre as UFs vencidas.</b> Pela base, Flávio venceu em 14 estados mais o DF e Lula em 12 estados. O Metrópoles concorda ("15 × 12"); a Gazeta do Povo fala em "15 estados e o DF", texto escrito com quase 100% apurado. A base é a totalização final; a divergência parece ser da reportagem. Ao citar, use "15 unidades da federação, incluindo o DF".</p>
+<p><b>A5 — Lacunas já conhecidas, sem efeito no perfil 2026.</b> O DF não aparece na abstenção por perfil de 2022, e Serra do Navio (AP) e Fernando de Noronha (PE) estão posicionados pela sede municipal.</p>
+<hr>
+<h2>3. Testes forenses</h2>
+<table><caption>3. Testes forenses</caption>
+<tr><th scope="col">Teste</th><th scope="col">Resultado</th><th scope="col">Leitura</th></tr>
+<tr><td>Benford, 1º dígito do eleitorado municipal</td><td>MAD = 0,0093</td><td>conformidade aceitável (0,006–0,012)²</td></tr>
+<tr><td>Benford, 1º dígito dos votos do 1º colocado</td><td>MAD = 0,0067</td><td>conformidade aceitável</td></tr>
+<tr><td>Último dígito, votos de Lula (5.571 municípios)</td><td>χ² = 3,9 (crítico 16,9)</td><td>uniforme: sem padrão de número inventado</td></tr>
+<tr><td>Último dígito, votos de Flávio Bolsonaro</td><td>χ² = 7,1 (crítico 16,9)</td><td>uniforme</td></tr>
+<tr><td>Eleitorado 2022 × 2026, mesmos municípios (base independente)</td><td>r = 0,9986</td><td>continuidade esperada</td></tr>
+<tr><td>Variação do eleitorado 2022→2026</td><td>mediana +2,7%; p5 −6,1%; p95 +13,3%</td><td>plausível</td></tr>
+<tr><td>Abstenção municipal 2022 × 2026</td><td>r = 0,806</td><td>persistência geográfica esperada</td></tr>
+<tr><td>Eleitores por seção</td><td>169 a 411 (mediana 295)</td><td>dentro do limite operacional</td></tr>
+<tr><td>Somas de idade, escolaridade, gênero, estado civil e raça = <code>perfil_total</code></td><td>5.757 de 5.757</td><td>coerente</td></tr>
+</table>
+<p>² Faixas de Nigrini (2012). O teste de Benford no primeiro dígito é fraco para dado eleitoral (Deckert; Myagkov; Ordeshook, 2011): conformidade não prova lisura, e desvio não prova fraude. O teste do último dígito (Beber; Scacco, 2012) é mais adequado para detectar números inventados à mão; aqui ele não detecta nada.</p>
+<p>Os 34 municípios com eleitorado mais de 25% maior que em 2022 são casos conhecidos de crescimento acelerado. Os maiores são Canaã dos Carajás (PA, +49,8%, polo de mineração), Uiramutã (RR), Extremoz e Tibau (RN, expansão litorânea).</p>
+<hr>
+<h2>4. Limites desta auditoria</h2>
+<ul><li><b>Verificação indireta.</b> Os números oficiais vieram de notas do TSE e dos TREs e da imprensa; o arquivo do Portal de Dados Abertos não foi baixado. Basta uma checagem manual para fechar essa lacuna: baixar <code>perfil_eleitorado_2026</code> e comparar o total.</li><li><b>Granularidade.</b> O confronto oficial é por agregados: Brasil, estados e algumas faixas. Valores municipais foram testados por coerência interna, pela continuidade com 2022 e por testes forenses, não um a um contra o TSE.</li><li><b>Data de referência.</b> O perfil coincide com os números divulgados pelo TSE em julho de 2026. Pela lei, o cadastro para a eleição fecha 150 dias antes do pleito (Lei 9.504/1997, art. 91), em maio de 2026. A base não registra a data da extração.</li><li><b>Procedência.</b> O script que gera <a href="base_brasil_2026.csv"><code>base_brasil_2026.csv</code></a> (<code>base_final.py</code>) está fora do repositório; a auditoria verifica o produto, não o processo.</li></ul>
+<hr>
+<h2>5. O que publicar</h2>
+<p>Linha de fonte sugerida para o perfil:</p>
+<p>&gt; Fonte: TSE, perfil do eleitorado apto para as Eleições 2026 (cadastro fechado em maio de &gt; 2026, divulgado em julho de 2026): 158.745.463 eleitores.</p>
+<p>Ressalvas que acompanham qualquer gráfico do perfil:</p>
+<ol><li>É o eleitorado <b>inscrito</b>, não quem votou.</li><li>Escolaridade é a <b>declarada no alistamento</b> e costuma estar desatualizada.</li><li>Para totais, use <code>perfil_total</code>, não <code>eleitores_aptos</code>, que vem do arquivo de resultado (A2).</li><li>Cor/raça: "não informado" predomina; não publique percentuais de raça.</li></ol>
+<hr>
+<h2>Fontes consultadas</h2>
+<ul><li>TSE. <i>Mais de 158 milhões de eleitores estão aptos a votar nas Eleições 2026</i>. Jul. 2026. https://www.tse.jus.br/comunicacao/noticias/2026/Julho/mais-de-158-milhoes-de-eleitores-estao-aptos-votar-nas-eleicoes-2026</li><li>TSE. <i>Eleições 2026 em números: 158,7 milhões de eleitores estão aptos a votar</i>. Out. 2026. https://www.tse.jus.br/comunicacao/noticias/2026/Outubro/eleicoes-2026-em-numeros-158-7-milhoes-de-eleitores-estao-aptos-a-votar</li><li>TSE. <i>Flávio Bolsonaro (PL) e Lula (PT) vão disputar o 2º turno para a Presidência da República</i>. Out. 2026. https://www.tse.jus.br/comunicacao/noticias/2026/Outubro/flavio-bolsonaro-e-lula-vao-disputar-o-2o-turno-para-a-presidencia-da-republica</li><li>TRE-SP. <i>Eleições 2026: SP tem 21,4% do eleitorado nacional</i>. Jul. 2026. https://www.tre-sp.jus.br/comunicacao/noticias/2026/Julho/eleicoes-2026-sp-tem-21-4-do-eleitorado-nacional-e-soma-34-1-milhoes-de-aptos-a-votar-em-outubro</li><li>TRE-PE. <i>Pernambuco supera a marca de 7,225 milhões de eleitores aptos</i>. Jul. 2026. https://www.tre-pe.jus.br/comunicacao/noticias/2026/Julho/pernambuco-supera-a-marca-de-7-225-milhoes-de-eleitores-aptos-a-votar-nas-eleicoes-2026</li><li>TRE-PB. <i>Conheça o eleitorado paraibano apto a votar nas Eleições 2026</i>. Jul. 2026. https://www.tre-pb.jus.br/comunicacao/noticias/2026/Julho/conheca-o-eleitorado-paraibano-apto-a-votar-nas-eleicoes-2026</li><li>CNN Brasil. <i>Eleições 2026: veja quais são os 10 maiores colégios eleitorais do Brasil</i>. https://www.cnnbrasil.com.br/eleicoes/eleicoes-2026-veja-quais-sao-os-10-maiores-colegios-eleitorais-do-brasil/</li><li>Metrópoles. <i>Eleições 2026: Flávio leva 1º turno em 15 estados; Lula, em 12</i>. https://www.metropoles.com/brasil/eleicoes-2026-flavio-leva-1o-turno-em-15-estados-lula-em-12</li><li>Gazeta do Povo. <i>Flávio Bolsonaro vence Lula em 15 estados e no DF no 1º turno</i>. https://www.gazetadopovo.com.br/eleicoes/2026/flavio-vence-lula-em-15-estados-df/</li></ul>
+<h2>Referências metodológicas</h2>
+<p>BEBER, B.; SCACCO, A. What the numbers say: a digit-based test for election fraud. <i>Political Analysis</i>, v. 20, n. 2, p. 211-234, 2012.</p>
+<p>DECKERT, J.; MYAGKOV, M.; ORDESHOOK, P. C. Benford's Law and the detection of election fraud. <i>Political Analysis</i>, v. 19, n. 3, p. 245-268, 2011.</p>
+<p>NIGRINI, M. J. <i>Benford's Law</i>: applications for forensic accounting, auditing, and fraud detection. Hoboken: Wiley, 2012.</p>
+</div></main></body></html>

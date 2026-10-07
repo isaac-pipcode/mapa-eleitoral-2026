@@ -38,6 +38,9 @@ Ele não substitui teste com leitor de tela, mas pega as falhas mais comuns.
 
 ## Bases
 
+**Auditoria (07/10/2026):** perfil e resultado conferem com os números oficiais do TSE até a
+unidade; ver [`AUDITORIA.md`](AUDITORIA.html).
+
 ### `dados/` — bases do explorador
 Geradas por `python3 ferramentas/gera_dados_app.py` a partir de `base_brasil_2026.csv` e
 `base_abst_perfil_2022.csv`. Guardam **contagens brutas** por município; estado, região e
@@ -131,8 +134,9 @@ Bases que alimentam os painéis `mudanca`, `abstencao` e `rio`.
 6. **Cobertura:** 5.569 dos 5.757 municípios têm perfil e coordenada. Os 188 restantes são
    quase todos do exterior (seções no exterior não têm centroide no Brasil).
 
-7. **Comparecimento > válidos + brancos + nulos** em 1.668 municípios (resíduo de 5.246
-   votos, provavelmente anulados apurados em separado; o arquivo não os discrimina).
+7. **A coluna `nulos` omite 5.246 votos** que o TSE inclui no total oficial de nulos
+   (3.674.249): em 1.668 municípios, comparecimento > válidos + brancos + nulos. Para o
+   número oficial, use comparecimento − válidos − brancos (o explorador já faz isso).
 
 8. **40 localidades no exterior não tiveram votação** (aptos > 0, comparecimento e
    abstenção zerados). O explorador mostra suas taxas em branco, não como 0%.
@@ -156,6 +160,7 @@ Bases do repositório, nesta ordem:
 python3 ferramentas/corrige_bases.py    # agregados UF/região + coordenadas faltantes + dicionário
 python3 ferramentas/gera_dados_app.py   # dados/ do explorador
 python3 ferramentas/valida_bases.py     # integridade; sai com erro se uma base contradiz outra
+python3 ferramentas/audita_bases.py     # confronto com números oficiais do TSE + testes forenses
 python3 ferramentas/aplica_paineis.py   # painéis temáticos: dados inline, lógica em assets/paineis/
 ```
 

@@ -87,7 +87,9 @@ function prepara(J) {
     const [cod, nome, uf, regiao, lat, lon, aptos, comp, abst, validos, brancos, nulos, secoes, demo, votos] = x;
     const m = {
       id: 'M:' + cod, tipo: 'mu', cod, nome: titulo(nome), uf, regiao, lat, lon,
-      aptos, comp, abst, validos, brancos, nulos, secoes, demo, votos, nMun: 1,
+      // a coluna "nulos" do arquivo deixa de fora 5.246 votos que o TSE conta como nulos;
+      // comparecimento − válidos − brancos reproduz o total oficial (3.674.249)
+      aptos, comp, abst, validos, brancos, nulos: Math.max(nulos, comp - validos - brancos), secoes, demo, votos, nMun: 1,
     };
     MUN.push(m); U.set(m.id, m);
     const u = U.get('UF:' + uf); u.regiao = regiao; soma(u, m);
@@ -1015,7 +1017,7 @@ function renderSobre() {
     <li>Estados, regiões e Brasil são <b>somados a partir dos municípios</b>. Toda taxa de qualquer recorte é razão de somas (ex.: abstenções ÷ aptos), nunca média de taxas.</li>
     <li>Abstenção é calculada sobre eleitores aptos; brancos e nulos, sobre quem compareceu; votos de candidatos, sobre válidos.</li>
     <li><b>Margem</b> é a distância, em pontos percentuais dos válidos, entre os dois mais votados <i>naquele território</i>. <b>Vantagem</b> compara sempre os dois mais votados no país. Atenção: a coluna <code>margem_1o_2o_pts</code> dos CSVs usa o <i>comparecimento</i> como denominador (definição do painel “Margem e votos em jogo”), por isso é menor que a margem mostrada aqui.</li>
-    <li>Em ${fmtInt(MUN.filter(m => m.comp > m.validos + m.brancos + m.nulos).length)} municípios o comparecimento supera válidos + brancos + nulos (resíduo total de ${fmtInt(MUN.reduce((s, m) => s + m.comp - m.validos - m.brancos - m.nulos, 0))} votos, provavelmente anulados apurados em separado). Brancos e nulos são calculados sobre o comparecimento.</li>
+    <li><b>Nulos</b> = comparecimento − válidos − brancos. A coluna <code>nulos</code> do arquivo de origem deixa de fora 5.246 votos que o TSE inclui no total oficial de nulos (3.674.249); com a subtração, o explorador reproduz o número oficial. Brancos e nulos são calculados sobre o comparecimento.</li>
     <li>${fmtInt(MUN.filter(semVotacao).length)} localidades no exterior tiveram eleitores aptos mas nenhuma votação registrada; suas taxas aparecem em branco, não como zero.</li>
     <li>Cores de candidatos seguem a ordem nacional de votos e não mudam com filtros. Mapas usam um único matiz para magnitude e dois polos com meio neutro para vantagem.</li>
     <li>Classes do mapa são quintis das unidades exibidas: a mesma cor pode significar valores diferentes em recortes diferentes. A legenda sempre informa os limites.</li>
