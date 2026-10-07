@@ -212,6 +212,12 @@ function lerHash() {
   S.view = ['explorar', 'comparar', 'sobre'].includes(rota) ? rota : 'explorar';
   const p = new URLSearchParams(qs || '');
   if (p.has('t') && U.has(p.get('t'))) S.t = p.get('t');
+  // link vindo dos painéis temáticos, que não têm o código do TSE: m=NOME|UF
+  if (p.has('m')) {
+    const [nome, uf] = p.get('m').split('|'), k = norm(titulo(nome || ''));
+    const m = MUN.find(x => x.chave === k && (!uf || x.uf === uf.toUpperCase()));
+    if (m) { S.t = m.id; S.n = 'mu'; }
+  }
   if (p.has('i') && IND.some(i => i.k === p.get('i'))) S.i = p.get('i');
   if (p.has('v') && ['mapa', 'ranking', 'distribuicao', 'dispersao', 'tabela'].includes(p.get('v'))) S.v = p.get('v');
   if (p.has('n') && ['uf', 'mu'].includes(p.get('n'))) S.n = p.get('n');
