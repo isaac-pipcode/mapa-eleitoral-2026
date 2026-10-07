@@ -99,6 +99,7 @@ def main():
     estilo = estilo.replace('</style>', 'pre{background:#eef2f7;padding:10px 12px;border-radius:6px;overflow:auto}pre code{background:none;padding:0}\n.pular:focus{top:0}</style>')
     pagina = f'''<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <title>{html.escape(titulo)}</title>{estilo}</head><body>
 <a class="pular" href="#conteudo" style="position:absolute;left:8px;top:-64px;background:#1d4ed8;color:#fff;padding:12px 18px;border-radius:0 0 8px 8px;text-decoration:none;font-weight:600">Pular para o conteúdo</a>
 <main id="conteudo"><div class="wrap"><header>{NAV}</header>
