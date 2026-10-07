@@ -24,6 +24,7 @@ ul,ol{margin:9px 0 9px 22px;padding:0;color:#374151}li{margin:4px 0}
 pre{background:#eef2f7;padding:10px 12px;border-radius:6px;overflow:auto}
 .pular:focus{top:0}pre{background:#eef2f7;padding:10px 12px;border-radius:6px;overflow:auto}pre code{background:none;padding:0}
 .pular:focus{top:0}pre{background:#eef2f7;padding:10px 12px;border-radius:6px;overflow:auto}pre code{background:none;padding:0}
+.pular:focus{top:0}pre{background:#eef2f7;padding:10px 12px;border-radius:6px;overflow:auto}pre code{background:none;padding:0}
 .pular:focus{top:0}</style></head><body>
 <a class="pular" href="#conteudo" style="position:absolute;left:8px;top:-64px;background:#1d4ed8;color:#fff;padding:12px 18px;border-radius:0 0 8px 8px;text-decoration:none;font-weight:600">Pular para o conteúdo</a>
 <main id="conteudo"><div class="wrap"><header><nav class="nav" aria-label="Painéis disponíveis"><a href="index.html">Explorador</a><a href="indicadores.html">Indicadores</a><a href="perfis.html">Abstenção por perfil</a><a href="mudanca.html">Margem e votos em jogo</a><a href="abstencao.html">Abstenção e público-alvo</a><a href="rio.html">Rio por zona e seção</a><a href="LEIA-ME.html">Índice</a><a href="DICIONARIO.html">Dicionário</a></nav></header>
@@ -102,7 +103,9 @@ pre{background:#eef2f7;padding:10px 12px;border-radius:6px;overflow:auto}
 <p>Bases do repositório, nesta ordem:</p>
 <pre><code>python3 ferramentas/corrige_bases.py    # agregados UF/região + coordenadas faltantes + dicionário
 python3 ferramentas/gera_dados_app.py   # dados/ do explorador
-python3 ferramentas/valida_bases.py     # integridade; sai com erro se uma base contradiz outra</code></pre>
+python3 ferramentas/valida_bases.py     # integridade; sai com erro se uma base contradiz outra
+python3 ferramentas/aplica_paineis.py   # painéis temáticos: dados inline, lógica em assets/paineis/</code></pre>
+<p><b>Painéis temáticos — dados e comportamento separados.</b> Os geradores emitem cada painel com os dados inline (<code>const PTS=…</code>, <code>const P=…</code> etc.). <code>aplica_paineis.py</code> mantém só essas linhas e liga o painel a <code>assets/mapa-tematico.js</code> (mapa, escala de cor com legenda, lista acessível, "ver tudo", foco no item) e a <code>assets/paineis/&lt;painel&gt;.js</code>. Rode-o depois de qualquer regeração: sem ele, o painel volta à lógica antiga (arco-íris sem legenda, mapa achatado pelo layout).</p>
 <p><code>valida_bases.py</code> tem que terminar com <b>0 erro(s)</b> antes de publicar. Os avisos que ele emite são características conhecidas do dado do TSE (listadas também em "Limitações").</p>
 <p>Os geradores dos painéis temáticos ficam em <code>~/contra-desinfo/</code> (fora do repositório): <code>base_final.py</code>, <code>abst_perfil_2022.py</code>, <code>painel_*.py</code>, <code>painel.py</code> (Rio), <code>vetorial.py</code>, <code>harness.js</code>, <code>publicar.sh</code>. <b>Dois cuidados:</b> o painel antigo agora se chama <a href="dashboard.html"><code>dashboard.html</code></a> — se <code>publicar.sh</code> ainda escreve <a href="index.html"><code>index.html</code></a>, ele apaga o explorador; e se <code>base_final.py</code> regerar <a href="base_uf_2026.csv"><code>base_uf_2026.csv</code></a>/<a href="base_regiao_2026.csv"><code>base_regiao_2026.csv</code></a>, o erro dos <code>c*_</code> volta. Rode <code>corrige_bases.py</code> depois dele, ou corrija a soma lá.</p>
 </div></main></body></html>

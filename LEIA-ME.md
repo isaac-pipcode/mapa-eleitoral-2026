@@ -156,7 +156,14 @@ Bases do repositório, nesta ordem:
 python3 ferramentas/corrige_bases.py    # agregados UF/região + coordenadas faltantes + dicionário
 python3 ferramentas/gera_dados_app.py   # dados/ do explorador
 python3 ferramentas/valida_bases.py     # integridade; sai com erro se uma base contradiz outra
+python3 ferramentas/aplica_paineis.py   # painéis temáticos: dados inline, lógica em assets/paineis/
 ```
+
+**Painéis temáticos — dados e comportamento separados.** Os geradores emitem cada painel com
+os dados inline (`const PTS=…`, `const P=…` etc.). `aplica_paineis.py` mantém só essas linhas e
+liga o painel a `assets/mapa-tematico.js` (mapa, escala de cor com legenda, lista acessível,
+"ver tudo", foco no item) e a `assets/paineis/<painel>.js`. Rode-o depois de qualquer regeração:
+sem ele, o painel volta à lógica antiga (arco-íris sem legenda, mapa achatado pelo layout).
 
 `valida_bases.py` tem que terminar com **0 erro(s)** antes de publicar. Os avisos que ele
 emite são características conhecidas do dado do TSE (listadas também em "Limitações").
