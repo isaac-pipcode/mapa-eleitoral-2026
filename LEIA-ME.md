@@ -10,6 +10,7 @@ números e deixam o cruzamento para quem analisa.
 | Página | O que faz |
 |---|---|
 | **`/`** — explorador | Entrada do site. Drill-down Brasil → região → estado → município com URL compartilhável; mapa, ranking, distribuição, relação entre indicadores e tabela (com CSV do recorte); ficha de cada território com participação, resultado presidencial, posição relativa, composição do eleitorado e abstenção por perfil 2022; comparação de até 4 territórios; modo escuro. Lê `dados/` (gerado por `ferramentas/gera_dados_app.py`). |
+| **`/relatorios/conjuntura-01/`** | Boletim de conjuntura nº 01, *Quem não escolheu*: perfil da abstenção, dos brancos e dos nulos (HTML e PDF). Gerado por `ferramentas/relatorio_conjuntura.py` + `ferramentas/pdf_relatorio.js`. |
 | **`/dashboard.html`** | Dashboard anterior, mantido para referência. |
 | **`/indicadores.html`** | Todos os indicadores da base como cor, ordenação e filtro, um mapa só. Para varredura rápida. |
 | **`/perfis.html`** | Abstenção **por perfil demográfico**. Escolhe-se a dimensão (faixa etária, escolaridade, gênero, estado civil) e o perfil; o mapa mostra a taxa de abstenção daquele perfil em cada município. |
