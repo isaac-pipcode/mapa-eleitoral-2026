@@ -59,7 +59,7 @@ if sem_voto:
                   'O explorador mostra suas taxas como "sem votação".')
 if residuo:
     avisos.append(f'{len(residuo)} municípios com comparecimento > válidos + brancos + nulos; resíduo total de {sum(residuo):,} votos '
-                  '(provavelmente votos anulados apurados em separado; o arquivo do TSE não os discrimina). Taxas de brancos/nulos usam o comparecimento como denominador.'.replace(',', '.'))
+                  '(o total oficial de nulos do TSE, 3.674.249, os inclui: a coluna `nulos` os omite; use comparecimento − válidos − brancos). Taxas de brancos/nulos usam o comparecimento como denominador.'.replace(',', '.'))
 checa(not sem_coord, f'municípios sem coordenada: {", ".join(sem_coord)} (rode ferramentas/corrige_bases.py)')
 if perfil_dif:
     avisos.append(f'{len(perfil_dif)} municípios com perfil_total diferente de eleitores_aptos em mais de 1% (cadastro e apuração têm datas de corte diferentes).')
